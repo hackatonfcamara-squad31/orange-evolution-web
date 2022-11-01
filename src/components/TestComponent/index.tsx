@@ -1,9 +1,9 @@
 import { Wrapper } from './styles'
 
-export function Test() {
+export function TestComponent () {
   return (
     <Wrapper>
-      <h1>Test</h1>
+      <h1>TestComponent</h1>
     </Wrapper>
   )
 }
