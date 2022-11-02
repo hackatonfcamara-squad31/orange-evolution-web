@@ -10,12 +10,9 @@ export const globalStyles = globalCss({
     scrollBehavior: 'smooth'
   },
   body: {
-    backgroundColor: '$gray900',
-    color: '$gray300',
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: '$roboto',
     fontWeight: 400
   },
-
   'a, button': {
     cursor: 'pointer',
     border: 'none'
