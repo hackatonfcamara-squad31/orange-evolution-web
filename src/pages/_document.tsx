@@ -4,7 +4,7 @@ import { getCssText } from 'styles'
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="pt-BR">
         <Head>
           <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
