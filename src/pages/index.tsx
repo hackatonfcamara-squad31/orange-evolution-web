@@ -1,3 +1,9 @@
+import { Text } from 'components/Text'
+
 export default function Home() {
-  return <div>Hello</div>
+  return (
+    <Text size="lg" asChild>
+      testando em
+    </Text>
+  )
 }
