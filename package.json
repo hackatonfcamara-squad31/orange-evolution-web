@@ -16,7 +16,8 @@
   "prepare": {
     "husky": {
       "hooks": {
-        "pre-commit": "yarn lint && yarn test"
+        "pre-commit": "yarn lint && yarn test run",
+        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
       }
     }
   },
@@ -25,7 +26,8 @@
     "@stitches/react": "^1.2.8",
     "next": "13.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.6.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.2.0",
