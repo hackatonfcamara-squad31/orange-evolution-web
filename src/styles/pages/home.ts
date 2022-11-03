@@ -5,6 +5,7 @@ export const Main = styled('main', {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: '$lg',
   minHeight: '100vh',
 
   variants: {
