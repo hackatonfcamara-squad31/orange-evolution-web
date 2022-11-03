@@ -11,7 +11,7 @@
     "test": "vitest",
     "cover": "vitest run --coverage",
     "prepare": "husky install",
-    "commit": "git-cz"
+    "commit": "git add . && git-cz"
   },
   "prepare": {
     "husky": {

@@ -8,12 +8,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Selects</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Main>
-          <h1>Home</h1>
-
+          <h1>Selects</h1>
           <button onClick={toggleTheme}>Switch</button>
         </Main>
       </BodyWrapper>
