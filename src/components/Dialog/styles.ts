@@ -1,4 +1,4 @@
-import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog'
+import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { keyframes, styled } from 'styles'
 
 const overlayShow = keyframes({
@@ -11,7 +11,7 @@ const contentShow = keyframes({
   '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
 })
 
-export const StyledOverlay = styled(AlertDialogPrimitive.Overlay, {
+export const StyledOverlay = styled(DialogPrimitive.Overlay, {
   backgroundColor: 'rgba(0, 0, 0, 0.5)',
   position: 'fixed',
   inset: 0,
@@ -20,8 +20,8 @@ export const StyledOverlay = styled(AlertDialogPrimitive.Overlay, {
   }
 })
 
-export const StyledContent = styled(AlertDialogPrimitive.Content, {
-  borderRadius: 6,
+export const StyledContent = styled(DialogPrimitive.Content, {
+  borderRadius: '$md',
   boxShadow:
     'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
   position: 'fixed',
@@ -29,7 +29,7 @@ export const StyledContent = styled(AlertDialogPrimitive.Content, {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '90vw',
-  maxWidth: '500px',
+  maxWidth: '450px',
   maxHeight: '85vh',
   padding: 25,
   '@media (prefers-reduced-motion: no-preference)': {
@@ -40,17 +40,18 @@ export const StyledContent = styled(AlertDialogPrimitive.Content, {
   variants: {
     theme: {
       light: {
-        backgroundColor: '$gray100'
+        backgroundColor: '$gray100',
+        color: '$gray800'
       },
       dark: {
-        backgroundColor: '$gray800'
+        backgroundColor: '$gray800',
+        color: '$gray100'
       }
     }
   }
 })
 
-const StyledTitle = styled(AlertDialogPrimitive.Title, {
-  margin: 0,
+export const StyledTitle = styled(DialogPrimitive.Title, {
   fontSize: '$lg',
   fontWeight: 500,
 
@@ -66,8 +67,9 @@ const StyledTitle = styled(AlertDialogPrimitive.Title, {
   }
 })
 
-const StyledDescription = styled(AlertDialogPrimitive.Description, {
-  margin: '1.5rem 0',
+export const StyledDescription = styled(DialogPrimitive.Description, {
+  marginTop: '1rem',
+  marginBottom: '1.25rem',
   fontSize: '$sm',
   lineHeight: 1.6,
 
@@ -83,13 +85,7 @@ const StyledDescription = styled(AlertDialogPrimitive.Description, {
   }
 })
 
-export const DialogAlertBbuttonsContainer = styled('div', {
-  display: 'flex',
-  justifyContent: 'flex-end',
-  gap: '$lg'
-})
-
-export const DialogAlertCloseButton = styled('button', {
+export const DialogCloseButton = styled('button', {
   position: 'absolute',
   backgroundColor: 'transparent',
   fontSize: '$lg',
@@ -121,9 +117,15 @@ export const DialogAlertCloseButton = styled('button', {
   }
 })
 
-export const AlertDialog = AlertDialogPrimitive.Root
-export const AlertDialogTrigger = AlertDialogPrimitive.Trigger
-export const AlertDialogTitle = StyledTitle
-export const AlertDialogDescription = StyledDescription
-export const AlertDialogAction = AlertDialogPrimitive.Action
-export const AlertDialogCancel = AlertDialogPrimitive.Cancel
+export const DialogBbuttonsContainer = styled('div', {
+  marginTop: '1.5rem',
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: '$lg'
+})
+
+export const DialogRoot = DialogPrimitive.Root
+export const DialogTrigger = DialogPrimitive.Trigger
+export const DialogTitle = StyledTitle
+export const DialogDescription = StyledDescription
+export const DialogClose = DialogPrimitive.Close
