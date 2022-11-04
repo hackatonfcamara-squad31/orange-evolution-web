@@ -5,54 +5,70 @@ export const PrimitiveButton = styled('button', {
   marginTop: '1rem',
   borderRadius: '8px',
   fontFamily: 'Roboto, sans-serif',
-  padding: '1.5rem 0.75rem',
+  padding: ' 0.75rem 1.5rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: 2,
+  gap: 2,  
 
   variants: {
     theme: {
       dark: {
         backgroundColor: '$gray300',
         color: '$gray900',
-        transition: '0.2s',
+        transition: '0.2s',      
 
         '&:hover': {
           backgroundColor: '$gray200'
         },
         '&:focus': {
-          border: '1px solid $gray500'
+          outline: ' $gray500 solid 1px'
         },
         '&:active': {
           boxShadow: '2px 2px 5px $white'
+        },
+        svg:{
+          color: '$gray900'
         }
       },
       light: {
         backgroundColor: '$gray500',
         color: '$white',
         fontFamily: 'Roboto, sans-serif',
+        transition: '0.2s',
 
         '&:hover': {
           backgroundColor: '$gray400'
         },
         '&:focus': {
-          border: '1px solid $gray200'
+          border: '1px $gray200'
         },
         '&:active': {
           boxShadow: '2px 2px 5px $white'
+        },
+        svg:{
+          color: '$white'
         }
       }
     },
     size: {
       sm: {
-        fontSize: '$sm'
+        fontSize: '$sm',
+        svg:{
+          fontSize:'$sm'
+        }
       },
       md: {
-        fontSize: '$md'
+        fontSize: '$md',
+        svg:{
+          fontSize:'$md'
+        }
       },
       lg: {
-        fontSize: '$lg'
+        fontSize: '$lg',
+        svg:{
+          fontSize:'$lg'
+        }
       }
     },
     disabled: {
@@ -75,3 +91,5 @@ export const PrimitiveButton = styled('button', {
     }
   }
 })
+
+

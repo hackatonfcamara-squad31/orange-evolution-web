@@ -23,10 +23,12 @@
   "dependencies": {
     "@radix-ui/react-icons": "^1.1.1",
     "@radix-ui/react-slot": "^1.0.1",
+    "@react-icons/all-files": "^4.1.0",
     "@stitches/react": "^1.2.8",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.6.0",
     "react-loader-spinner": "^5.3.4"
   },
   "devDependencies": {

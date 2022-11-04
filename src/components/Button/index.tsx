@@ -1,10 +1,10 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { RotatingLines } from 'react-loader-spinner'
 import { PrimitiveButton } from './styles'
+import { useTheme } from '../../contexts/ThemeContext'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
-  theme: 'dark' | 'light'
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
   isLoading?: boolean
@@ -19,11 +19,17 @@ const loader = (
     visible={true}
   />
 )
+export function Button({
+  size = 'md',
+  children,
+  isLoading,
+  ...props
+}: ButtonProps) {
+  
+  const { theme } = useTheme()
 
-export function Button({ children, isLoading, ...props }: ButtonProps) {
-  // const theme = theme ? theme : globalStyles.theme    - Todos os componentes vão mudar de acordo com o tema padrão
   return (
-    <PrimitiveButton {...props}>
+    <PrimitiveButton size={size} theme={theme} {...props}>
       {isLoading ? loader : children}
     </PrimitiveButton>
   )

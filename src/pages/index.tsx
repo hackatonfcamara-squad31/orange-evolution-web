@@ -1,30 +1,31 @@
 import { Button } from 'components/Button'
-import { useTheme } from 'contexts/ThemeContext'
-import { ArrowRightIcon } from '@radix-ui/react-icons'
+import { FaArrowRight } from 'react-icons/fa'
+
 
 export default function Home() {
+  
   return (
     <>
       <div>Hello</div>
-      <Button theme="dark">Dark Theme</Button>
-      <Button theme="light">Light Theme</Button>
-      <Button theme="light" isLoading></Button>
-      <Button theme="dark" disabled>
+      <Button >Dark Theme</Button>
+      <Button >Light Theme</Button>
+      <Button isLoading></Button>
+      <Button disabled>
         Disabled
       </Button>
-      <Button theme="light">
+      <Button  size='lg'>
         Icon
-        <ArrowRightIcon />
+        <FaArrowRight />
       </Button>
-      <Button theme="light" size="sm">
+      <Button size="sm">
         Small
       </Button>
-      <Button theme="light" size="md">
+      <Button size="md">
         Medium
       </Button>
-      <Button theme="light" size="lg">
+      <Button size="lg">
         Large
       </Button>
-    </>
+      </>
   )
 }
