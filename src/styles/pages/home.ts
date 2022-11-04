@@ -11,10 +11,10 @@ export const BodyWrapper = styled('div', {
     theme: {
       light: {
         color: '$gray900',
-        backgroundColor: '$gray50'
+        backgroundColor: '$gray100'
       },
       dark: {
-        color: '$gray50',
+        color: '$gray100',
         backgroundColor: '$gray900'
       }
     }
