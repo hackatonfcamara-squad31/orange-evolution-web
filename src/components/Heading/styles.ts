@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot'
 import { styled } from 'styles'
 
-export const StyledText = styled(Slot, {
+export const StyledHeading = styled(Slot, {
   variants: {
     theme: {
       light: {
@@ -13,23 +13,17 @@ export const StyledText = styled(Slot, {
     },
 
     size: {
-      xs: {
-        fontSize: '$xs'
-      },
       sm: {
-        fontSize: '$sm'
-      },
-      md: {
-        fontSize: '$md'
-      },
-      lg: {
         fontSize: '$lg'
       },
-      xl: {
+      md: {
         fontSize: '$xl'
       },
-      '2xl': {
+      lg: {
         fontSize: '$2xl'
+      },
+      xl: {
+        fontSize: '$3xl'
       }
     }
   },
