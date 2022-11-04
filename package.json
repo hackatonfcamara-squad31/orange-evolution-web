@@ -22,6 +22,8 @@
     }
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.0.2",
+    "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-select": "^1.1.1",
     "@radix-ui/react-checkbox": "^1.0.1",
     "@radix-ui/react-icons": "^1.1.1",
