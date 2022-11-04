@@ -1,35 +1,56 @@
-import { styled } from 'styles'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
+import { styled } from 'styles'
+
+export const CheckboxWrapper = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$xs',
+
+  label: {
+    cursor: 'pointer'
+  }
+})
 
 export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
-  width: '20px',
-  height: '20px',
-  backgroundColor: 'gray',
-  borderRadius: '2px',
-
-  svg: {
-    width: '0.875rem',
-    height: '0.875rem',     
-  },
+  borderRadius: '$md',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 
   variants: {
     theme: {
       dark: {
-        backgroundColor: '$gray300',
+        backgroundColor: '$gray100',
         transition: '0.2s',
-
-        svg: {
-          color: '$gray900'
-        }
+        color: '$gray800'
       },
       light: {
-        backgroundColor: '$gray500',
-        transition: '0.2s',
+        backgroundColor: '$gray800',
+        transition: 'all 0.2s ease',
+        color: '$white'
+      }
+    },
 
-        svg: {
-          color: '$white'
-        }
+    size: {
+      sm: {
+        width: '1.25rem',
+        height: '1.25rem',
+        fontSize: '$xs'
+      },
+      md: {
+        width: '1.5rem',
+        height: '1.5rem',
+        fontSize: '$md'
+      },
+      lg: {
+        width: '1.75rem',
+        height: '1.75rem',
+        fontSize: '$lg'
       }
     }
+  },
+
+  defaultVariants: {
+    size: 'sm'
   }
 })
