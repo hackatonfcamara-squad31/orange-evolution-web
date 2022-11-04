@@ -3,6 +3,7 @@ import { InputHTMLAttributes, ReactNode, useState } from 'react'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
 import {
   Input,
+  InputContainer,
   InputErrorMessage,
   InputIcon,
   InputLabel,
@@ -37,7 +38,7 @@ function TextInputRoot({
   const { theme } = useTheme()
 
   return (
-    <div>
+    <InputContainer>
       <InputLabel htmlFor={labelFor}>{label}</InputLabel>
 
       <InputWrapper error={error} disabled={disabled} theme={theme}>
@@ -45,7 +46,7 @@ function TextInputRoot({
       </InputWrapper>
 
       {error && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
-    </div>
+    </InputContainer>
   )
 }
 

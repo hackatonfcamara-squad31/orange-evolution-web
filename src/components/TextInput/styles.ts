@@ -1,6 +1,10 @@
 import { Slot } from '@radix-ui/react-slot'
 import { styled } from 'styles'
 
+export const InputContainer = styled('div', {
+  width: '100%'
+})
+
 export const InputWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',

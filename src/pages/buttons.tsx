@@ -2,14 +2,14 @@ import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { useTheme } from 'contexts/ThemeContext'
 import { TbArrowNarrowRight } from 'react-icons/tb'
-import { Main } from 'styles/pages/home'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function Home() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
 
   return (
-    <>
-      <Main theme={theme}>
+    <BodyWrapper theme={theme}>
+      <Main>
         <ButtonToggleTheme />
         <ButtonToggleTheme isLoading />
 
@@ -34,6 +34,6 @@ export default function Home() {
 
         <Button isFullWidth>Full Width</Button>
       </Main>
-    </>
+    </BodyWrapper>
   )
 }

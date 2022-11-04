@@ -1,3 +1,4 @@
+import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Select } from 'components/Select'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
@@ -67,7 +68,7 @@ const oderByList = [
 ]
 
 export default function SelectPage() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
 
   return (
     <>
@@ -77,7 +78,7 @@ export default function SelectPage() {
       <BodyWrapper theme={theme}>
         <Main>
           <h1>Selects</h1>
-          <button onClick={toggleTheme}>Switch</button>
+          <ButtonToggleTheme />
 
           <Select
             items={types}
