@@ -26,5 +26,6 @@ export const Main = styled('main', {
   maxWidth: '1200px',
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'center',
   gap: '$md'
 })
