@@ -34,17 +34,16 @@ export const PrimitiveButton = styled('button', {
       light: {
         backgroundColor: '$gray500',
         color: '$white',
-        fontFamily: 'Roboto, sans-serif',
         transition: '0.2s',
 
         '&:hover': {
           backgroundColor: '$gray400'
         },
         '&:focus': {
-          border: '1px $gray200'
+          outline: ' $gray500 solid 1px'
         },
         '&:active': {
-          boxShadow: '2px 2px 5px $white'
+          boxShadow: '2px 2px 5px $black'
         },
         svg:{
           color: '$white'
@@ -82,7 +81,7 @@ export const PrimitiveButton = styled('button', {
           backgroundColor: '$gray600'
         },
         '&:focus': {
-          border: 'none'
+          outline: 'none'
         },
         '&:active': {
           boxShadow: 'none'
