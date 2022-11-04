@@ -1,20 +1,23 @@
+import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
+import { Checkbox } from 'components/Checkbox'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
-import { Main } from 'styles/pages/home'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function Home() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
 
   return (
     <>
       <Head>
         <title>Home</title>
       </Head>
-      <Main theme={theme}>
-        <h1>Home</h1>
-
-        <button onClick={toggleTheme}>Switch</button>
-      </Main>
+      <BodyWrapper theme={theme}>
+        <Main>
+          <h1>Home</h1>
+          <ButtonToggleTheme />
+        </Main>
+      </BodyWrapper>
     </>
   )
 }

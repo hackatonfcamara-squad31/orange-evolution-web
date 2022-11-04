@@ -1,12 +1,12 @@
 import { styled } from 'styles'
 
-export const Main = styled('main', {
+export const BodyWrapper = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '$lg',
   minHeight: '100vh',
+  padding: '3rem 1.25rem',
 
   variants: {
     theme: {
@@ -20,4 +20,11 @@ export const Main = styled('main', {
       }
     }
   }
+})
+
+export const Main = styled('main', {
+  maxWidth: '1200px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$md'
 })

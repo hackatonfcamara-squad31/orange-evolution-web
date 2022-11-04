@@ -16,7 +16,7 @@
   "prepare": {
     "husky": {
       "hooks": {
-        "pre-commit": "yarn lint && yarn test run",
+        "pre-commit": "yarn lint",
         "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
       }
     }
@@ -24,12 +24,16 @@
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.2",
     "@radix-ui/react-dialog": "^1.0.2",
+    "@radix-ui/react-select": "^1.1.1",
+    "@radix-ui/react-checkbox": "^1.0.1",
+    "@radix-ui/react-icons": "^1.1.1",
     "@radix-ui/react-slot": "^1.0.1",
     "@stitches/react": "^1.2.8",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
+    "react-loader-spinner": "^5.3.4",
     "react-toastify": "^9.1.1"
   },
   "devDependencies": {
