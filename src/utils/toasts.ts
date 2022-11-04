@@ -1,6 +1,8 @@
 import { Theme } from 'contexts/ThemeContext'
 import { toast } from 'react-toastify'
 
+export type ToastTypes = 'success' | 'error' | 'info' | 'warning'
+
 export const showToast = (theme: Theme, msg: string) => {
   toast(msg, {
     theme: theme
@@ -31,7 +33,11 @@ export const showToastWarning = (theme: Theme, msg: string) => {
   })
 }
 
-export const showToastLoading = (theme: Theme, msg: string) => {
+export const showToastLoading = (
+  theme: Theme,
+  msg: string,
+  type: ToastTypes
+) => {
   const id = toast.loading('Carregando...', {
     theme: theme === 'light' ? 'colored' : 'dark'
   })
@@ -39,7 +45,7 @@ export const showToastLoading = (theme: Theme, msg: string) => {
   setTimeout(() => {
     toast.update(id, {
       render: msg,
-      type: 'success',
+      type: type,
       isLoading: false,
       autoClose: 3000
     })
