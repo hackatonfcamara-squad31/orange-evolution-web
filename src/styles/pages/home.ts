@@ -5,16 +5,17 @@ export const Main = styled('main', {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  gap: '$lg',
   minHeight: '100vh',
 
   variants: {
     theme: {
       light: {
         color: '$gray900',
-        backgroundColor: '$gray50'
+        backgroundColor: '$gray100'
       },
       dark: {
-        color: '$gray50',
+        color: '$gray100',
         backgroundColor: '$gray900'
       }
     }

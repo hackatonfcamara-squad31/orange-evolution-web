@@ -16,5 +16,11 @@ export const globalStyles = globalCss({
   'a, button': {
     cursor: 'pointer',
     border: 'none'
+  },
+  input: {
+    border: 'none'
+    // '&:-webkit-autofill, &:-webkit-autofill:focus': {
+    //   transition: 'background-color 600000s 0s, color 600000s 0s'
+    // }
   }
 })
