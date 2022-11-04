@@ -16,12 +16,13 @@
   "prepare": {
     "husky": {
       "hooks": {
-        "pre-commit": "yarn lint && yarn test run",
+        "pre-commit": "yarn lint",
         "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
       }
     }
   },
   "dependencies": {
+    "@radix-ui/react-select": "^1.1.1",
     "@radix-ui/react-checkbox": "^1.0.1",
     "@radix-ui/react-icons": "^1.1.1",
     "@radix-ui/react-slot": "^1.0.1",
