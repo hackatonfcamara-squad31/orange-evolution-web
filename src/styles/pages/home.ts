@@ -7,6 +7,7 @@ export const Main = styled('main', {
   justifyContent: 'center',
   gap: '$lg',
   minHeight: '100vh',
+  padding: '3rem 1.25rem',
 
   variants: {
     theme: {

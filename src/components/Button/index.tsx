@@ -1,36 +1,39 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react'
-import { RotatingLines } from 'react-loader-spinner'
-import { PrimitiveButton } from './styles'
+import { BallTriangle } from 'react-loader-spinner'
 import { useTheme } from '../../contexts/ThemeContext'
+import { PrimitiveButton } from './styles'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
   disabled?: boolean
   isLoading?: boolean
+  isFullWidth?: boolean
+  isOnlyIcon?: boolean
 }
 
-const loader = (
-  <RotatingLines
-    strokeColor="black"
-    strokeWidth="5"
-    animationDuration="1"
-    width="1.25rem"
-    visible={true}
-  />
-)
-export function Button({
-  size = 'md',
-  children,
-  isLoading,
-  ...props
-}: ButtonProps) {
-  
+const ButtonLoader = () => {
+  return (
+    <BallTriangle
+      height={24}
+      width={24}
+      radius={5}
+      ariaLabel="carregando..."
+      visible={true}
+    />
+  )
+}
+
+export function Button({ size = 'md', children, ...props }: ButtonProps) {
   const { theme } = useTheme()
 
   return (
     <PrimitiveButton size={size} theme={theme} {...props}>
-      {isLoading ? loader : children}
+      {!props.isLoading && props.isOnlyIcon && children}
+      {!props.isLoading && !props.isOnlyIcon && children}
+
+      {props.isLoading && !props.isOnlyIcon && children}
+      {props.isLoading && <ButtonLoader />}
     </PrimitiveButton>
   )
 }

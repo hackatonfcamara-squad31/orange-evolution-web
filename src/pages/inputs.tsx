@@ -1,3 +1,4 @@
+import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { TextInput } from 'components/TextInput'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
@@ -5,7 +6,7 @@ import { TbMail, TbShieldLock } from 'react-icons/tb'
 import { Main } from 'styles/pages/home'
 
 export default function Home() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
 
   return (
     <>
@@ -15,7 +16,7 @@ export default function Home() {
       <Main theme={theme}>
         <h1>Home</h1>
 
-        <button onClick={toggleTheme}>Switch</button>
+        <ButtonToggleTheme />
 
         <div
           style={{
