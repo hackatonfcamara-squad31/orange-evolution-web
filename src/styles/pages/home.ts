@@ -6,6 +6,7 @@ export const BodyWrapper = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
   minHeight: '100vh',
+  padding: '3rem 1.25rem',
 
   variants: {
     theme: {
