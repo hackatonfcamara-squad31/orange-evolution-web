@@ -8,9 +8,8 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
   borderRadius: '2px',
 
   svg: {
-    width: '1rem',
-    height: '1rem',
-    color: 'white'
+    width: '0.875rem',
+    height: '0.875rem',     
   },
 
   variants: {
