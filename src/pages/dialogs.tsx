@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Dialogs</title>
       </Head>
       <Main theme={theme}>
-        <h1>Home</h1>
+        <h1>Dialogs</h1>
 
         <button onClick={toggleTheme}>Switch</button>
 
