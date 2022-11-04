@@ -1,18 +1,20 @@
+import { Slot } from '@radix-ui/react-slot'
+import { useTheme } from 'contexts/ThemeContext'
 import { ReactNode } from 'react'
 import { StyledText } from './styles'
-import { Slot } from '@radix-ui/react-slot'
 
 interface TextProps {
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   children: ReactNode
   asChild?: boolean
 }
 
 export function Text({ size = 'md', asChild, children }: TextProps) {
-  const Comp = asChild && typeof children !== 'string' ? Slot : 'span'
+  const { theme } = useTheme()
+  const Comp = asChild ? Slot : 'span'
 
   return (
-    <StyledText size={size} as={Comp}>
+    <StyledText theme={theme} size={size} as={Comp}>
       {children}
     </StyledText>
   )
