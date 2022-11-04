@@ -11,18 +11,20 @@
     "test": "vitest",
     "cover": "vitest run --coverage",
     "prepare": "husky install",
-    "commit": "git-cz"
+    "commit": "git add . && git-cz"
   },
   "prepare": {
     "husky": {
       "hooks": {
-        "pre-commit": "yarn lint && yarn test"
+        "pre-commit": "yarn lint && yarn test run",
+        "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
       }
     }
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.0.1",
     "@radix-ui/react-icons": "^1.1.1",
+    "@radix-ui/react-slot": "^1.0.1",
     "@stitches/react": "^1.2.8",
     "next": "13.0.0",
     "react": "18.2.0",
