@@ -4,15 +4,17 @@ interface ThemeProviderProps {
   children: ReactNode
 }
 
+export type Theme = 'light' | 'dark'
+
 interface ThemeContextData {
-  theme: 'light' | 'dark'
+  theme: Theme
   toggleTheme: () => void
 }
 
 const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData)
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
+  const [theme, setTheme] = useState<Theme>('dark')
 
   const toggleTheme = () => {
     setTheme((theme) => (theme === 'dark' ? 'light' : 'dark'))
