@@ -2,7 +2,7 @@ import { TextInput } from 'components/TextInput'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import { TbMail, TbShieldLock } from 'react-icons/tb'
-import { Main } from 'styles/pages/home'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme()
@@ -10,21 +10,14 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Inputs</title>
       </Head>
-      <Main theme={theme}>
-        <h1>Home</h1>
+      <BodyWrapper theme={theme}>
+        <Main>
+          <h1>Inputs</h1>
 
-        <button onClick={toggleTheme}>Switch</button>
+          <button onClick={toggleTheme}>Switch</button>
 
-        <div
-          style={{
-            maxWidth: '1000px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '16px'
-          }}
-        >
           <TextInput.Root
             error
             errorMessage="Este campo é obrigatório."
@@ -61,8 +54,8 @@ export default function Home() {
               placeholder="Digite seu nome"
             />
           </TextInput.Root>
-        </div>
-      </Main>
+        </Main>
+      </BodyWrapper>
     </>
   )
 }
