@@ -31,7 +31,7 @@ export const StyledContent = styled(AlertDialogPrimitive.Content, {
   width: '90vw',
   maxWidth: '500px',
   maxHeight: '85vh',
-  padding: 25,
+  padding: '1.5rem',
   '@media (prefers-reduced-motion: no-preference)': {
     animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`
   },
@@ -50,7 +50,6 @@ export const StyledContent = styled(AlertDialogPrimitive.Content, {
 })
 
 const StyledTitle = styled(AlertDialogPrimitive.Title, {
-  margin: 0,
   fontSize: '$lg',
   fontWeight: 500,
 
@@ -67,7 +66,7 @@ const StyledTitle = styled(AlertDialogPrimitive.Title, {
 })
 
 const StyledDescription = styled(AlertDialogPrimitive.Description, {
-  margin: '1.5rem 0',
+  margin: '1.25rem 0',
   fontSize: '$sm',
   lineHeight: 1.6,
 

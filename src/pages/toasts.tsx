@@ -1,3 +1,4 @@
+import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
@@ -17,39 +18,45 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Toasts</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Main>
-          <h1>Home</h1>
+          <h1>Toasts</h1>
 
           <ButtonToggleTheme />
 
-          <button onClick={() => showToast(theme, 'Default Toast!')}>
+          <Button onClick={() => showToast(theme, 'Default Toast!')}>
             Show Toast!
-          </button>
+          </Button>
 
-          <button onClick={() => showToastSuccess(theme, 'Sucess Toast!')}>
+          <Button
+            color="green"
+            onClick={() => showToastSuccess(theme, 'Sucess Toast!')}
+          >
             Show Success Toast!
-          </button>
+          </Button>
 
-          <button onClick={() => showToastError(theme, 'Error Toast!')}>
+          <Button
+            color="red"
+            onClick={() => showToastError(theme, 'Error Toast!')}
+          >
             Show Error Toast!
-          </button>
+          </Button>
 
-          <button onClick={() => showToastInfo(theme, 'Info Toast!')}>
+          <Button onClick={() => showToastInfo(theme, 'Info Toast!')}>
             Show Info Toast!
-          </button>
+          </Button>
 
-          <button onClick={() => showToastWarning(theme, 'Warning Toast!')}>
+          <Button onClick={() => showToastWarning(theme, 'Warning Toast!')}>
             Show Warning Toast!
-          </button>
+          </Button>
 
-          <button
+          <Button
             onClick={() => showToastLoading(theme, 'Tudo Pronto!', 'success')}
           >
             Show Loading Toast!
-          </button>
+          </Button>
         </Main>
       </BodyWrapper>
     </>

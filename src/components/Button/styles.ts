@@ -1,5 +1,63 @@
 import { styled } from 'styles'
 
+const darkStyles = {
+  backgroundColor: '$gray700',
+  color: '$gray100',
+
+  svg: {
+    stroke: '$gray100'
+  },
+
+  '&:not(:disabled):hover': {
+    backgroundColor: '$gray600'
+  },
+  '&:focus': {
+    outline: '1px solid $gray100'
+  }
+}
+
+const lightStyles = {
+  backgroundColor: '$gray300',
+  color: '$gray800',
+
+  svg: {
+    stroke: '$gray800'
+  },
+
+  '&:not(:disabled):hover': {
+    backgroundColor: '$gray200'
+  },
+  '&:focus': {
+    outline: '1px solid $gray800'
+  }
+}
+
+const redStyles = {
+  backgroundColor: '$red600',
+  color: '$white',
+
+  svg: {
+    stroke: '$white'
+  },
+
+  '&:not(:disabled):hover': {
+    backgroundColor: '$red500'
+  }
+}
+
+const greenStyles = {
+  backgroundColor: '$green600',
+  color: '$white',
+
+  svg: {
+    stroke: '$white'
+  },
+
+  '&:not(:disabled):hover': {
+    backgroundColor: '$green500'
+  }
+}
+
 export const PrimitiveButton = styled('button', {
   borderRadius: '$md',
   display: 'flex',
@@ -17,35 +75,20 @@ export const PrimitiveButton = styled('button', {
   variants: {
     theme: {
       dark: {
-        backgroundColor: '$gray800',
-        color: '$gray100',
-
-        svg: {
-          stroke: '$gray100'
-        },
-
-        '&:not(:disabled):hover': {
-          backgroundColor: '$gray700'
-        },
-        '&:focus': {
-          outline: '1px solid $gray100'
-        }
+        ...darkStyles
       },
 
       light: {
+        ...lightStyles
+      }
+    },
+
+    color: {
+      red: { ...redStyles },
+      green: { ...greenStyles },
+      default: {
         backgroundColor: '$gray300',
-        color: '$gray800',
-
-        svg: {
-          stroke: '$gray800'
-        },
-
-        '&:not(:disabled):hover': {
-          backgroundColor: '$gray200'
-        },
-        '&:focus': {
-          outline: '1px solid $gray800'
-        }
+        color: '$gray800'
       }
     },
 
@@ -55,15 +98,15 @@ export const PrimitiveButton = styled('button', {
         padding: '0.75rem 1rem'
       },
       md: {
-        fontSize: '$md',
+        fontSize: '$sm',
         padding: '0.75rem 1.25rem'
       },
       lg: {
-        fontSize: '$xl',
+        fontSize: '$lg',
         padding: '0.75rem 1.5rem'
       },
       xl: {
-        fontSize: '$2xl',
+        fontSize: '$xl',
         padding: '0.75rem 1.75rem'
       }
     },
@@ -89,7 +132,50 @@ export const PrimitiveButton = styled('button', {
     }
   },
 
+  compoundVariants: [
+    {
+      theme: 'light',
+      color: 'default',
+      css: { ...lightStyles }
+    },
+    {
+      theme: 'dark',
+      color: 'default',
+      css: { ...darkStyles }
+    },
+    {
+      theme: 'light',
+      color: 'red',
+      css: {
+        ...redStyles
+      }
+    },
+    {
+      theme: 'dark',
+      color: 'red',
+      css: {
+        ...redStyles
+      }
+    },
+    {
+      theme: 'light',
+      color: 'green',
+      css: {
+        ...greenStyles
+      }
+    },
+    {
+      theme: 'dark',
+      color: 'green',
+      css: {
+        ...greenStyles
+      }
+    }
+  ],
+
   defaultVariants: {
-    size: 'md'
+    size: 'md',
+    theme: 'light',
+    color: 'default'
   }
 })

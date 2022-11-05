@@ -10,6 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean
   isFullWidth?: boolean
   isOnlyIcon?: boolean
+  color?: 'red' | 'green' | 'default'
 }
 
 const ButtonLoader = () => {
@@ -24,11 +25,16 @@ const ButtonLoader = () => {
   )
 }
 
-export function Button({ size = 'md', children, ...props }: ButtonProps) {
+export function Button({
+  size = 'md',
+  children,
+  color = 'default',
+  ...props
+}: ButtonProps) {
   const { theme } = useTheme()
 
   return (
-    <PrimitiveButton size={size} theme={theme} {...props}>
+    <PrimitiveButton size={size} theme={theme} {...props} color={color}>
       {!props.isLoading && props.isOnlyIcon && children}
       {!props.isLoading && !props.isOnlyIcon && children}
 

@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function Home() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme } = useTheme()
 
   return (
     <>
@@ -20,18 +20,23 @@ export default function Home() {
           <ButtonToggleTheme />
 
           <DialogAlert
-            triggerLabel="Deletar conta"
-            confirmLabel="Sim, deletar conta"
-            cancelLabel="Cancelar"
+            triggerText="Deletar conta"
+            confirmText="Sim, deletar conta"
+            cancelText="Cancelar"
             title="Você tem certeza que deseja deletar sua conta?"
             description="Essa ação não poderá ser desfeita. Todos os seus dados serão perdidos."
+            confirmButtonProps={{ color: 'red' }}
+            onConfirm={() => console.log('Confirmou')}
           />
 
           <Dialog
             title="Fazer alguma coisa"
             description="Aqui você pode fazer alguma coisa."
-            triggerLabel="Fazer alguma coisa"
-            confirmLabel="Confirmar"
+            triggerText="Fazer alguma coisa"
+            confirmText="Confirmar"
+            cancelText="Cancelar"
+            confirmButtonProps={{ color: 'green' }}
+            onConfirm={() => console.log('Confirmou')}
           >
             <p>Conteúdo do dialog</p>
           </Dialog>
