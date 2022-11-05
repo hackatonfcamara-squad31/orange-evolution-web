@@ -2,6 +2,7 @@ import {
   DialogContentProps as RadixDialogContentProps,
   Portal
 } from '@radix-ui/react-dialog'
+import { Button, ButtonProps } from 'components/Button'
 import { Theme, useTheme } from 'contexts/ThemeContext'
 import { ReactNode, useState } from 'react'
 import { MdClose } from 'react-icons/md'
@@ -39,19 +40,29 @@ function DialogContent({
 }
 
 interface DialogProps {
+  children: ReactNode
   title: string
   description: string
-  triggerLabel: string
-  confirmLabel: string
-  children: ReactNode
+  triggerText: string
+  confirmText: string
+  cancelText: string
+  triggerButtonProps?: ButtonProps
+  cancelButtonProps?: ButtonProps
+  confirmButtonProps?: ButtonProps
+  onConfirm: () => void
 }
 
 export function Dialog({
+  children,
   title,
   description,
-  triggerLabel,
-  confirmLabel,
-  children
+  triggerText,
+  confirmText,
+  cancelText,
+  triggerButtonProps,
+  cancelButtonProps,
+  confirmButtonProps,
+  onConfirm
 }: DialogProps) {
   const { theme } = useTheme()
   const [open, setOpen] = useState(false)
@@ -59,29 +70,50 @@ export function Dialog({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const handleConfirm = () => {
+    onConfirm()
+    handleClose()
+  }
+
   return (
     <DialogRoot open={open}>
       <DialogTrigger asChild>
-        <button onClick={handleOpen} title={triggerLabel}>
-          {triggerLabel}
-        </button>
+        <Button
+          onClick={handleOpen}
+          title={triggerText}
+          {...triggerButtonProps}
+        >
+          {triggerText}
+        </Button>
       </DialogTrigger>
 
       <DialogContent theme={theme} onClickOverlay={handleClose}>
+        <DialogCloseButton theme={theme} onClick={handleClose}>
+          <MdClose />
+        </DialogCloseButton>
+
         <DialogTitle theme={theme}>{title}</DialogTitle>
         <DialogDescription theme={theme}>{description}</DialogDescription>
 
         {children}
 
         <DialogBbuttonsContainer>
-          <button onClick={handleClose} title={confirmLabel}>
-            {confirmLabel}
-          </button>
-        </DialogBbuttonsContainer>
+          <Button
+            onClick={handleClose}
+            title={cancelText}
+            {...cancelButtonProps}
+          >
+            {cancelText}
+          </Button>
 
-        <DialogCloseButton theme={theme} onClick={handleClose}>
-          <MdClose />
-        </DialogCloseButton>
+          <Button
+            onClick={handleConfirm}
+            title={confirmText}
+            {...confirmButtonProps}
+          >
+            {confirmText}
+          </Button>
+        </DialogBbuttonsContainer>
       </DialogContent>
     </DialogRoot>
   )
