@@ -12,7 +12,6 @@ import {
   DialogDescription,
   DialogRoot,
   DialogTitle,
-  DialogTrigger,
   StyledContent,
   StyledOverlay
 } from './styles'
@@ -77,15 +76,9 @@ export function Dialog({
 
   return (
     <DialogRoot open={open}>
-      <DialogTrigger asChild>
-        <Button
-          onClick={handleOpen}
-          title={triggerText}
-          {...triggerButtonProps}
-        >
-          {triggerText}
-        </Button>
-      </DialogTrigger>
+      <Button onClick={handleOpen} title={triggerText} {...triggerButtonProps}>
+        {triggerText}
+      </Button>
 
       <DialogContent theme={theme} onClickOverlay={handleClose}>
         <DialogCloseButton theme={theme} onClick={handleClose}>

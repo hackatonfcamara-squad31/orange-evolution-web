@@ -35,6 +35,7 @@ export default function Home() {
             triggerText="Fazer alguma coisa"
             confirmText="Confirmar"
             cancelText="Cancelar"
+            cancelButtonProps={{ color: 'red' }}
             confirmButtonProps={{ color: 'green' }}
             onConfirm={() => console.log('Confirmou')}
           >
