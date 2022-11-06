@@ -1,5 +1,5 @@
 export type ErrorData = {
-  message: string
+  message: string | string[]
   statusCode: number
   error: string
 }

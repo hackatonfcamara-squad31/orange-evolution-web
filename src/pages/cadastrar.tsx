@@ -1,4 +1,3 @@
-import { RegisterResponse } from '@appTypes/authTypes'
 import { ErrorData } from '@appTypes/errorTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
@@ -12,7 +11,8 @@ import {
   RegisterFormData,
   registerSchema
 } from 'helpers/forms/schemas/registerSchema'
-import { registerUser } from 'libs/libAuth'
+import { registerUser } from 'libs/auth/api'
+import { RegisterResponse } from 'libs/auth/types'
 import Head from 'next/head'
 import { FormProvider, useForm } from 'react-hook-form'
 import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
