@@ -81,39 +81,6 @@ export function TextInputInput({
 
   const showPassword = props.type === 'password' && isPasswordVisible
 
-  if (control) {
-    return (
-      <>
-        <Controller
-          rules={validate}
-          control={control}
-          name={props.name}
-          render={({ field: { onChange, value } }) => (
-            <>
-              <Input
-                {...props}
-                type={showPassword ? 'text' : props.type}
-                theme={theme}
-                onChange={onChange}
-                value={value}
-              />
-            </>
-          )}
-        />
-
-        {props.type === 'password' && (
-          <ShowPasswordButton
-            type="button"
-            theme={theme}
-            onClick={handleShowPassword}
-          >
-            {isPasswordVisible ? <TbEyeOff /> : <TbEye />}
-          </ShowPasswordButton>
-        )}
-      </>
-    )
-  }
-
   return (
     <>
       {control ? (
