@@ -1,5 +1,5 @@
 import { useTheme } from 'contexts/ThemeContext'
-import { InputHTMLAttributes, ReactNode, useState } from 'react'
+import { ForwardedRef, InputHTMLAttributes, ReactNode, useState } from 'react'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
 import {
   Input,
@@ -13,11 +13,12 @@ import {
 
 export interface TextInputRootProps {
   children: ReactNode
-  label: string
-  labelFor: string
+  label?: string
+  labelFor?: string
   disabled?: boolean
   error?: boolean
   errorMessage?: string
+  required?: boolean
 }
 
 export interface TextInputIconProps {
@@ -25,21 +26,26 @@ export interface TextInputIconProps {
 }
 
 export interface TextInputInputProps
-  extends InputHTMLAttributes<HTMLInputElement> {}
+  extends InputHTMLAttributes<HTMLInputElement> {
+  inputRef?: ForwardedRef<HTMLInputElement>
+}
 
 function TextInputRoot({
   children,
-  labelFor,
-  label,
+  labelFor = '',
+  label = '',
   disabled = false,
   error = false,
-  errorMessage = ''
+  errorMessage = '',
+  required = false
 }: TextInputRootProps) {
   const { theme } = useTheme()
 
   return (
     <InputContainer>
-      <InputLabel htmlFor={labelFor}>{label}</InputLabel>
+      <InputLabel htmlFor={labelFor}>
+        {label} {required && <span>*</span>}
+      </InputLabel>
 
       <InputWrapper error={error} disabled={disabled} theme={theme}>
         {children}
@@ -56,7 +62,7 @@ function TextInputIcon({ children }: TextInputIconProps) {
   return <InputIcon theme={theme}>{children}</InputIcon>
 }
 
-export function TextInputInput(props: TextInputInputProps) {
+export function TextInputInput({ inputRef, ...props }: TextInputInputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const { theme } = useTheme()
 
@@ -70,12 +76,17 @@ export function TextInputInput(props: TextInputInputProps) {
     <>
       <Input
         {...props}
+        ref={inputRef}
         type={showPassword ? 'text' : props.type}
         theme={theme}
       />
 
       {props.type === 'password' && (
-        <ShowPasswordButton theme={theme} onClick={handleShowPassword}>
+        <ShowPasswordButton
+          type="button"
+          theme={theme}
+          onClick={handleShowPassword}
+        >
           {isPasswordVisible ? <TbEyeOff /> : <TbEye />}
         </ShowPasswordButton>
       )}
