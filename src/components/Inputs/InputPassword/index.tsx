@@ -1,17 +1,18 @@
 import { TextInput } from 'components/TextInput'
-import { ForwardedRef, InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes } from 'react'
+import { Control, FieldError, RegisterOptions } from 'react-hook-form'
 import { TbLock } from 'react-icons/tb'
 
 interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
-  error?: boolean
-  errorMessage?: string
-  passwordRef?: ForwardedRef<HTMLInputElement>
+  error?: FieldError
+  control: Control
+  validate?: RegisterOptions
 }
 
 export function InputPassword({
-  error = false,
-  errorMessage = '',
-  passwordRef = null,
+  error,
+  control,
+  validate,
   ...props
 }: InputPasswordProps) {
   return (
@@ -20,7 +21,6 @@ export function InputPassword({
       labelFor="password"
       error={error}
       required={props.required}
-      errorMessage={errorMessage}
     >
       <TextInput.Icon>
         <TbLock />
@@ -29,8 +29,10 @@ export function InputPassword({
       <TextInput.Input
         id="password"
         type="password"
+        name="password"
         placeholder="Digite sua senha"
-        inputRef={passwordRef}
+        control={control}
+        validate={validate}
         {...props}
       />
     </TextInput.Root>

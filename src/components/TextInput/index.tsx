@@ -1,5 +1,11 @@
 import { useTheme } from 'contexts/ThemeContext'
-import { ForwardedRef, InputHTMLAttributes, ReactNode, useState } from 'react'
+import { InputHTMLAttributes, ReactNode, useState } from 'react'
+import {
+  Control,
+  Controller,
+  FieldError,
+  RegisterOptions
+} from 'react-hook-form'
 import { TbEye, TbEyeOff } from 'react-icons/tb'
 import {
   Input,
@@ -16,8 +22,7 @@ export interface TextInputRootProps {
   label?: string
   labelFor?: string
   disabled?: boolean
-  error?: boolean
-  errorMessage?: string
+  error?: FieldError
   required?: boolean
 }
 
@@ -27,7 +32,8 @@ export interface TextInputIconProps {
 
 export interface TextInputInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
-  inputRef?: ForwardedRef<HTMLInputElement>
+  control?: Control
+  validate?: RegisterOptions
 }
 
 function TextInputRoot({
@@ -35,8 +41,7 @@ function TextInputRoot({
   labelFor = '',
   label = '',
   disabled = false,
-  error = false,
-  errorMessage = '',
+  error,
   required = false
 }: TextInputRootProps) {
   const { theme } = useTheme()
@@ -47,11 +52,11 @@ function TextInputRoot({
         {label} {required && <span>*</span>}
       </InputLabel>
 
-      <InputWrapper error={error} disabled={disabled} theme={theme}>
+      <InputWrapper error={!!error} disabled={disabled} theme={theme}>
         {children}
       </InputWrapper>
 
-      {error && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
+      {error && <InputErrorMessage>{error.message}</InputErrorMessage>}
     </InputContainer>
   )
 }
@@ -62,7 +67,11 @@ function TextInputIcon({ children }: TextInputIconProps) {
   return <InputIcon theme={theme}>{children}</InputIcon>
 }
 
-export function TextInputInput({ inputRef, ...props }: TextInputInputProps) {
+export function TextInputInput({
+  validate,
+  control,
+  ...props
+}: TextInputInputProps) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const { theme } = useTheme()
 
@@ -72,14 +81,65 @@ export function TextInputInput({ inputRef, ...props }: TextInputInputProps) {
 
   const showPassword = props.type === 'password' && isPasswordVisible
 
+  if (control) {
+    return (
+      <>
+        <Controller
+          rules={validate}
+          control={control}
+          name={props.name}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <Input
+                {...props}
+                type={showPassword ? 'text' : props.type}
+                theme={theme}
+                onChange={onChange}
+                value={value}
+              />
+            </>
+          )}
+        />
+
+        {props.type === 'password' && (
+          <ShowPasswordButton
+            type="button"
+            theme={theme}
+            onClick={handleShowPassword}
+          >
+            {isPasswordVisible ? <TbEyeOff /> : <TbEye />}
+          </ShowPasswordButton>
+        )}
+      </>
+    )
+  }
+
   return (
     <>
-      <Input
-        {...props}
-        ref={inputRef}
-        type={showPassword ? 'text' : props.type}
-        theme={theme}
-      />
+      {control ? (
+        <Controller
+          rules={validate}
+          control={control}
+          name={props.name}
+          render={({ field: { onChange, value } }) => (
+            <>
+              <Input
+                {...props}
+                type={showPassword ? 'text' : props.type}
+                theme={theme}
+                onChange={onChange}
+                value={value}
+              />
+            </>
+          )}
+        />
+      ) : (
+        <Input
+          {...props}
+          type={showPassword ? 'text' : props.type}
+          theme={theme}
+        />
+      )}
 
       {props.type === 'password' && (
         <ShowPasswordButton

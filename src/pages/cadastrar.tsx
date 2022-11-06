@@ -14,7 +14,7 @@ import {
 import { registerUser } from 'libs/auth/api'
 import { RegisterResponse } from 'libs/auth/types'
 import Head from 'next/head'
-import { FormProvider, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
 import { BodyWrapper } from 'styles/pages/home'
 import { showToastError, showToastSuccess } from 'utils/toasts'
@@ -37,13 +37,9 @@ export default function Register() {
     handleSubmit,
     watch,
     reset,
-    register,
+    control,
     formState: { errors }
   } = registerForm
-
-  const { ref: nameRef, ...nameProps } = register('name')
-  const { ref: emailRef, ...emailProps } = register('email')
-  const { ref: passwordRef, ...passwordProps } = register('password')
 
   const isSubmitDisabled =
     !!errors.name ||
@@ -87,40 +83,20 @@ export default function Register() {
         </RegisterHeader>
 
         <RegisterForm onSubmit={handleSubmit(handleRegister)}>
-          <FormProvider {...registerForm}>
-            <InputName
-              error={!!errors.name}
-              errorMessage={errors.name?.message}
-              nameRef={nameRef}
-              required
-              {...nameProps}
-            />
+          <InputName required error={errors.name} control={control} />
 
-            <InputEmail
-              error={!!errors.email}
-              errorMessage={errors.email?.message}
-              emailRef={emailRef}
-              required
-              {...emailProps}
-            />
+          <InputEmail required error={errors.email} control={control} />
 
-            <InputPassword
-              error={!!errors.password}
-              errorMessage={errors.password?.message}
-              passwordRef={passwordRef}
-              required
-              {...passwordProps}
-            />
+          <InputPassword required error={errors.password} control={control} />
 
-            <Button
-              color="green"
-              disabled={isSubmitDisabled}
-              type="submit"
-              isFullWidth
-            >
-              Cadastrar
-            </Button>
-          </FormProvider>
+          <Button
+            color="green"
+            disabled={isSubmitDisabled}
+            type="submit"
+            isFullWidth
+          >
+            Cadastrar
+          </Button>
         </RegisterForm>
       </BodyWrapper>
     </>
