@@ -112,7 +112,12 @@ export default function Register() {
               {...passwordProps}
             />
 
-            <Button disabled={isSubmitDisabled} type="submit" isFullWidth>
+            <Button
+              color="green"
+              disabled={isSubmitDisabled}
+              type="submit"
+              isFullWidth
+            >
               Cadastrar
             </Button>
           </FormProvider>
