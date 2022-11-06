@@ -24,6 +24,7 @@ export const BodyWrapper = styled('div', {
 
 export const Main = styled('main', {
   maxWidth: '1200px',
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

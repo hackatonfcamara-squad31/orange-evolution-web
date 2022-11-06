@@ -41,10 +41,10 @@ export const InputWrapper = styled('div', {
 
     error: {
       true: {
-        outline: '1px solid $red500',
+        outline: '1px solid $red500 !important',
 
         '& > div > svg': {
-          color: '$red500'
+          color: '$red500 !important'
         },
 
         '&:focus-within': {

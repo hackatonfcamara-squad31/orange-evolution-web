@@ -7,7 +7,6 @@ import {
   AlertDialog,
   AlertDialogDescription,
   AlertDialogTitle,
-  AlertDialogTrigger,
   DialogAlertBbuttonsContainer,
   DialogAlertCloseButton,
   StyledContent,
@@ -72,15 +71,9 @@ export function DialogAlert({
 
   return (
     <AlertDialog open={open}>
-      <AlertDialogTrigger asChild>
-        <Button
-          onClick={handleOpen}
-          title={triggerText}
-          {...triggerButtonProps}
-        >
-          {triggerText}
-        </Button>
-      </AlertDialogTrigger>
+      <Button onClick={handleOpen} title={triggerText} {...triggerButtonProps}>
+        {triggerText}
+      </Button>
 
       <DialogAlertContent theme={theme} onClickOverlay={handleClose}>
         <AlertDialogTitle theme={theme}>{title}</AlertDialogTitle>
