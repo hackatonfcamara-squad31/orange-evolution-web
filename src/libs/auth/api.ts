@@ -1,6 +1,6 @@
-import { RegisterFormData } from 'helpers/forms/schemas/registerSchema'
-import { LoginFormData } from 'helpers/forms/schemas/loginSchema'
 import { api } from 'services/api'
+import { LoginFormData } from './schemas/loginSchema'
+import { RegisterFormData } from './schemas/registerSchema'
 import { LoginResponse, RegisterResponse } from './types'
 
 export const registerUser = async (
@@ -16,10 +16,11 @@ export const registerUser = async (
 
 export const loginUser = async (
   loginFormData: LoginFormData
-) : Promise<LoginResponse> => {
-  const { data } : {data: LoginResponse } = await api.post('/me', {
+): Promise<LoginResponse> => {
+  const { data }: { data: LoginResponse } = await api.post('/login', {
     ...loginFormData,
-    is_admin:false
+    is_admin: false
   })
+
   return data
 }

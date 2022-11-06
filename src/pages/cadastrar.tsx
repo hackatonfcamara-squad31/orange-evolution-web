@@ -1,4 +1,3 @@
-import { ErrorData } from '@appTypes/errorTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
@@ -7,12 +6,14 @@ import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
 import { useTheme } from 'contexts/ThemeContext'
+
+import { registerUser } from 'libs/auth/api'
 import {
   RegisterFormData,
   registerSchema
-} from 'helpers/forms/schemas/registerSchema'
-import { registerUser } from 'libs/auth/api'
+} from 'libs/auth/schemas/registerSchema'
 import { RegisterResponse } from 'libs/auth/types'
+import { getApiErrorMessage } from 'libs/functions/api'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
@@ -58,12 +59,12 @@ export default function Register() {
 
       reset()
     } catch (error) {
-      const { data }: { data: ErrorData } = error.response
+      const errorMessage = getApiErrorMessage(error)
 
-      const errorMessage =
-        typeof data.message === 'string' ? data.message : data.message[0]
-
-      showToastError(theme, errorMessage)
+      showToastError(
+        theme,
+        errorMessage || 'Algo deu errado, por favor tente novamente mais tarde.'
+      )
     }
   }
 

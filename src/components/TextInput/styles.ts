@@ -20,7 +20,7 @@ export const InputWrapper = styled('div', {
 
         '&:focus-within': {
           '& > div > svg': {
-            color: '$gray800'
+            color: '$gray800 !important'
           },
 
           outline: '1px solid $gray800 '
@@ -31,7 +31,7 @@ export const InputWrapper = styled('div', {
 
         '&:focus-within': {
           '& > div > svg': {
-            color: '$gray100'
+            color: '$gray100 !important'
           },
 
           outline: '1px solid $gray100 '
@@ -41,14 +41,14 @@ export const InputWrapper = styled('div', {
 
     error: {
       true: {
-        outline: '1px solid $red500 !important',
+        outline: '1px solid $red500',
 
         '& > div > svg': {
-          color: '$red500 !important'
+          color: '$red500'
         },
 
         '&:focus-within': {
-          outline: '1px solid $red500 !important'
+          outline: '1px solid $red500'
         }
       }
     },
