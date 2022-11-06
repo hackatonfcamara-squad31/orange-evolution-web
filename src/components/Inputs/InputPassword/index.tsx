@@ -3,15 +3,15 @@ import { ForwardedRef, InputHTMLAttributes } from 'react'
 import { TbLock } from 'react-icons/tb'
 
 interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
-  error: boolean
-  errorMessage: string
-  passwordRef: ForwardedRef<HTMLInputElement>
+  error?: boolean
+  errorMessage?: string
+  passwordRef?: ForwardedRef<HTMLInputElement>
 }
 
 export function InputPassword({
-  error,
-  errorMessage,
-  passwordRef,
+  error = false,
+  errorMessage = '',
+  passwordRef = null,
   ...props
 }: InputPasswordProps) {
   return (

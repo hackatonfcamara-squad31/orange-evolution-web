@@ -13,8 +13,8 @@ import {
 
 export interface TextInputRootProps {
   children: ReactNode
-  label: string
-  labelFor: string
+  label?: string
+  labelFor?: string
   disabled?: boolean
   error?: boolean
   errorMessage?: string
@@ -32,8 +32,8 @@ export interface TextInputInputProps
 
 function TextInputRoot({
   children,
-  labelFor,
-  label,
+  labelFor = '',
+  label = '',
   disabled = false,
   error = false,
   errorMessage = '',

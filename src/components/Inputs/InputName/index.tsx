@@ -3,15 +3,15 @@ import { ForwardedRef, InputHTMLAttributes } from 'react'
 import { MdPersonOutline } from 'react-icons/md'
 
 interface NameImputProps extends InputHTMLAttributes<HTMLInputElement> {
-  error: boolean
-  errorMessage: string
-  nameRef: ForwardedRef<HTMLInputElement>
+  error?: boolean
+  errorMessage?: string
+  nameRef?: ForwardedRef<HTMLInputElement>
 }
 
 export function InputName({
-  error,
-  errorMessage,
-  nameRef,
+  error = false,
+  errorMessage = '',
+  nameRef = null,
   ...props
 }: NameImputProps) {
   return (

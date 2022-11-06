@@ -3,15 +3,15 @@ import { ForwardedRef, InputHTMLAttributes } from 'react'
 import { TbMail } from 'react-icons/tb'
 
 interface InputEmailProps extends InputHTMLAttributes<HTMLInputElement> {
-  error: boolean
-  errorMessage: string
-  emailRef: ForwardedRef<HTMLInputElement>
+  error?: boolean
+  errorMessage?: string
+  emailRef?: ForwardedRef<HTMLInputElement>
 }
 
 export function InputEmail({
-  error,
-  errorMessage,
-  emailRef,
+  error = false,
+  errorMessage = '',
+  emailRef = null,
   ...props
 }: InputEmailProps) {
   return (

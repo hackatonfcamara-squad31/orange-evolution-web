@@ -19,6 +19,10 @@ export const InputWrapper = styled('div', {
         backgroundColor: '$gray200',
 
         '&:focus-within': {
+          '& > div > svg': {
+            color: '$gray800'
+          },
+
           outline: '1px solid $gray800 '
         }
       },
@@ -26,6 +30,10 @@ export const InputWrapper = styled('div', {
         backgroundColor: '$gray800',
 
         '&:focus-within': {
+          '& > div > svg': {
+            color: '$gray100'
+          },
+
           outline: '1px solid $gray100 '
         }
       }
@@ -107,7 +115,7 @@ export const InputIcon = styled('div', {
   variants: {
     theme: {
       light: {
-        color: '$gray800'
+        color: '$gray600'
       },
       dark: {
         color: '$gray400'
