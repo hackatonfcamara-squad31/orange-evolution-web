@@ -3,8 +3,10 @@ import { useTheme } from 'contexts/ThemeContext'
 import { ReactNode } from 'react'
 import { StyledText } from './styles'
 
+export type TextSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+
 interface TextProps {
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  size?: TextSizes
   children: ReactNode
   asChild?: boolean
 }

@@ -7,25 +7,25 @@ import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
 import { useTheme } from 'contexts/ThemeContext'
-import { LoginResponse } from 'libs/auth/types'
-import { loginUser } from 'libs/auth/api'
+import {
+  RegisterFormData,
+  registerSchema
+} from 'helpers/forms/schemas/registerSchema'
+import { registerUser } from 'libs/auth/api'
+import { RegisterResponse } from 'libs/auth/types'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
-import { LoginForm, LoginHeader } from 'styles/pages/login'
+import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
 import { BodyWrapper } from 'styles/pages/home'
 import { showToastError, showToastSuccess } from 'utils/toasts'
-import {
-  LoginFormData,
-  loginSchema
-} from '../helpers/forms/schemas/loginSchema'
-import axios from 'axios'
 
-export default function LoginPage() {
+export default function Register() {
   const { theme } = useTheme()
 
-  const loginForm = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  const registerForm = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: ''
     },
@@ -39,55 +39,52 @@ export default function LoginPage() {
     reset,
     control,
     formState: { errors }
-  } = loginForm
+  } = registerForm
 
   const isSubmitDisabled =
-    !!errors.email || !!errors.password || !watch('email') || !watch('password')
+    !!errors.name ||
+    !!errors.email ||
+    !!errors.password ||
+    !watch('name') ||
+    !watch('email') ||
+    !watch('password')
 
-  async function handleLogin(data: LoginFormData) {
+  async function handleRegister(data: RegisterFormData) {
     try {
-      const response: LoginResponse = await loginUser(data)
+      const response: RegisterResponse = await registerUser(data)
       console.log('🚀 ~ response', response)
 
-      showToastSuccess(theme, 'Login feito com sucesso!')
+      showToastSuccess(theme, 'Cadastro realizado com sucesso!')
 
       reset()
     } catch (error) {
-      handleApiError(error)
+      const { data }: { data: ErrorData } = error.response
+
+      const errorMessage =
+        typeof data.message === 'string' ? data.message : data.message[0]
+
+      showToastError(theme, errorMessage)
     }
-  }
-
-  function handleApiError(error: unknown) {
-    let errorMessage = ''
-
-    if (axios.isAxiosError(error)) {
-      const { data } = error.response
-      errorMessage = data.message || error.message
-    } else if (error instanceof Error) {
-      errorMessage = error.message
-    }
-
-    showToastError(
-      theme,
-      errorMessage || 'Algo deu errado, tente novamente mais tarde.'
-    )
   }
 
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Cadastro</title>
       </Head>
 
       <BodyWrapper theme={theme}>
-        <LoginHeader>
+        <RegisterHeader>
           <ButtonToggleTheme />
-          <Heading asChild size="lg">
-            <h1>Login</h1>
-          </Heading>
-        </LoginHeader>
 
-        <LoginForm onSubmit={handleSubmit(handleLogin)}>
+          <Heading asChild size="lg">
+            <h1>Cadastro</h1>
+          </Heading>
+        </RegisterHeader>
+
+        <RegisterForm onSubmit={handleSubmit(handleRegister)}>
+          <InputName required error={errors.name} control={control} />
+
           <InputEmail required error={errors.email} control={control} />
 
           <InputPassword required error={errors.password} control={control} />
@@ -98,9 +95,9 @@ export default function LoginPage() {
             type="submit"
             isFullWidth
           >
-            Login
+            Cadastrar
           </Button>
-        </LoginForm>
+        </RegisterForm>
       </BodyWrapper>
     </>
   )

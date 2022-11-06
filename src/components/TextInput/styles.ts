@@ -1,8 +1,8 @@
-import { Slot } from '@radix-ui/react-slot'
 import { styled } from 'styles'
 
-export const InputContainer = styled('div', {
-  width: '100%'
+export const InputContainer = styled('fieldset', {
+  width: '100%',
+  border: 'none'
 })
 
 export const InputWrapper = styled('div', {
@@ -19,27 +19,36 @@ export const InputWrapper = styled('div', {
         backgroundColor: '$gray200',
 
         '&:focus-within': {
-          outline: '1px solid $gray800 !important'
+          '& > div > svg': {
+            color: '$gray800'
+          },
+
+          outline: '1px solid $gray800 '
         }
       },
       dark: {
         backgroundColor: '$gray800',
 
         '&:focus-within': {
-          outline: '1px solid $gray100 !important'
+          '& > div > svg': {
+            color: '$gray100'
+          },
+
+          outline: '1px solid $gray100 '
         }
       }
     },
+
     error: {
       true: {
-        outline: '1px solid $red500',
+        outline: '1px solid $red500 !important',
 
-        '& > svg': {
-          color: '$red500'
+        '& > div > svg': {
+          color: '$red500 !important'
         },
 
         '&:focus-within': {
-          outline: '1px solid $red500'
+          outline: '1px solid $red500 !important'
         }
       }
     },
@@ -67,6 +76,10 @@ export const InputLabel = styled('label', {
   paddingLeft: '4px',
   fontWeight: 500,
 
+  span: {
+    color: '$red500'
+  },
+
   variants: {
     theme: {
       light: {
@@ -87,17 +100,22 @@ export const InputErrorMessage = styled('span', {
   color: '$red500'
 })
 
-export const InputIcon = styled(Slot, {
-  height: 24,
-  width: 24,
+export const InputIcon = styled('div', {
+  height: 20,
+  width: 20,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 
+  svg: {
+    height: 20,
+    width: 20
+  },
+
   variants: {
     theme: {
       light: {
-        color: '$gray800'
+        color: '$gray600'
       },
       dark: {
         color: '$gray400'

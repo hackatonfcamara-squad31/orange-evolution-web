@@ -51,12 +51,20 @@
 - [Typescript][typescript]
 - [Stitches][stitches]
 - [Radix UI][radix]
-- [react-icons][react_icons]
-- [react-loader-spinner][react_loader]
+- [React Hook Form][react_hook_form]
+- [Zod][zod]
+- [React-toastify][rect_toastify]
+- [Axios][axios]
+- [React Icons][react_icons]
+- [React Loader Spinner][react_loader]
 
 [next]: https://nextjs.org
 [typescript]: https://www.typescriptlang.org
 [stitches]: https://stitches.dev
 [radix]: https://www.radix-ui.com
+[react_hook_form]: https://react-hook-form.com
+[zod]: https://zod.dev
+[rect_toastify]: https://fkhadra.github.io/react-toastify/introduction
+[axios]: https://axios-http.com
 [react_icons]: https://react-icons.github.io/react-icons
 [react_loader]: https://www.npmjs.com/package/react-loader-spinner

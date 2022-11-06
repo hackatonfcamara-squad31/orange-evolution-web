@@ -1,4 +1,5 @@
 import { AlertDialogProps, Portal } from '@radix-ui/react-alert-dialog'
+import { Button, ButtonProps } from 'components/Button'
 import { Theme, useTheme } from 'contexts/ThemeContext'
 import { ReactNode, useState } from 'react'
 import { MdClose } from 'react-icons/md'
@@ -6,7 +7,6 @@ import {
   AlertDialog,
   AlertDialogDescription,
   AlertDialogTitle,
-  AlertDialogTrigger,
   DialogAlertBbuttonsContainer,
   DialogAlertCloseButton,
   StyledContent,
@@ -38,17 +38,25 @@ function DialogAlertContent({
 interface DialogAlertProps {
   title: string
   description: string
-  triggerLabel: string
-  confirmLabel: string
-  cancelLabel: string
+  triggerText: string
+  confirmText: string
+  cancelText: string
+  triggerButtonProps?: ButtonProps
+  cancelButtonProps?: ButtonProps
+  confirmButtonProps?: ButtonProps
+  onConfirm: () => void
 }
 
 export function DialogAlert({
   title,
   description,
-  triggerLabel,
-  cancelLabel,
-  confirmLabel
+  triggerText,
+  confirmText,
+  cancelText,
+  triggerButtonProps,
+  cancelButtonProps,
+  confirmButtonProps,
+  onConfirm
 }: DialogAlertProps) {
   const { theme } = useTheme()
   const [open, setOpen] = useState(false)
@@ -56,13 +64,16 @@ export function DialogAlert({
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  const handleConfirm = () => {
+    onConfirm()
+    handleClose()
+  }
+
   return (
     <AlertDialog open={open}>
-      <AlertDialogTrigger asChild>
-        <button onClick={handleOpen} title={triggerLabel}>
-          {triggerLabel}
-        </button>
-      </AlertDialogTrigger>
+      <Button onClick={handleOpen} title={triggerText} {...triggerButtonProps}>
+        {triggerText}
+      </Button>
 
       <DialogAlertContent theme={theme} onClickOverlay={handleClose}>
         <AlertDialogTitle theme={theme}>{title}</AlertDialogTitle>
@@ -72,13 +83,21 @@ export function DialogAlert({
         </AlertDialogDescription>
 
         <DialogAlertBbuttonsContainer>
-          <button onClick={handleClose} title={cancelLabel}>
-            {cancelLabel}
-          </button>
+          <Button
+            onClick={handleClose}
+            title={cancelText}
+            {...cancelButtonProps}
+          >
+            {cancelText}
+          </Button>
 
-          <button onClick={handleClose} title={confirmLabel}>
-            {confirmLabel}
-          </button>
+          <Button
+            onClick={handleConfirm}
+            title={confirmText}
+            {...confirmButtonProps}
+          >
+            {confirmText}
+          </Button>
         </DialogAlertBbuttonsContainer>
 
         <DialogAlertCloseButton theme={theme} onClick={handleClose}>

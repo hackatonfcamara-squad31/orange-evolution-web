@@ -1,8 +1,5 @@
+import { ImageDropzone } from 'components/ImageDropzone'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
-import { InputEmail } from 'components/Inputs/InputEmail'
-import { InputName } from 'components/Inputs/InputName'
-import { InputPassword } from 'components/Inputs/InputPassword'
-import { InputSearch } from 'components/Inputs/InputSearch'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import { BodyWrapper, Main } from 'styles/pages/home'
@@ -13,21 +10,18 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Inputs</title>
+        <title>Dropzones</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Main>
-          <h1>Inputs</h1>
+          <h1>Dropzones</h1>
 
           <ButtonToggleTheme />
+          <ImageDropzone height={300} />
 
-          <InputName />
+          <ImageDropzone width={200} height={200} />
 
-          <InputEmail />
-
-          <InputPassword />
-
-          <InputSearch />
+          <ImageDropzone width={180} height={180} isFullRounded />
         </Main>
       </BodyWrapper>
     </>
