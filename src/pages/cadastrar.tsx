@@ -1,3 +1,5 @@
+import { RegisterResponse } from '@appTypes/authTypes'
+import { ErrorData } from '@appTypes/errorTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
@@ -10,10 +12,12 @@ import {
   RegisterFormData,
   registerSchema
 } from 'helpers/forms/schemas/registerSchema'
+import { registerUser } from 'libs/libAuth'
 import Head from 'next/head'
 import { FormProvider, useForm } from 'react-hook-form'
 import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
 import { BodyWrapper } from 'styles/pages/home'
+import { showToastError, showToastSuccess } from 'utils/toasts'
 
 export default function Register() {
   const { theme } = useTheme()
@@ -49,10 +53,22 @@ export default function Register() {
     !watch('email') ||
     !watch('password')
 
-  function handleRegister(data: RegisterFormData) {
-    console.log('🚀 ~ data', data)
+  async function handleRegister(data: RegisterFormData) {
+    try {
+      const response: RegisterResponse = await registerUser(data)
+      console.log('🚀 ~ response', response)
 
-    reset()
+      showToastSuccess(theme, 'Cadastro realizado com sucesso!')
+
+      reset()
+    } catch (error) {
+      const { data }: { data: ErrorData } = error.response
+
+      const errorMessage =
+        typeof data.message === 'string' ? data.message : data.message[0]
+
+      showToastError(theme, errorMessage)
+    }
   }
 
   return (
