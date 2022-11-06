@@ -75,8 +75,8 @@ export function TextInputInput(props: TextInputInputProps) {
 
   return (
     <>
-      <Controller
-        rules={props.validate}
+      <Controller //monitora o componente Input
+        rules={props.validate} //pode usar no lugar do yup caso queira, RegisterOptions do react-hook-form
         control={props.control}
         name={props.name}
         render={({ field: { onChange, value } }) => (
@@ -85,7 +85,7 @@ export function TextInputInput(props: TextInputInputProps) {
               {...props}
               type={showPassword ? 'text' : props.type}
               theme={theme}
-              onChange={onChange}
+              onChange={onChange} // manda o value para o hook form
               value={value}
             />
           </>
