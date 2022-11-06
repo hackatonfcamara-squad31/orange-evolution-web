@@ -1,17 +1,18 @@
 import { TextInput } from 'components/TextInput'
-import { ForwardedRef, InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes } from 'react'
+import { Control, FieldError, RegisterOptions } from 'react-hook-form'
 import { TbMail } from 'react-icons/tb'
 
 interface InputEmailProps extends InputHTMLAttributes<HTMLInputElement> {
-  error?: boolean
-  errorMessage?: string
-  emailRef?: ForwardedRef<HTMLInputElement>
+  error?: FieldError
+  control: Control
+  validate?: RegisterOptions
 }
 
 export function InputEmail({
-  error = false,
-  errorMessage = '',
-  emailRef = null,
+  error,
+  control,
+  validate,
   ...props
 }: InputEmailProps) {
   return (
@@ -20,7 +21,6 @@ export function InputEmail({
       labelFor="email"
       error={error}
       required={props.required}
-      errorMessage={errorMessage}
     >
       <TextInput.Icon>
         <TbMail />
@@ -28,9 +28,11 @@ export function InputEmail({
 
       <TextInput.Input
         id="email"
+        name="email"
         type="email"
         placeholder="Digite seu e-mail"
-        inputRef={emailRef}
+        control={control}
+        validate={validate}
         {...props}
       />
     </TextInput.Root>

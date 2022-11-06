@@ -1,17 +1,20 @@
 import { TextInput } from 'components/TextInput'
-import { ForwardedRef, InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes } from 'react'
+import { Control, FieldError, RegisterOptions } from 'react-hook-form'
 import { MdPersonOutline } from 'react-icons/md'
 
 interface NameImputProps extends InputHTMLAttributes<HTMLInputElement> {
-  error?: boolean
+  error?: FieldError
   errorMessage?: string
-  nameRef?: ForwardedRef<HTMLInputElement>
+  control: Control
+  validate?: RegisterOptions
 }
 
 export function InputName({
-  error = false,
+  error,
   errorMessage = '',
-  nameRef = null,
+  control,
+  validate,
   ...props
 }: NameImputProps) {
   return (
@@ -20,7 +23,6 @@ export function InputName({
       labelFor="name"
       error={error}
       required={props.required}
-      errorMessage={errorMessage}
     >
       <TextInput.Icon>
         <MdPersonOutline />
@@ -31,7 +33,8 @@ export function InputName({
         name="name"
         type="text"
         placeholder="Digite seu nome completo"
-        inputRef={nameRef}
+        control={control}
+        validate={validate}
         {...props}
       />
     </TextInput.Root>
