@@ -55,8 +55,8 @@
 - [Zod][zod]
 - [React-toastify][rect_toastify]
 - [Axios][axios]
-- [React-icons][react_icons]
-- [React-loader-spinner][react_loader]
+- [React Icons][react_icons]
+- [React Loader Spinner][react_loader]
 
 [next]: https://nextjs.org
 [typescript]: https://www.typescriptlang.org
