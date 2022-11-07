@@ -1,7 +1,7 @@
-import { AvatarContainer, AvatarFallback, AvatarImage } from './styles'
-import { ComponentProps } from 'react'
 import { Theme } from 'contexts/ThemeContext'
+import { ComponentProps } from 'react'
 import { BsPersonCircle } from 'react-icons/bs'
+import { AvatarContainer, AvatarFallback, AvatarImage } from './styles'
 
 export interface AvatarImageProps extends ComponentProps<typeof AvatarImage> {
   theme: Theme
@@ -27,11 +27,12 @@ export function PrimitiveAvatar({
         return 32
     }
   }
+
   return (
     <AvatarContainer size={size} withBorder={withBorder} theme={theme}>
-    <AvatarImage {...props} />
-    <AvatarFallback delayMs={600} theme={theme}>
-      <BsPersonCircle size={getFallbackIconSize()} />
+      <AvatarImage {...props} />
+      <AvatarFallback delayMs={600} theme={theme}>
+        <BsPersonCircle size={getFallbackIconSize()} />
       </AvatarFallback>
     </AvatarContainer>
   )

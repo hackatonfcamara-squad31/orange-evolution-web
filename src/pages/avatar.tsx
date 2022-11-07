@@ -6,9 +6,7 @@ import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import { BodyWrapper, Main } from 'styles/pages/home'
 
-
 export default function AvatarScreen() {
-
   const { theme } = useTheme()
   return (
     <>
@@ -16,7 +14,7 @@ export default function AvatarScreen() {
         <title>Avatar</title>
       </Head>
       <BodyWrapper theme={theme}>
-      <Main>
+        <Main>
           <Heading asChild size="lg">
             <h1>Avatar</h1>
           </Heading>
@@ -26,21 +24,21 @@ export default function AvatarScreen() {
             <PrimitiveAvatar theme={theme} size="sm" />
             <PrimitiveAvatar theme={theme} size="md" />
             <PrimitiveAvatar theme={theme} size="lg" />
-            <PrimitiveAvatar theme={theme} size="sm" />
-            <PrimitiveAvatar theme={theme} size="md" />
-            <PrimitiveAvatar theme={theme} size="lg" />
+
             <PrimitiveAvatar
               size="sm"
               theme={theme}
               src={'https://github.com/renatadellamatriz.png'}
             />
-              <PrimitiveAvatar
+
+            <PrimitiveAvatar
               size="md"
               withBorder
               theme={theme}
               src={'https://github.com/capelaum.png'}
             />
-             <PrimitiveAvatar
+
+            <PrimitiveAvatar
               size="lg"
               withBorder
               theme={theme}
