@@ -17,9 +17,8 @@ interface AuthContextData {
   setAuthUser: (user: User) => void
   setIsAuthLoading: (isAuthLoading: boolean) => void
   login: (loginFormData: LoginFormData) => Promise<boolean>
+  logout: () => Promise<boolean>
 }
-
-const nonAuthenticatedPaths = ['/login', '/cadastrar', '/']
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
@@ -62,6 +61,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  const logout = async () => {
+    try {
+      await axios.post('/api/logout')
+
+      showToastSuccess(theme, 'Logout realizado com sucesso!')
+
+      setAuthUser(null)
+      setIsAuthLoading(false)
+
+      return true
+    } catch (error) {
+      const errorMessage = getApiErrorMessage(error)
+
+      showToastError(theme, errorMessage)
+      setIsAuthLoading(false)
+
+      return false
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -69,7 +88,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isAuthLoading,
         setAuthUser,
         setIsAuthLoading,
-        login
+        login,
+        logout
       }}
     >
       {children}

@@ -18,6 +18,7 @@ export default async function handler(
 ): Promise<ApiLoginResponse | undefined> {
   if (req.method !== 'POST') {
     res.status(405).json({
+      user: null,
       message: 'Method not allowed'
     })
     return
