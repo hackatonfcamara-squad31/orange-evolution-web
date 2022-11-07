@@ -25,9 +25,6 @@ export default function AvatarScreen() {
             <PrimitiveAvatar theme={theme} size="md" />
             <PrimitiveAvatar theme={theme} size="lg" />
 
-            <PrimitiveAvatar theme={theme} size="sm" />
-            <PrimitiveAvatar theme={theme} size="md" />
-            <PrimitiveAvatar theme={theme} size="lg" />
             <PrimitiveAvatar
               size="sm"
               theme={theme}
