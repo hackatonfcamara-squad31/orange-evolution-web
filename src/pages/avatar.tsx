@@ -1,14 +1,12 @@
 import { PrimitiveAvatar } from 'components/Avatar'
-import Head from 'next/head'
-import { BodyWrapper } from 'styles/pages/home'
-import { useTheme } from 'contexts/ThemeContext'
-import { Heading } from 'components/Heading'
-import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { AvatarWrapperTemporario } from 'components/Avatar/styles'
-
+import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
+import { Heading } from 'components/Heading'
+import { useTheme } from 'contexts/ThemeContext'
+import Head from 'next/head'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function AvatarScreen() {
-
   const { theme } = useTheme()
   return (
     <>
@@ -16,19 +14,41 @@ export default function AvatarScreen() {
         <title>Avatar</title>
       </Head>
       <BodyWrapper theme={theme}>
+        <Main>
+          <Heading asChild size="lg">
+            <h1>Avatar</h1>
+          </Heading>
+          <ButtonToggleTheme />
 
-        <ButtonToggleTheme />
+          <AvatarWrapperTemporario>
+            <PrimitiveAvatar theme={theme} size="sm" />
+            <PrimitiveAvatar theme={theme} size="md" />
+            <PrimitiveAvatar theme={theme} size="lg" />
 
-        <Heading asChild size="lg">
-          <h1>Avatar</h1>
-        </Heading>
+            <PrimitiveAvatar theme={theme} size="sm" />
+            <PrimitiveAvatar theme={theme} size="md" />
+            <PrimitiveAvatar theme={theme} size="lg" />
+            <PrimitiveAvatar
+              size="sm"
+              theme={theme}
+              src={'https://github.com/renatadellamatriz.png'}
+            />
 
-        <AvatarWrapperTemporario>
-        <PrimitiveAvatar size={'sm'} />
-        <PrimitiveAvatar size={'md'} />
-        <PrimitiveAvatar size={'lg'} />
-        <PrimitiveAvatar src={'https://github.com/renatadellamatriz.png'}/>
-        </AvatarWrapperTemporario>
+            <PrimitiveAvatar
+              size="md"
+              withBorder
+              theme={theme}
+              src={'https://github.com/capelaum.png'}
+            />
+
+            <PrimitiveAvatar
+              size="lg"
+              withBorder
+              theme={theme}
+              src={'https://github.com/kevin-neves.png'}
+            />
+          </AvatarWrapperTemporario>
+        </Main>
       </BodyWrapper>
     </>
   )
