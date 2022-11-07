@@ -1,82 +1,92 @@
-import { styled } from 'styles'
 import * as Avatar from '@radix-ui/react-avatar'
+import { styled } from 'styles'
 
 export const AvatarContainer = styled(Avatar.Root, {
   borderRadius: '$full',
   display: 'inline-block',
   overflow: 'hidden',
-  maxWidth:'4rem',
 
   variants: {
+    theme: {
+      light: {},
+      dark: {}
+    },
     size: {
       sm: {
-        svg: {
-          width: '1.5rem',
-          height: '1.5rem',
-          maxWidth:'1.5rem',
-        }
+        width: '2rem',
+        height: '2rem'
       },
       md: {
-        svg: {
-          width: '2rem',
-          height: '2rem',
-          maxWidth:'2rem',
-        }
+        width: '3rem',
+        height: '3rem'
       },
       lg: {
-        svg: {
-          width: '3rem',
-          height: '3rem',
-          maxWidth:'3rem',
-        }
+        width: '4rem',
+        height: '4rem'
+      }
+    },
+    withBorder: {
+      true: {
+        border: '3px solid $gray300'
       }
     }
-  }
+  },
+
+  compoundVariants: [
+    {
+      theme: 'light',
+      withBorder: true,
+
+      css: {
+        border: '3px solid $gray400'
+      }
+    },
+    {
+      theme: 'dark',
+      withBorder: true,
+
+      css: {
+        border: '3px solid $gray600'
+      }
+    }
+  ]
 })
 
 export const AvatarImage = styled(Avatar.Image, {
   width: '100%',
-  height: '100',
+  height: '100%',
   objectFit: 'cover'
 })
 
 export const AvatarFallback = styled(Avatar.Fallback, {
   width: '100%',
-  height: '100',
+  height: '100%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: '$gray500',
-  color: '$gray800',
+
+  svg: {
+    width: '100%',
+    height: '100%'
+  },
 
   variants: {
-    size: {
-      sm: {
-        svg: {
-          width: '3rem',
-          height: '3rem'
-        }
+    theme: {
+      light: {
+        backgroundColor: '$gray200',
+        color: '$gray600'
       },
-      md: {
-        svg: {
-          width: '4rem',
-          height: '4rem'
-        }
-      },
-      lg: {
-        svg: {
-          width: '5rem',
-          height: '5rem'
-        }
+      dark: {
+        backgroundColor: '$gray800',
+        color: '$gray500'
       }
     }
   }
 })
 
-export const AvatarWrapperTemporario = styled('div',{
-  width:'30vw',
-  display:'flex',
-  flexDirection:'row',
-  justifyContent:'space-evenly',
-  alignItems:'baseline'
+export const AvatarWrapperTemporario = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: '$md'
 })

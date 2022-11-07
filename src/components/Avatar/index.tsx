@@ -1,17 +1,37 @@
-import { FiUser } from 'react-icons/fi'
 import { AvatarContainer, AvatarFallback, AvatarImage } from './styles'
 import { ComponentProps } from 'react'
+import { Theme } from 'contexts/ThemeContext'
+import { BsPersonCircle } from 'react-icons/bs'
 
 export interface AvatarImageProps extends ComponentProps<typeof AvatarImage> {
-  size?: 'sm' | 'md' | 'lg'  
+  theme: Theme
+  size?: 'sm' | 'md' | 'lg'
+  withBorder?: boolean
 }
 
-export function PrimitiveAvatar({ size='md', ...props }: AvatarImageProps) {
+export function PrimitiveAvatar({
+  theme,
+  size = 'md',
+  withBorder,
+  ...props
+}: AvatarImageProps) {
+  function getFallbackIconSize() {
+    switch (size) {
+      case 'sm':
+        return 24
+      case 'md':
+        return 32
+      case 'lg':
+        return 48
+      default:
+        return 32
+    }
+  }
   return (
-    <AvatarContainer size={size} >
-      < AvatarImage {...props} />
-      <AvatarFallback delayMs={600}>
-        <FiUser />
+    <AvatarContainer size={size} withBorder={withBorder} theme={theme}>
+    <AvatarImage {...props} />
+    <AvatarFallback delayMs={600} theme={theme}>
+      <BsPersonCircle size={getFallbackIconSize()} />
       </AvatarFallback>
     </AvatarContainer>
   )
