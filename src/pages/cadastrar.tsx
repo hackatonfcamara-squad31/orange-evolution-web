@@ -6,6 +6,7 @@ import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
 import { useTheme } from 'contexts/ThemeContext'
+import { getCookie } from 'cookies-next'
 
 import { registerUser } from 'libs/auth/api'
 import {
@@ -14,6 +15,7 @@ import {
 } from 'libs/auth/schemas/registerSchema'
 import { RegisterResponse } from 'libs/auth/types'
 import { getApiErrorMessage } from 'libs/functions/api'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
@@ -53,7 +55,6 @@ export default function Register() {
   async function handleRegister(data: RegisterFormData) {
     try {
       const response: RegisterResponse = await registerUser(data)
-      console.log('🚀 ~ response', response)
 
       showToastSuccess(theme, 'Cadastro realizado com sucesso!')
 
@@ -102,4 +103,21 @@ export default function Register() {
       </BodyWrapper>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/trilhas',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

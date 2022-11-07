@@ -1,30 +1,20 @@
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
-import { useAuth } from 'contexts/AuthContext'
 import { useTheme } from 'contexts/ThemeContext'
-import { getPageAuthUser } from 'libs/auth/api'
+import { getCookie } from 'cookies-next'
+import { getAuthUser } from 'libs/auth/api'
 import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useCallback, useEffect } from 'react'
 import { BodyWrapper, Main } from 'styles/pages/home'
 
 interface TrailsProps {
-  authUser: User
+  user: User
 }
 
-export default function Trails({ authUser }: TrailsProps) {
+export default function Trails({ user }: TrailsProps) {
   const { theme } = useTheme()
-  const { setAuthUser } = useAuth()
 
-  const handleAuthUserState = useCallback(() => {
-    if (authUser) {
-      setAuthUser(authUser)
-    }
-  }, [authUser, setAuthUser])
-
-  useEffect(() => {
-    handleAuthUserState()
-  }, [handleAuthUserState])
+  const { name, email } = user
 
   return (
     <>
@@ -34,7 +24,11 @@ export default function Trails({ authUser }: TrailsProps) {
       <BodyWrapper theme={theme}>
         <Main>
           <h1>Trilhas</h1>
-          <h2>{authUser?.name}</h2>
+          <ul>
+            <li>Nome: {name}</li>
+            <li>E-mail: {email}</li>
+          </ul>
+          <h2>{}</h2>
           <ButtonToggleTheme />
         </Main>
       </BodyWrapper>
@@ -43,9 +37,21 @@ export default function Trails({ authUser }: TrailsProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const authUser = await getPageAuthUser(ctx)
+  const token = getCookie('@orange-evoltuion:token', ctx)
+  console.log('🚀 ~ token', token)
 
-  if (!authUser) {
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  const user = await getAuthUser(token.toString())
+
+  if (!user) {
     return {
       redirect: {
         destination: '/login',
@@ -56,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      authUser
+      user
     }
   }
 }

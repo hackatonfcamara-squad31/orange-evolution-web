@@ -6,11 +6,10 @@ import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
 import { useAuth } from 'contexts/AuthContext'
 import { useTheme } from 'contexts/ThemeContext'
-import { getPageAuthUser } from 'libs/auth/api'
+import { getCookie } from 'cookies-next'
 import { LoginFormData, loginSchema } from 'libs/auth/schemas/loginSchema'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { BodyWrapper } from 'styles/pages/home'
 import { LoginForm, LoginHeader } from 'styles/pages/login'
@@ -18,8 +17,6 @@ import { LoginForm, LoginHeader } from 'styles/pages/login'
 export default function LoginPage() {
   const { theme } = useTheme()
   const { isAuthLoading, login } = useAuth()
-
-  const router = useRouter()
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -47,8 +44,6 @@ export default function LoginPage() {
 
     if (isLogged) {
       reset()
-
-      router.push('/trilhas')
     }
   }
 
@@ -87,9 +82,9 @@ export default function LoginPage() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const authUser = await getPageAuthUser(ctx)
+  const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, ctx)
 
-  if (authUser) {
+  if (token) {
     return {
       redirect: {
         destination: '/trilhas',
@@ -99,8 +94,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: {
-      authUser
-    }
+    props: {}
   }
 }

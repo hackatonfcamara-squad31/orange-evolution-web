@@ -1,9 +1,18 @@
-import axios from 'axios'
+import { getCookie, setCookie } from 'cookies-next'
+import { getAuthUser } from 'libs/auth/api'
 import { LoginFormData } from 'libs/auth/schemas/loginSchema'
+import { LoginResponse } from 'libs/auth/types'
 import { getApiErrorMessage } from 'libs/functions/api'
 import { User } from 'libs/user/types'
-import { ApiLoginResponse } from 'pages/api/login'
-import { createContext, ReactNode, useContext, useState } from 'react'
+import Router from 'next/router'
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
+import { api } from 'services/api'
 import { showToastError, showToastSuccess } from 'utils/toasts'
 import { useTheme } from './ThemeContext'
 
@@ -13,6 +22,7 @@ interface AuthProviderProps {
 
 interface AuthContextData {
   authUser: User
+  isAuthenticaded: boolean
   isAuthLoading: boolean
   setAuthUser: (user: User) => void
   setIsAuthLoading: (isAuthLoading: boolean) => void
@@ -26,29 +36,59 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [authUser, setAuthUser] = useState<User | null>(null)
   const [isAuthLoading, setIsAuthLoading] = useState(false)
 
-  // console.log('🚀 ~ authUser', authUser)
-
   const { theme } = useTheme()
 
-  const login = async (loginFormData: LoginFormData) => {
+  const isAuthenticaded = !!authUser
+
+  // console.log('🚀 ~ authUser', authUser)
+
+  async function updateAuthUser() {
+    const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME)
+
+    if (!token) {
+      return
+    }
+
+    const user = await getAuthUser(token.toString())
+
+    if (!user) {
+      return
+    }
+
+    api.defaults.headers.Authorization = `Bearer ${token}`
+
+    setAuthUser(user)
+  }
+
+  useEffect(() => {
+    updateAuthUser()
+  }, [])
+
+  const login = async ({ email, password }: LoginFormData) => {
     setIsAuthLoading(true)
-    const { email, password } = loginFormData
 
     try {
-      const { data }: { data: ApiLoginResponse } = await axios.post(
-        '/api/login',
-        {
-          email,
-          password
-        }
-      )
+      const { data }: { data: LoginResponse } = await api.post('/login', {
+        email,
+        password
+      })
 
-      const { authUser: authUserData } = data
+      const { access_token } = data
 
-      setAuthUser(authUserData)
+      api.defaults.headers.Authorization = `Bearer ${access_token}`
+
+      setCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, access_token, {
+        maxAge: 60 * 60 * 24 * 30 // 30 days
+      })
+
+      const user = await getAuthUser(access_token)
+
+      setAuthUser(user)
 
       showToastSuccess(theme, 'Login realizado com sucesso!')
       setIsAuthLoading(false)
+
+      Router.push('/trilhas')
 
       return true
     } catch (error) {
@@ -63,7 +103,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = async () => {
     try {
-      await axios.post('/api/logout')
+      await api.post('/logout')
 
       showToastSuccess(theme, 'Logout realizado com sucesso!')
 
@@ -85,6 +125,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         authUser,
+        isAuthenticaded,
         isAuthLoading,
         setAuthUser,
         setIsAuthLoading,
