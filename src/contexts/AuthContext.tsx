@@ -26,7 +26,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [authUser, setAuthUser] = useState<User | null>(null)
   const [isAuthLoading, setIsAuthLoading] = useState(false)
 
-  console.log('🚀 ~ authUser', authUser)
+  // console.log('🚀 ~ authUser', authUser)
 
   const { theme } = useTheme()
 
