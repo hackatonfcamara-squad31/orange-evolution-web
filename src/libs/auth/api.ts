@@ -1,7 +1,9 @@
+import { deleteCookie, getCookie, hasCookie } from 'cookies-next'
+import { User } from 'libs/user/types'
+import { GetServerSidePropsContext } from 'next'
 import { api } from 'services/api'
-import { LoginFormData } from './schemas/loginSchema'
 import { RegisterFormData } from './schemas/registerSchema'
-import { LoginResponse, RegisterResponse } from './types'
+import { RegisterResponse } from './types'
 
 export const registerUser = async (
   registerFormData: RegisterFormData
@@ -14,13 +16,29 @@ export const registerUser = async (
   return data
 }
 
-export const loginUser = async (
-  loginFormData: LoginFormData
-): Promise<LoginResponse> => {
-  const { data }: { data: LoginResponse } = await api.post('/login', {
-    ...loginFormData,
-    is_admin: false
-  })
+export const getAuthUser = async (): Promise<User> => {
+  const { data }: { data: User } = await api.get('/me')
 
   return data
+}
+
+export async function getPageAuthUser({ req, res }: GetServerSidePropsContext) {
+  const cookieName = '@orange-evolution:token'
+  let authUser = null
+
+  if (hasCookie(cookieName, { req, res })) {
+    const token = getCookie(cookieName, { req, res })
+
+    try {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
+
+      authUser = await getAuthUser()
+
+      return authUser
+    } catch (error) {
+      deleteCookie(cookieName, { req, res })
+    }
+  }
+
+  return null
 }

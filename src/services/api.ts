@@ -8,3 +8,19 @@ export const api = axios.create({
     'Content-Type': 'application/json'
   }
 })
+
+// api.interceptors.request.use((config) => {
+//   const token = getCookie('@orange-evolution:token')
+
+//   if (token) {
+//     return {
+//       ...config,
+//       headers: {
+//         ...config.headers,
+//         Authorization: `Bearer ${token}`
+//       }
+//     }
+//   }
+
+//   return config
+// })

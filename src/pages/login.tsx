@@ -4,19 +4,22 @@ import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
+import { useAuth } from 'contexts/AuthContext'
 import { useTheme } from 'contexts/ThemeContext'
-import { loginUser } from 'libs/auth/api'
+import { getPageAuthUser } from 'libs/auth/api'
 import { LoginFormData, loginSchema } from 'libs/auth/schemas/loginSchema'
-import { LoginResponse } from 'libs/auth/types'
-import { getApiErrorMessage } from 'libs/functions/api'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { BodyWrapper } from 'styles/pages/home'
 import { LoginForm, LoginHeader } from 'styles/pages/login'
-import { showToastError, showToastSuccess } from 'utils/toasts'
 
 export default function LoginPage() {
   const { theme } = useTheme()
+  const { isAuthLoading, login } = useAuth()
+
+  const router = useRouter()
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -40,20 +43,12 @@ export default function LoginPage() {
     !!errors.email || !!errors.password || !watch('email') || !watch('password')
 
   async function handleLogin(data: LoginFormData) {
-    try {
-      const response: LoginResponse = await loginUser(data)
-      console.log('🚀 ~ response', response)
+    const isLogged = await login(data)
 
-      showToastSuccess(theme, 'Login realzado com sucesso!')
-
+    if (isLogged) {
       reset()
-    } catch (error) {
-      const errorMessage = getApiErrorMessage(error)
 
-      showToastError(
-        theme,
-        errorMessage || 'Algo deu errado, por favor tente novamente mais tarde.'
-      )
+      router.push('/trilhas')
     }
   }
 
@@ -77,6 +72,7 @@ export default function LoginPage() {
           <InputPassword required error={errors.password} control={control} />
 
           <Button
+            isLoading={isAuthLoading}
             color="green"
             disabled={isSubmitDisabled}
             type="submit"
@@ -88,4 +84,23 @@ export default function LoginPage() {
       </BodyWrapper>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const authUser = await getPageAuthUser(ctx)
+
+  if (authUser) {
+    return {
+      redirect: {
+        destination: '/trilhas',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      authUser
+    }
+  }
 }
