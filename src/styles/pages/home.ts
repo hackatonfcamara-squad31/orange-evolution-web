@@ -7,7 +7,7 @@ export const BodyWrapper = styled('div', {
   justifyContent: 'center',
   minHeight: '100vh',
   padding: '3rem 1.25rem',
-
+  
   variants: {
     theme: {
       light: {
@@ -28,5 +28,16 @@ export const Main = styled('main', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '$md'
+  gap: '$md',
+  
+})
+
+export const Form = styled ('form', {  
+  display: 'flex',
+  flexDirection: 'column',  
+  gap: '$md',
+
+  span:{
+    fontSize:"$xs",   
+  }
 })
