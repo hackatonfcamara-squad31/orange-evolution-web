@@ -9,8 +9,8 @@ import { CheckboxRoot, CheckboxWrapper } from './styles'
 
 export interface CheckboxProps extends RadixCheckoxProps {
   size?: 'sm' | 'md' | 'lg'
-  labelFor: string
-  label: string
+  labelFor?: string
+  label?: string
 }
 
 export function Checkbox({

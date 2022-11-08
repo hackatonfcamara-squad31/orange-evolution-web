@@ -5,39 +5,51 @@ import {
   Flex,
   CollapsibleTrigger,
   CollapsibleIconButton,
-  Repository,
+  RepositoryContent,
+  RepositoryModule,
   CollapsibleContent
 } from './styles'
-import { MdKeyboardArrowDown, MdKeyboardArrowLeft } from 'react-icons/md'
+import { MdKeyboardArrowDown, MdKeyboardArrowRight } from 'react-icons/md'
+import { useTheme } from 'contexts/ThemeContext'
+import { Checkbox } from 'components/Checkbox'
 
 export function Collapsible() {
   const [open, setOpen] = React.useState(false)
+  const { theme } = useTheme()
 
   return (
     <>
       <CollapsibleRoot open={open} onOpenChange={setOpen}>
-        <Repository>
-          <Flex css={{ alignItems: 'center', justifyContent: 'space-between' }}>
-            <Text>Módulo</Text>
-            <Text css={{ color: 'white' }}>Teste</Text>
+        <RepositoryModule theme={theme}>
+          <Flex
+            css={{
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              gap: '0.5rem'
+            }}
+          >
             <CollapsibleTrigger asChild>
-              <CollapsibleIconButton>
-                {open ? <MdKeyboardArrowDown /> : <MdKeyboardArrowLeft />}
+              <CollapsibleIconButton theme={theme}>
+                {open ? <MdKeyboardArrowDown /> : <MdKeyboardArrowRight />}
               </CollapsibleIconButton>
             </CollapsibleTrigger>
+            <Text>O início</Text>
           </Flex>
-        </Repository>
+        </RepositoryModule>
 
         <CollapsibleContent>
-          <Repository>
+          <RepositoryContent theme={theme}>
+            <Checkbox size="md" />
             <Text>Conteúdo</Text>
-          </Repository>
-          <Repository>
+          </RepositoryContent>
+          <RepositoryContent theme={theme}>
+            <Checkbox size="md" />
             <Text>Conteúdo</Text>
-          </Repository>
-          <Repository>
+          </RepositoryContent>
+          <RepositoryContent theme={theme}>
+            <Checkbox size="md" />
             <Text>Conteúdo</Text>
-          </Repository>
+          </RepositoryContent>
         </CollapsibleContent>
       </CollapsibleRoot>
     </>

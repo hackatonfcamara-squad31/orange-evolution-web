@@ -12,10 +12,13 @@ export const CheckboxWrapper = styled('div', {
 })
 
 export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
-  borderRadius: '$md',
+  borderRadius: '$full',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  svg: {
+    fontSize: '0.875rem'
+  },
 
   variants: {
     theme: {
@@ -25,9 +28,10 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
         color: '$gray800'
       },
       light: {
-        backgroundColor: '$gray800',
+        backgroundColor: '#FF5A23',
+        border: '1px solid white',
         transition: 'all 0.2s ease',
-        color: '$white'
+        color: 'white'
       }
     },
 
@@ -35,7 +39,7 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
       sm: {
         width: '1.25rem',
         height: '1.25rem',
-        fontSize: '$xs'
+        fontSize: '0.75rem'
       },
       md: {
         width: '1.5rem',

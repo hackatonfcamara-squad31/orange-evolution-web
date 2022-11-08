@@ -12,32 +12,91 @@ export const CollapsibleContent = CollapsiblePrimitive.Content
 export const Flex = styled('div', { display: 'flex' })
 
 export const Text = styled('span', {
-  color: '$gray800',
-  fontSize: 15,
-  lineHeight: '25px'
+  fontFamily: '$montserrat'
 })
 
 export const CollapsibleIconButton = styled('button', {
   all: 'unset',
-  fontFamily: 'inherit',
-  borderRadius: '100%',
-  height: 30,
-  width: 30,
+  // borderRadius: '100%',
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'black',
-  // boxShadow: `0 2px 10px ${blackA.blackA7}`,
-  '&[data-state="closed"]': { backgroundColor: 'white' },
-  '&[data-state="open"]': { backgroundColor: 'white' },
-  '&:hover': { backgroundColor: '$gray400' }
-  // '&:focus': { boxShadow: `0 0 0 2px black` }
+  // boxShadow: `0 2px 5px black`,
+  fontSize: '$2xl',
+
+  variants: {
+    theme: {
+      light: {
+        color: '#FF5A23',
+        // '&[data-state="closed"]': { backgroundColor: '$gray100' },
+        // '&[data-state="open"]': { backgroundColor: '$gray100' },
+        '&:hover': { svg: { filter: ' drop-shadow(  0 0 3px gray)' } }
+      },
+      dark: {
+        color: '$gray800',
+
+        // '&[data-state="closed"]': { backgroundColor: '$gray300' },
+        // '&[data-state="open"]': { backgroundColor: '$gray300' },
+        '&:hover': { svg: { filter: ' drop-shadow(  $sm )' } }
+      }
+    }
+  }
 })
 
-export const Repository = styled('div', {
-  backgroundColor: 'white',
-  borderRadius: 4,
+export const RepositoryModule = styled('div', {
+  display: 'flex',
+  borderRadius: '2rem',
   margin: '10px 0',
-  padding: 12,
-  boxShadow: `0 2px 10px black`
+  padding: '0.6rem 1.5rem',
+  boxShadow: `1px 2px 10px gray`,
+
+  span: {
+    fontWeight: '600',
+    fontSize: '$lg'
+  },
+  variants: {
+    theme: {
+      light: {
+        backgroundColor: 'white',
+        span: {
+          color: '$gray800'
+        }
+      },
+      dark: {
+        backgroundColor: '$gray600',
+        span: {
+          color: '$gray100'
+        }
+      }
+    }
+  }
+})
+
+export const RepositoryContent = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  borderRadius: '2rem',
+  margin: '0.5rem 0',
+  padding: '0.75rem 2rem',
+  boxShadow: `1px 2px 10px gray`,
+  fontWeight: '600',
+  span: {
+    fontSize: '$md'
+  },
+  variants: {
+    theme: {
+      light: {
+        backgroundColor: 'white',
+        span: {
+          color: '$gray800'
+        }
+      },
+      dark: {
+        backgroundColor: '$gray500',
+        span: {
+          color: '$gray100'
+        }
+      }
+    }
+  }
 })

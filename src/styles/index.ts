@@ -68,7 +68,8 @@ export const {
     },
 
     fonts: {
-      roboto: 'Roboto, sans-serif'
+      roboto: 'Roboto, sans-serif',
+      montserrat: 'Montserrat, sans-serif'
     },
 
     fontSizes: {
