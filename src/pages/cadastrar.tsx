@@ -1,4 +1,3 @@
-import { ErrorData } from '@appTypes/errorTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
@@ -7,12 +6,16 @@ import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
 import { useTheme } from 'contexts/ThemeContext'
+import { getCookie } from 'cookies-next'
+
+import { registerUser } from 'libs/auth/api'
 import {
   RegisterFormData,
   registerSchema
-} from 'helpers/forms/schemas/registerSchema'
-import { registerUser } from 'libs/auth/api'
+} from 'libs/auth/schemas/registerSchema'
 import { RegisterResponse } from 'libs/auth/types'
+import { getApiErrorMessage } from 'libs/functions/api'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
@@ -52,18 +55,17 @@ export default function Register() {
   async function handleRegister(data: RegisterFormData) {
     try {
       const response: RegisterResponse = await registerUser(data)
-      console.log('🚀 ~ response', response)
 
       showToastSuccess(theme, 'Cadastro realizado com sucesso!')
 
       reset()
     } catch (error) {
-      const { data }: { data: ErrorData } = error.response
+      const errorMessage = getApiErrorMessage(error)
 
-      const errorMessage =
-        typeof data.message === 'string' ? data.message : data.message[0]
-
-      showToastError(theme, errorMessage)
+      showToastError(
+        theme,
+        errorMessage || 'Algo deu errado, por favor tente novamente mais tarde.'
+      )
     }
   }
 
@@ -101,4 +103,21 @@ export default function Register() {
       </BodyWrapper>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/trilhas',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

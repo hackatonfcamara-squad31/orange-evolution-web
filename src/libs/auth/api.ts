@@ -1,7 +1,7 @@
-import { RegisterFormData } from 'helpers/forms/schemas/registerSchema'
-import { LoginFormData } from 'helpers/forms/schemas/loginSchema'
+import { User } from 'libs/user/types'
 import { api } from 'services/api'
-import { LoginResponse, RegisterResponse } from './types'
+import { RegisterFormData } from './schemas/registerSchema'
+import { RegisterResponse } from './types'
 
 export const registerUser = async (
   registerFormData: RegisterFormData
@@ -14,12 +14,16 @@ export const registerUser = async (
   return data
 }
 
-export const loginUser = async (
-  loginFormData: LoginFormData
-) : Promise<LoginResponse> => {
-  const { data } : {data: LoginResponse } = await api.post('/me', {
-    ...loginFormData,
-    is_admin:false
+export const getAuthUser = async (token: string): Promise<User | null> => {
+  if (!token) {
+    return null
+  }
+
+  const { data }: { data: User } = await api.get('/me', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   })
+
   return data
 }

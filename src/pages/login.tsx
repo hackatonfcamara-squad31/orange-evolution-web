@@ -1,27 +1,22 @@
-import { ErrorData } from '@appTypes/errorTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
-import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
+import { useAuth } from 'contexts/AuthContext'
 import { useTheme } from 'contexts/ThemeContext'
-import { LoginResponse } from 'libs/auth/types'
-import { loginUser } from 'libs/auth/api'
+import { getCookie } from 'cookies-next'
+import { LoginFormData, loginSchema } from 'libs/auth/schemas/loginSchema'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
-import { LoginForm, LoginHeader } from 'styles/pages/login'
 import { BodyWrapper } from 'styles/pages/home'
-import { showToastError, showToastSuccess } from 'utils/toasts'
-import {
-  LoginFormData,
-  loginSchema
-} from '../helpers/forms/schemas/loginSchema'
-import axios from 'axios'
+import { LoginForm, LoginHeader } from 'styles/pages/login'
 
 export default function LoginPage() {
   const { theme } = useTheme()
+  const { isAuthLoading, login } = useAuth()
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -45,32 +40,11 @@ export default function LoginPage() {
     !!errors.email || !!errors.password || !watch('email') || !watch('password')
 
   async function handleLogin(data: LoginFormData) {
-    try {
-      const response: LoginResponse = await loginUser(data)
-      console.log('🚀 ~ response', response)
+    const isLogged = await login(data)
 
-      showToastSuccess(theme, 'Login feito com sucesso!')
-
+    if (isLogged) {
       reset()
-    } catch (error) {
-      handleApiError(error)
     }
-  }
-
-  function handleApiError(error: unknown) {
-    let errorMessage = ''
-
-    if (axios.isAxiosError(error)) {
-      const { data } = error.response
-      errorMessage = data.message || error.message
-    } else if (error instanceof Error) {
-      errorMessage = error.message
-    }
-
-    showToastError(
-      theme,
-      errorMessage || 'Algo deu errado, tente novamente mais tarde.'
-    )
   }
 
   return (
@@ -93,6 +67,7 @@ export default function LoginPage() {
           <InputPassword required error={errors.password} control={control} />
 
           <Button
+            isLoading={isAuthLoading}
             color="green"
             disabled={isSubmitDisabled}
             type="submit"
@@ -104,4 +79,21 @@ export default function LoginPage() {
       </BodyWrapper>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/trilhas',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
 }

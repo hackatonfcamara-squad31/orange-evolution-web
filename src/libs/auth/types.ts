@@ -8,9 +8,5 @@ export type RegisterResponse = {
 }
 
 export type LoginResponse = {
-  id: string
-  email: string
-  is_admin: boolean
-  created_at: string
-  updated_at: string
+  access_token: string
 }

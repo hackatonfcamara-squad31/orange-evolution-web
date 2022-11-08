@@ -34,7 +34,6 @@ export function ImageDropzone({
 
         setPreview(previewImage)
       } catch (error) {
-        console.log('🚀 ~ error', error)
         showToastError(
           theme,
           'Erro ao carregar a imagem, por favor cheque o formato.'
