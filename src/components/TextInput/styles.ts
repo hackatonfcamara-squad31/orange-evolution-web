@@ -12,7 +12,7 @@ export const InputWrapper = styled('div', {
   padding: '0.25rem 1rem',
   borderRadius: '$full',
   width: '100%',
-  boxShadow: '4px 4px 12px rgba(0, 0, 0, 0.25)',
+  boxShadow: '$default',
 
   '&:focus-within': {
     '& > div > svg': {

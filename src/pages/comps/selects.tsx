@@ -60,10 +60,16 @@ const oderByList = [
     value: 'Ordenar por'
   },
   {
-    value: 'Duração'
+    value: 'Título de A-Z'
   },
   {
-    value: 'Título'
+    value: 'Título de Z-A'
+  },
+  {
+    value: 'Duração crescente'
+  },
+  {
+    value: 'Duração decrescente'
   }
 ]
 
