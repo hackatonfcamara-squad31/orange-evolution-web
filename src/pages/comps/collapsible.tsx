@@ -1,10 +1,9 @@
-import Head from 'next/head'
-import { useTheme } from 'contexts/ThemeContext'
-import { BodyWrapper, Main } from 'styles/pages/home'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Collapsible } from 'components/Collapsible'
-import { Flex } from '../../components/Collapsible/styles'
 import { Content } from 'components/Content'
+import { useTheme } from 'contexts/ThemeContext'
+import Head from 'next/head'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function Home() {
   const { theme } = useTheme()
@@ -19,11 +18,19 @@ export default function Home() {
           <h1>Collapsible</h1>
 
           <ButtonToggleTheme />
-          <Flex css={{ flexDirection: 'column' }}>
-            <Collapsible>Módulo 1 </Collapsible>
-            <Collapsible>Módulo 2</Collapsible>
-            <Collapsible>Módulo 3</Collapsible>
-          </Flex>
+
+          <Collapsible title="Módulo 1">
+            <Content>teste</Content>
+            <Content>teste</Content>
+            <Content>teste</Content>
+            <Content>teste</Content>
+          </Collapsible>
+          <Collapsible title="Módulo 2">
+            <Content>teste</Content>
+            <Content>teste</Content>
+            <Content>teste</Content>
+            <Content>teste</Content>
+          </Collapsible>
         </Main>
       </BodyWrapper>
     </>

@@ -15,8 +15,9 @@ export const {
       white: '#fff',
       black: '#000',
 
-      // backgroundlight:'',
-      // backgrounddark:'',
+      orange600: '#FF5A23',
+      orange500: '#FF7823',
+      orange400: '#FFA000',
 
       green900: '#14532d',
       green800: '#166534',
@@ -28,10 +29,6 @@ export const {
       green200: '#bbf7d0',
       green100: '#dcfce7',
       green50: '#f0fdf4',
-
-      orange500: '#FFA000',
-      orange600: '#FF7823',
-      orange700: '#FF5A23',
 
       red900: '#7f1d1d',
       red800: '#991b1b',
@@ -96,12 +93,7 @@ export const {
     },
 
     shadows: {
-      sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-      md: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      lg: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      xl: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      '2xl':
-        '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+      default: '4px 4px 8px rgba(0, 0, 0, 0.25)'
     },
 
     radii: {
