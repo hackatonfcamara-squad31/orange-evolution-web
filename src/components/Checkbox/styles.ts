@@ -24,9 +24,15 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
   variants: {
     theme: {
       dark: {
-        backgroundColor: '$gray100',
-        transition: '0.2s',
-        color: '$gray800'
+        backgroundColor: '$gray700',
+        border: '1px solid $gray400',
+        '&[data-state="checked"]': {
+          backgroundColor: '#FF5A23',
+          border: 'none'
+        },
+        svg: {
+          color: '$gray300'
+        }
       },
       light: {
         backgroundColor: 'white',

@@ -35,7 +35,7 @@ export function Collapsible({ children }: CollapsibleProps) {
               css={{
                 alignItems: 'center',
                 justifyContent: 'flex-start',
-                gap: '0.5rem'
+                gap: '$xs'
               }}
             >
               <CollapsibleIconButton theme={theme}>

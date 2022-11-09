@@ -21,6 +21,7 @@ export const CollapsibleContentWrapper = styled(CollapsiblePrimitive.Content, {
 export const RepositoryContent = styled('div', {
   display: 'flex',
   alignItems: 'center',
+  gap: '$xs',
   borderRadius: '2rem',
   margin: '0.5rem 0.3rem',
   padding: '0.75rem 2rem',
@@ -38,7 +39,8 @@ export const RepositoryContent = styled('div', {
         }
       },
       dark: {
-        backgroundColor: '$gray500',
+        backgroundColor: '$gray700',
+        boxShadow: 'none',
         span: {
           color: '$gray100'
         }

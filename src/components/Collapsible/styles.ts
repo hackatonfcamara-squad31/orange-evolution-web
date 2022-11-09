@@ -30,7 +30,7 @@ export const CollapsibleIconButton = styled('button', {
         '&:hover': { svg: { filter: ' drop-shadow(  0 0 3px gray)' } }
       },
       dark: {
-        color: '$gray800',
+        color: '#FF5A23',
         '&:hover': { svg: { filter: ' drop-shadow(  0 0 3px gray)' } }
       }
     }
@@ -40,6 +40,7 @@ export const CollapsibleIconButton = styled('button', {
 export const RepositoryModule = styled('div', {
   display: 'flex',
   borderRadius: '2rem',
+  gap: '1rem',
   margin: '10px 0',
   padding: '0.6rem 1.5rem',
   boxShadow: `1px 2px 10px gray`,
@@ -57,7 +58,8 @@ export const RepositoryModule = styled('div', {
         }
       },
       dark: {
-        backgroundColor: '$gray600',
+        backgroundColor: '$gray700',
+        boxShadow: 'none',
         span: {
           color: '$gray100'
         }
