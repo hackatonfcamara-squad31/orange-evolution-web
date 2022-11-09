@@ -2,7 +2,7 @@ import { styled } from 'styles'
 
 export const HeaderWrapper = styled('header', {
   width: '100vw',
-  background: '$orange600',
+  background: '$orange500',
   padding: '1.75rem 0'
 })
 
