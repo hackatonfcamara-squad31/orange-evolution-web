@@ -15,10 +15,12 @@ export const globalStyles = globalCss({
   },
   'a, button': {
     cursor: 'pointer',
-    border: 'none'
+    border: 'none',
+    fontFamily: '$montserrat'
   },
   input: {
-    border: 'none'
+    border: 'none',
+    fontFamily: '$montserrat'
     // '&:-webkit-autofill, &:-webkit-autofill:focus': {
     //   transition: 'background-color 600000s 0s, color 600000s 0s'
     // }

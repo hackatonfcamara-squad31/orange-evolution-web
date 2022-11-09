@@ -68,6 +68,7 @@ export const PrimitiveButton = styled('button', {
   alignItems: 'center',
   justifyContent: 'center',
   gap: 8,
+  textDecoration: 'none',
 
   transition: 'all 0.2s ease-out',
 
