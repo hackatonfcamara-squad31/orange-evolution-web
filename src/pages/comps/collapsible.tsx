@@ -23,7 +23,6 @@ export default function Home() {
             <Collapsible>Módulo 1 </Collapsible>
             <Collapsible>Módulo 2</Collapsible>
             <Collapsible>Módulo 3</Collapsible>
-            <Collapsible>Módulo 4</Collapsible>
           </Flex>
         </Main>
       </BodyWrapper>
