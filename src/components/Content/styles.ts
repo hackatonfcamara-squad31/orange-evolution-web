@@ -1,11 +1,11 @@
 import { styled } from 'styles'
 
-export const RepositoryContent = styled('div', {
+export const ContentWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '0.5rem',
   borderRadius: '$full',
-  padding: '0.75rem 2rem',
+  padding: '0.75rem 1rem',
   boxShadow: '$default',
 
   variants: {
