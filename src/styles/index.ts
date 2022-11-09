@@ -15,6 +15,10 @@ export const {
       white: '#fff',
       black: '#000',
 
+      orange600: '#FF5A23',
+      orange500: '#FF7823',
+      orange400: '#FFA000',
+
       green900: '#14532d',
       green800: '#166534',
       green700: '#15803d',
@@ -68,7 +72,7 @@ export const {
     },
 
     fonts: {
-      roboto: 'Roboto, sans-serif'
+      montserrat: 'Montserrat, sans-serif'
     },
 
     fontSizes: {

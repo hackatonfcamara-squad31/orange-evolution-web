@@ -5,7 +5,7 @@ import { TbMail } from 'react-icons/tb'
 
 interface InputEmailProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError
-  control: Control
+  control?: Control
   validate?: RegisterOptions
 }
 

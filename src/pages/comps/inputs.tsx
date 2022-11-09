@@ -16,7 +16,7 @@ export default function Home() {
         <title>Inputs</title>
       </Head>
       <BodyWrapper theme={theme}>
-        <Main>
+        <Main css={{ maxWidth: '300px' }}>
           <h1>Inputs</h1>
 
           <ButtonToggleTheme />
