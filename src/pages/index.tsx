@@ -17,8 +17,8 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
+      <Header />
       <BodyWrapper theme={theme}>
-        <Header />
         {/* <ButtonToggleTheme /> não está incluído no design */}
         <Main>
           <Image
