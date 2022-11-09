@@ -40,8 +40,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const isAuthenticaded = !!authUser
 
-  // console.log('🚀 ~ authUser', authUser)
-
   async function updateAuthUser() {
     const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME)
 
