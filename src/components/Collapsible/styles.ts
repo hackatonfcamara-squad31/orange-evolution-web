@@ -1,13 +1,12 @@
-import { styled } from 'styles'
-
+import { styled, keyframes } from 'styles'
 import * as CollapsiblePrimitive from '@radix-ui/react-collapsible'
 
 export const CollapsibleRoot = styled(CollapsiblePrimitive.Root, {
-  width: '70vw'
+  width: '70vw',
+  marginLeft: '1rem'
 })
 
 export const CollapsibleTrigger = CollapsiblePrimitive.Trigger
-export const CollapsibleContent = CollapsiblePrimitive.Content
 
 export const Flex = styled('div', { display: 'flex' })
 
@@ -17,27 +16,22 @@ export const Text = styled('span', {
 
 export const CollapsibleIconButton = styled('button', {
   all: 'unset',
-  // borderRadius: '100%',
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  // boxShadow: `0 2px 5px black`,
-  fontSize: '$2xl',
-
+  fontSize: '$2xl', //icon size
+  span: {
+    fontSize: '$2xl'
+  },
   variants: {
     theme: {
       light: {
         color: '#FF5A23',
-        // '&[data-state="closed"]': { backgroundColor: '$gray100' },
-        // '&[data-state="open"]': { backgroundColor: '$gray100' },
         '&:hover': { svg: { filter: ' drop-shadow(  0 0 3px gray)' } }
       },
       dark: {
         color: '$gray800',
-
-        // '&[data-state="closed"]': { backgroundColor: '$gray300' },
-        // '&[data-state="open"]': { backgroundColor: '$gray300' },
-        '&:hover': { svg: { filter: ' drop-shadow(  $sm )' } }
+        '&:hover': { svg: { filter: ' drop-shadow(  0 0 3px gray)' } }
       }
     }
   }
@@ -64,35 +58,6 @@ export const RepositoryModule = styled('div', {
       },
       dark: {
         backgroundColor: '$gray600',
-        span: {
-          color: '$gray100'
-        }
-      }
-    }
-  }
-})
-
-export const RepositoryContent = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  borderRadius: '2rem',
-  margin: '0.5rem 0',
-  padding: '0.75rem 2rem',
-  boxShadow: `1px 2px 10px gray`,
-  fontWeight: '600',
-  span: {
-    fontSize: '$md'
-  },
-  variants: {
-    theme: {
-      light: {
-        backgroundColor: 'white',
-        span: {
-          color: '$gray800'
-        }
-      },
-      dark: {
-        backgroundColor: '$gray500',
         span: {
           color: '$gray100'
         }

@@ -10,7 +10,7 @@ export const globalStyles = globalCss({
     scrollBehavior: 'smooth'
   },
   body: {
-    fontFamily: '$roboto',
+    fontFamily: '$montserrat',
     fontWeight: 400
   },
   'a, button': {
