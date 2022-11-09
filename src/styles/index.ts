@@ -15,6 +15,9 @@ export const {
       white: '#fff',
       black: '#000',
 
+      // backgroundlight:'',
+      // backgrounddark:'',
+
       green900: '#14532d',
       green800: '#166534',
       green700: '#15803d',
@@ -25,6 +28,10 @@ export const {
       green200: '#bbf7d0',
       green100: '#dcfce7',
       green50: '#f0fdf4',
+
+      orange500: '#FFA000',
+      orange600: '#FF7823',
+      orange700: '#FF5A23',
 
       red900: '#7f1d1d',
       red800: '#991b1b',
@@ -55,7 +62,8 @@ export const {
       md: '1.25rem', // 20px
       lg: '1.5rem', // 24px
       xl: '2rem', // 32px
-      '2xl': '2.5rem' // 40px
+      '2xl': '2.5rem', // 40px
+      '3xl': '3rem' // 48px
     },
 
     lineHeights: {

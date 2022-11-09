@@ -1,9 +1,13 @@
 import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
+import { Header } from 'components/Header'
+import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
-import { BodyWrapper, Main } from 'styles/pages/home'
+import { BodyWrapper, H2, Main } from 'styles/pages/home'
+import logoOrangeEvolution from '../../public/logoorangeevolution.svg'
 
 export default function Home() {
   const { theme } = useTheme()
@@ -14,21 +18,24 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <BodyWrapper theme={theme}>
+        <Header />
+        {/* <ButtonToggleTheme /> não está incluído no design */}
         <Main>
-          <h1>Home</h1>
-          <ButtonToggleTheme />
-
-          <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/login" passHref>
-              <Button>Login</Button>
-            </Link>
-            <Link href="/cadastrar">
-              <Button>Cadastro</Button>
-            </Link>
-            <Link href="/trilhas">
-              <Button>Trilhas</Button>
-            </Link>
+          <Image
+            src={logoOrangeEvolution}
+            alt="logo da orange evolution"
+            width={700}
+            height={350}
+          />
+          <div>
+            <Text size="md">
+              <H2>
+                Um guia de desenvolvimento para <br />
+                seu start no mundo da tecnologia
+              </H2>
+            </Text>
           </div>
+          <Button>Acesse aqui</Button>
         </Main>
       </BodyWrapper>
     </>

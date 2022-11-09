@@ -2,6 +2,7 @@ import { Slot } from '@radix-ui/react-slot'
 import { styled } from 'styles'
 
 export const StyledText = styled(Slot, {
+  fontFamily: '$montserrat',
   variants: {
     theme: {
       light: {
