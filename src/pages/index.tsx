@@ -17,16 +17,17 @@ export default function Home() {
       <Head>
         <title>Home</title>
       </Head>
-      <Header />
       <BodyWrapper theme={theme}>
+        <Header />
         {/* <ButtonToggleTheme /> não está incluído no design */}
         <Main>
-          <Image
-            src={logoOrangeEvolution}
-            alt="logo da orange evolution"
-            width={700}
-            height={350}
-          />
+          <div style={{ width: '50vw', height: '45vh', position: 'relative' }}>
+            <Image
+              src={logoOrangeEvolution}
+              alt="logo da orange evolution"
+              fill
+            />
+          </div>
           <div>
             <Text size="md">
               <H2>
@@ -35,7 +36,11 @@ export default function Home() {
               </H2>
             </Text>
           </div>
-          <Button>Acesse aqui</Button>
+          <div style={{ width: '20vw' }}>
+            <Button size="lg" isFullWidth>
+              Acesse aqui
+            </Button>
+          </div>
         </Main>
       </BodyWrapper>
     </>

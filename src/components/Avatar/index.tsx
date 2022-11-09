@@ -9,7 +9,7 @@ export interface AvatarImageProps extends ComponentProps<typeof AvatarImage> {
   withBorder?: boolean
 }
 
-export function PrimitiveAvatar({
+export function Avatar({
   theme,
   size = 'md',
   withBorder,

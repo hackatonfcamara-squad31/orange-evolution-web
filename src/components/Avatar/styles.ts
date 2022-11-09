@@ -73,8 +73,8 @@ export const AvatarFallback = styled(Avatar.Fallback, {
   variants: {
     theme: {
       light: {
-        backgroundColor: '$gray200',
-        color: '$gray600'
+        backgroundColor: '$orange500',
+        color: 'white'
       },
       dark: {
         backgroundColor: '$gray800',

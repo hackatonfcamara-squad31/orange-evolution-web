@@ -12,3 +12,17 @@ export const HeaderImages = styled('div', {
   justifyContent: 'center',
   gap: '$3xl'
 })
+
+export const HeaderAvatarWrapper = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$sm'
+})
+
+export const HeaderTextWrapper = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  span: {
+    color: 'white'
+  }
+})

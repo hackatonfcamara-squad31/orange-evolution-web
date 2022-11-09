@@ -5,7 +5,7 @@ export const BodyWrapper = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
-  padding: '3rem 1.25rem',
+  // padding: '3rem 1.25rem',
 
   variants: {
     theme: {
@@ -31,7 +31,8 @@ export const Main = styled('main', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '$md'
+  gap: '$2xl',
+  padding: '3rem 1.5rem'
 })
 
 export const Form = styled('form', {

@@ -17,15 +17,16 @@ const darkStyles = {
 }
 
 const lightStyles = {
-  backgroundColor: '$gray300',
-  color: '$gray800',
+  backgroundColor: '$orange600',
+  color: 'white',
+  boxShadow: '0 4px 4px gray',
 
   svg: {
     stroke: '$gray800'
   },
 
   '&:not(:disabled):hover': {
-    backgroundColor: '$gray200'
+    backgroundColor: '$orange500'
   },
   '&:focus': {
     outline: '1px solid $gray800'
@@ -59,7 +60,7 @@ const greenStyles = {
 }
 
 export const PrimitiveButton = styled('button', {
-  borderRadius: '$md',
+  borderRadius: '$full',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
