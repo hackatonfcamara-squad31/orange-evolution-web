@@ -1,52 +1,30 @@
-import React from 'react'
-import {
-  CollapsibleRoot,
-  Flex,
-  CollapsibleTrigger,
-  CollapsibleIconButton,
-  RepositoryModule
-} from './styles'
-import { MdKeyboardArrowRight } from 'react-icons/md'
-import { useTheme } from 'contexts/ThemeContext'
-
 import { Text } from 'components/Text'
-import { ReactNode } from 'react'
-import { Content } from 'components/Content'
+import { useTheme } from 'contexts/ThemeContext'
+import { ReactNode, useState } from 'react'
+import { MdKeyboardArrowRight } from 'react-icons/md'
+import { CollapsibleRoot, CollapsibleTrigger, ContentWrapper } from './styles'
 
 export interface CollapsibleProps {
-  children?: ReactNode
+  title: string
+  children: ReactNode
 }
 
-export function Collapsible({ children }: CollapsibleProps) {
-  const [open, setOpen] = React.useState(false)
+export function Collapsible({ title, children }: CollapsibleProps) {
+  const [open, setOpen] = useState(false)
   const { theme } = useTheme()
-
-  const rotateStyle = {
-    transform: open ? 'rotate(90deg)' : '',
-    transition: 'transform 0.3s ease-in-out'
-  }
 
   return (
     <>
       <CollapsibleRoot open={open} onOpenChange={setOpen}>
-        <CollapsibleTrigger asChild>
-          <RepositoryModule theme={theme}>
-            <Flex
-              css={{
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                gap: '$xs'
-              }}
-            >
-              <CollapsibleIconButton theme={theme}>
-                <MdKeyboardArrowRight style={rotateStyle} />
-              </CollapsibleIconButton>
-              <Text>{children}</Text>
-            </Flex>
-          </RepositoryModule>
+        <CollapsibleTrigger theme={theme}>
+          <MdKeyboardArrowRight />
+
+          <Text size="md" asChild>
+            <h2>{title}</h2>
+          </Text>
         </CollapsibleTrigger>
 
-        <Content>teste</Content>
+        <ContentWrapper>{children}</ContentWrapper>
       </CollapsibleRoot>
     </>
   )
