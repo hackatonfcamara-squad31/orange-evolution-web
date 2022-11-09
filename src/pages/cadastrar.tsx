@@ -91,12 +91,7 @@ export default function Register() {
 
           <InputPassword required error={errors.password} control={control} />
 
-          <Button
-            color="green"
-            disabled={isSubmitDisabled}
-            type="submit"
-            isFullWidth
-          >
+          <Button disabled={isSubmitDisabled} type="submit" isFullWidth>
             Cadastrar
           </Button>
         </RegisterForm>

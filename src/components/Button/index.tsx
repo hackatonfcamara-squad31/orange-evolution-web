@@ -38,7 +38,6 @@ export function Button({
   return (
     <PrimitiveButton size={size} theme={theme} {...props} color={color}>
       {!props.isLoading && children}
-      {/* {!props.isLoading && !props.isOnlyIcon && children} */}
 
       {props.isLoading && !props.isOnlyIcon && children}
       {props.isLoading && <ButtonLoader />}

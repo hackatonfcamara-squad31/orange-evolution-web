@@ -72,7 +72,7 @@ export const PrimitiveButton = styled('button', {
   transition: 'all 0.2s ease-out',
 
   '&:disabled': {
-    opacity: 0.5,
+    opacity: 0.8,
     cursor: 'not-allowed'
   },
 
