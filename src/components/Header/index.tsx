@@ -1,5 +1,5 @@
 import {
-  HeaderAvatarWrapper,
+  HeaderUserWrapper,
   HeaderImages,
   HeaderTextWrapper,
   HeaderWrapper,
@@ -57,13 +57,13 @@ export function Header() {
             gap: '2.5rem'
           }}
         >
-          <HeaderAvatarWrapper>
+          <HeaderUserWrapper>
             <Avatar theme={theme} />
             <HeaderTextWrapper>
               <Text>{authUser.name}</Text>
               <Text size="sm">{authUser.email}</Text>
             </HeaderTextWrapper>
-          </HeaderAvatarWrapper>
+          </HeaderUserWrapper>
 
           <HeaderImagesContainer />
         </HeaderWrapper>

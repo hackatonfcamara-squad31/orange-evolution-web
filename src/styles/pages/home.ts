@@ -29,6 +29,9 @@ export const Subtitle = styled('h2', {
   },
   '@bp3': {
     fontSize: '$lg'
+  },
+  '@bp4': {
+    fontSize: '$md'
   }
 })
 export const Main = styled('main', {
@@ -39,6 +42,12 @@ export const Main = styled('main', {
   alignItems: 'center',
   gap: '$md',
   padding: '3rem 1.25rem'
+})
+
+export const ButtonWrapper = styled('div', {
+  width: '300px',
+  '@bp3': { width: '270px' },
+  '@bp4': { width: '250px' }
 })
 
 export const Form = styled('form', {

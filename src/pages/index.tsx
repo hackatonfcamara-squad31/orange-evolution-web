@@ -5,7 +5,7 @@ import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import Image from 'next/image'
-import { BodyWrapper, Subtitle, Main } from 'styles/pages/home'
+import { BodyWrapper, Subtitle, Main, ButtonWrapper } from 'styles/pages/home'
 import logoOrangeEvolution from '../../public/logoorangeevolution.svg'
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
           <div
             style={{
               width: '50vw',
-              minWidth: '400px',
+              minWidth: '350px',
               height: '50vh',
               minHeight: '200px',
               maxHeight: '500px',
@@ -49,11 +49,11 @@ export default function Home() {
               seu start no mundo da tecnologia
             </Subtitle>
 
-            <div style={{ width: '300px' }}>
+            <ButtonWrapper>
               <Button size="lg" isFullWidth>
                 Acesse aqui
               </Button>
-            </div>
+            </ButtonWrapper>
           </div>
         </Main>
       </BodyWrapper>
