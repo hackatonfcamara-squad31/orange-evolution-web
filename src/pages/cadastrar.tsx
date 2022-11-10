@@ -79,7 +79,7 @@ export default function Register() {
           </ImageWrapper>
 
           <Heading asChild size="lg">
-            <h1>Orange Evolution | Cadastro</h1>
+            <h1>Cadastro</h1>
           </Heading>
         </HeaderWrapper>
 

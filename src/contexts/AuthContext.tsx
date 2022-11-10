@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from 'cookies-next'
+import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { LoginFormData } from 'libs/auth/schemas/loginSchema'
 import { RegisterFormData } from 'libs/auth/schemas/registerSchema'
@@ -128,7 +128,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = async () => {
     try {
-      await api.post('/logout')
+      deleteCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME)
 
       showToastSuccess(theme, 'Logout realizado com sucesso!')
 
