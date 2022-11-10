@@ -1,3 +1,4 @@
+import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Header } from 'components/Header'
 import { Text } from 'components/Text'
@@ -9,8 +10,18 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { BodyWrapper, Main } from 'styles/pages/home'
-import { Card, CardWrapper, TextWrapper } from 'styles/pages/trilhas'
+import {
+  ButtonWrapper,
+  Card,
+  CardImage,
+  CardWrapper,
+  TextWrapper
+} from 'styles/pages/trilhas'
 import logoOrangeEvolution from '../../public/logoorangeevolution.svg'
+import logoAvatarUser from '../../public/user.svg'
+import logoPrancheta from '../../public/prancheta.svg'
+import logoNotebook from '../../public/notebook.svg'
+import logoEsquadro from '../../public/esquadro.svg'
 
 interface TrailsProps {
   user: User
@@ -54,10 +65,49 @@ export default function Trails({ user }: TrailsProps) {
             </Text>
           </TextWrapper>
           <CardWrapper>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
+            <Card>
+              <Text>O início</Text>
+              <CardImage src={logoPrancheta} alt="imagem tema" />
+              <ButtonWrapper>
+                <Button size="md" isFullWidth>
+                  Acessar
+                </Button>
+              </ButtonWrapper>
+            </Card>
+
+            <Card>
+              <Text>
+                Desenvolvimento <br /> Full Stack
+              </Text>
+              <CardImage src={logoNotebook} alt="imagem tema" />
+              <ButtonWrapper>
+                <Button size="md" isFullWidth>
+                  Acessar
+                </Button>
+              </ButtonWrapper>
+            </Card>
+
+            <Card>
+              <Text>UX/UI Design</Text>
+              <CardImage src={logoEsquadro} alt="imagem tema" />
+              <ButtonWrapper>
+                <Button size="md" isFullWidth>
+                  Acessar
+                </Button>
+              </ButtonWrapper>
+            </Card>
+
+            <Card>
+              <Text>
+                Quality Assurance <br /> QA
+              </Text>
+              <CardImage src={logoAvatarUser} alt="imagem tema" />
+              <ButtonWrapper>
+                <Button size="md" isFullWidth>
+                  Acessar
+                </Button>
+              </ButtonWrapper>
+            </Card>
           </CardWrapper>
         </Main>
       </BodyWrapper>

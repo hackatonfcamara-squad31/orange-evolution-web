@@ -5,6 +5,7 @@ import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { BodyWrapper, Subtitle, Main, ButtonWrapper } from 'styles/pages/home'
 import logoOrangeEvolution from '../../public/logoorangeevolution.svg'
 
@@ -18,7 +19,7 @@ export default function Home() {
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
-        {/* <ButtonToggleTheme /> não está incluído no design */}
+        <ButtonToggleTheme style={{ position: 'absolute', right: '1rem' }} />
         <Main>
           <div
             style={{

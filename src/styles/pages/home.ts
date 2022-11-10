@@ -41,7 +41,7 @@ export const Main = styled('main', {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '$md',
-  padding: '3rem 1.25rem'
+  padding: '2rem 1.25rem'
 })
 
 export const ButtonWrapper = styled('div', {
