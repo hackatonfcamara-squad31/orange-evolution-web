@@ -69,7 +69,7 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Cadastro</title>
+        <title>Orange Evolution | Cadastro</title>
       </Head>
 
       <BodyWrapper theme={theme}>
@@ -79,7 +79,7 @@ export default function Register() {
           </ImageWrapper>
 
           <Heading asChild size="lg">
-            <h1>Cadastro</h1>
+            <h1>Orange Evolution | Cadastro</h1>
           </Heading>
         </HeaderWrapper>
 

@@ -99,7 +99,7 @@ export default function LoginPage() {
         </FormWrapper>
 
         <FooterLinkContainer>
-          <Link href="/cadastrar">Ainda não tem conta? Cadastra-se!</Link>
+          <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
         </FooterLinkContainer>
       </BodyWrapper>
     </>
