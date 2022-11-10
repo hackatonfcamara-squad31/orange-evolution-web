@@ -1,7 +1,8 @@
-import { getCookie, setCookie } from 'cookies-next'
+import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { LoginFormData } from 'libs/auth/schemas/loginSchema'
-import { LoginResponse } from 'libs/auth/types'
+import { RegisterFormData } from 'libs/auth/schemas/registerSchema'
+import { LoginResponse, RegisterResponse } from 'libs/auth/types'
 import { getApiErrorMessage } from 'libs/functions/api'
 import { User } from 'libs/user/types'
 import Router from 'next/router'
@@ -26,6 +27,7 @@ interface AuthContextData {
   isAuthLoading: boolean
   setAuthUser: (user: User) => void
   setIsAuthLoading: (isAuthLoading: boolean) => void
+  register: (registerFormData: RegisterFormData) => Promise<boolean>
   login: (loginFormData: LoginFormData) => Promise<boolean>
   logout: () => Promise<boolean>
 }
@@ -61,6 +63,31 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     updateAuthUser()
   }, [])
+
+  const register = async (registerFormData: RegisterFormData) => {
+    setIsAuthLoading(true)
+
+    try {
+      const { data }: { data: RegisterResponse } = await api.post('/users', {
+        ...registerFormData,
+        is_admin: false
+      })
+
+      showToastSuccess(theme, 'Cadastro realizado com sucesso!')
+      setIsAuthLoading(false)
+
+      Router.push('/login')
+
+      return true
+    } catch (error) {
+      const errorMessage = getApiErrorMessage(error)
+
+      showToastError(theme, errorMessage)
+      setIsAuthLoading(false)
+
+      return false
+    }
+  }
 
   const login = async ({ email, password }: LoginFormData) => {
     setIsAuthLoading(true)
@@ -101,7 +128,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const logout = async () => {
     try {
-      await api.post('/logout')
+      deleteCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME)
 
       showToastSuccess(theme, 'Logout realizado com sucesso!')
 
@@ -127,6 +154,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isAuthLoading,
         setAuthUser,
         setIsAuthLoading,
+        register,
         login,
         logout
       }}

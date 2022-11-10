@@ -48,7 +48,7 @@ function TextInputRoot({
 
   return (
     <InputContainer>
-      <InputLabel htmlFor={labelFor}>
+      <InputLabel htmlFor={labelFor} theme={theme}>
         {label} {required && <span>*</span>}
       </InputLabel>
 

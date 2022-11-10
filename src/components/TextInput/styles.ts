@@ -9,7 +9,7 @@ export const InputWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '$xs',
-  padding: '0.25rem 1rem',
+  padding: '0.85rem 1.5rem',
   borderRadius: '$full',
   width: '100%',
   boxShadow: '$default',
@@ -94,14 +94,18 @@ export const InputWrapper = styled('div', {
         }
       }
     }
-  ]
+  ],
+
+  '@bp3': {
+    padding: '0.25rem 1rem'
+  }
 })
 
 export const InputLabel = styled('label', {
-  display: 'block',
+  display: 'inline-flex',
   fontSize: '$xs',
   marginBottom: '$xs',
-  paddingLeft: '1rem',
+  paddingLeft: '1.5rem',
   fontWeight: 600,
 
   span: {
@@ -111,7 +115,7 @@ export const InputLabel = styled('label', {
   variants: {
     theme: {
       light: {
-        color: '$gray800'
+        color: '$gray600'
       },
       dark: {
         color: '$gray100'
@@ -140,16 +144,10 @@ export const InputErrorMessage = styled('span', {
 })
 
 export const InputIcon = styled('div', {
-  height: 20,
-  width: 20,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-
-  svg: {
-    height: 20,
-    width: 20
-  },
+  fontSize: '$xl',
 
   variants: {
     theme: {
@@ -160,6 +158,10 @@ export const InputIcon = styled('div', {
         color: '$gray400'
       }
     }
+  },
+
+  '@bp3': {
+    fontSize: '$md'
   }
 })
 
@@ -184,7 +186,7 @@ export const ShowPasswordButton = styled('button', {
 
 export const Input = styled('input', {
   outline: 'none',
-  fontSize: '$sm',
+  fontSize: '$md',
   borderRadius: '$md',
   padding: '8px 4px',
   backgroundColor: 'transparent',
@@ -211,5 +213,9 @@ export const Input = styled('input', {
         }
       }
     }
+  },
+
+  '@bp3': {
+    fontSize: '$sm'
   }
 })

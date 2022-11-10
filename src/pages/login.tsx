@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
-import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
-import { Header } from 'components/Header'
+import { Checkbox } from 'components/Checkbox'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
@@ -11,9 +10,20 @@ import { getCookie } from 'cookies-next'
 import { LoginFormData, loginSchema } from 'libs/auth/schemas/loginSchema'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import {
+  ButtonWrapper,
+  FooterLinkContainer,
+  FormWrapper,
+  HeaderWrapper,
+  ImageWrapper,
+  LoginFormFooter
+} from 'styles/pages/auth'
 import { BodyWrapper } from 'styles/pages/home'
-import { LoginForm, LoginHeader } from 'styles/pages/login'
+
+import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 export default function LoginPage() {
   const { theme } = useTheme()
@@ -51,33 +61,46 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Orange Evolution | Login</title>
       </Head>
 
       <BodyWrapper theme={theme}>
-        <Header />
-        <LoginHeader>
-          <ButtonToggleTheme />
+        <HeaderWrapper>
+          <ImageWrapper>
+            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
+          </ImageWrapper>
+
           <Heading asChild size="lg">
             <h1>Login</h1>
           </Heading>
-        </LoginHeader>
+        </HeaderWrapper>
 
-        <LoginForm onSubmit={handleSubmit(handleLogin)}>
+        <FormWrapper onSubmit={handleSubmit(handleLogin)}>
           <InputEmail required error={errors.email} control={control} />
 
           <InputPassword required error={errors.password} control={control} />
 
-          <Button
-            isLoading={isAuthLoading}
-            color="green"
-            disabled={isSubmitDisabled}
-            type="submit"
-            isFullWidth
-          >
-            Login
-          </Button>
-        </LoginForm>
+          <LoginFormFooter>
+            <Checkbox label="Lembrar de mim" labelFor="remember" />
+
+            <Link href="#">Esqueci minha senha</Link>
+          </LoginFormFooter>
+
+          <ButtonWrapper>
+            <Button
+              size="lg"
+              isLoading={isAuthLoading}
+              disabled={isSubmitDisabled}
+              type="submit"
+            >
+              Fazer Login
+            </Button>
+          </ButtonWrapper>
+        </FormWrapper>
+
+        <FooterLinkContainer>
+          <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
+        </FooterLinkContainer>
       </BodyWrapper>
     </>
   )
