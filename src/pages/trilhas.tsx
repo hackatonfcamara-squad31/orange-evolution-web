@@ -17,7 +17,7 @@ import {
   CardWrapper,
   TextWrapper
 } from 'styles/pages/trilhas'
-import logoOrangeEvolution from '../../public/logoorangeevolution.svg'
+import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 import logoAvatarUser from '../../public/user.svg'
 import logoPrancheta from '../../public/prancheta.svg'
 import logoNotebook from '../../public/notebook.svg'
@@ -42,7 +42,7 @@ export default function Trails({ user }: TrailsProps) {
         <ButtonToggleTheme style={{ position: 'absolute', right: '1rem' }} />
         <Main>
           <Image
-            src={logoOrangeEvolution}
+            src={orangeEvolutionLogo}
             alt="logo da orange evolution"
             width={197}
             height={122}

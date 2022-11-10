@@ -31,7 +31,7 @@ export function Avatar({
   return (
     <AvatarContainer size={size} withBorder={withBorder} theme={theme}>
       <AvatarImage {...props} />
-      <AvatarFallback delayMs={600} theme={theme}>
+      <AvatarFallback delayMs={600}>
         <BsPersonCircle size={getFallbackIconSize()} />
       </AvatarFallback>
     </AvatarContainer>

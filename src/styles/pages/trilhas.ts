@@ -26,7 +26,7 @@ export const CardWrapper = styled('div', {
 
   '@bp1': {
     flexWrap: 'wrap',
-    height: '30vh',
+    height: 'auto',
     gap: '$xs'
   }
 })

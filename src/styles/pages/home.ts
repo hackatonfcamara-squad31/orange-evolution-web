@@ -5,6 +5,7 @@ export const BodyWrapper = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
+  height: '100%',
 
   variants: {
     theme: {
@@ -20,20 +21,6 @@ export const BodyWrapper = styled('div', {
   }
 })
 
-export const Subtitle = styled('h2', {
-  fontWeight: 400,
-  fontSize: '$2xl',
-
-  '@bp2': {
-    fontSize: '$xl'
-  },
-  '@bp3': {
-    fontSize: '$lg'
-  },
-  '@bp4': {
-    fontSize: '$md'
-  }
-})
 export const Main = styled('main', {
   maxWidth: '1200px',
   width: '100%',
@@ -41,7 +28,52 @@ export const Main = styled('main', {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '$md',
-  padding: '2rem 1.25rem'
+  padding: '3rem 1.25rem',
+  minHeight: '100%'
+})
+
+export const ImageWrapper = styled('div', {
+  width: '100%',
+  maxWidth: '800px',
+  height: '400px',
+  position: 'relative',
+
+  img: {
+    width: '100%',
+    height: '100%'
+  },
+
+  '@bp2': {
+    height: '300px'
+  },
+
+  '@bp3': {
+    height: '250px'
+  },
+
+  '@media(max-width: 400px)': {
+    height: '150px'
+  }
+})
+
+export const Subtitle = styled('h2', {
+  fontWeight: 400,
+  fontSize: '$2xl',
+  textAlign: 'center',
+  margin: '1rem 0',
+  maxWidth: '600px',
+
+  '@bp2': {
+    fontSize: '$xl'
+  },
+
+  '@bp3': {
+    fontSize: '$lg'
+  },
+
+  '@bp4': {
+    fontSize: '$md'
+  }
 })
 
 export const ButtonWrapper = styled('div', {
