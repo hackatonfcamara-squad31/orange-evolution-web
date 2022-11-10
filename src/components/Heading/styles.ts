@@ -5,10 +5,10 @@ export const StyledHeading = styled(Slot, {
   variants: {
     theme: {
       light: {
-        color: '$gray800'
+        color: '$orange400'
       },
       dark: {
-        color: '$gray100'
+        color: '$orange400'
       }
     },
 

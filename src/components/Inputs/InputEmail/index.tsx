@@ -17,7 +17,7 @@ export function InputEmail({
 }: InputEmailProps) {
   return (
     <TextInput.Root
-      label="E-mail"
+      label="Email"
       labelFor="email"
       error={error}
       required={props.required}
@@ -30,7 +30,7 @@ export function InputEmail({
         id="email"
         name="email"
         type="email"
-        placeholder="Digite seu e-mail"
+        placeholder="Email:"
         control={control}
         validate={validate}
         {...props}

@@ -3,7 +3,7 @@ import axios from 'axios'
 export function getApiErrorMessage(error: unknown) {
   let errorMessage = ''
 
-  if (axios.isAxiosError(error)) {
+  if (axios.isAxiosError(error) && error.response) {
     const { data } = error.response
     errorMessage = data.message || error.message
   }
@@ -12,5 +12,8 @@ export function getApiErrorMessage(error: unknown) {
     errorMessage = error.message
   }
 
-  return errorMessage
+  return (
+    errorMessage ||
+    'Oops, algo deu errado, por favor tente novamente mais tarde.'
+  )
 }
