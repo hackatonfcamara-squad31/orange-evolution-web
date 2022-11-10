@@ -1,29 +1,35 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
-import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
+import { useAuth } from 'contexts/AuthContext'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
-
-import { registerUser } from 'libs/auth/api'
 import {
   RegisterFormData,
   registerSchema
 } from 'libs/auth/schemas/registerSchema'
-import { RegisterResponse } from 'libs/auth/types'
-import { getApiErrorMessage } from 'libs/functions/api'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { RegisterForm, RegisterHeader } from 'styles/pages/cadastrar'
+import {
+  ButtonWrapper,
+  FooterLinkContainer,
+  FormWrapper,
+  HeaderWrapper,
+  ImageWrapper
+} from 'styles/pages/auth'
 import { BodyWrapper } from 'styles/pages/home'
-import { showToastError, showToastSuccess } from 'utils/toasts'
+
+import orangeLogo from '../../public/orangeLogo.svg'
 
 export default function Register() {
   const { theme } = useTheme()
+  const { isAuthLoading, register } = useAuth()
 
   const registerForm = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -53,19 +59,10 @@ export default function Register() {
     !watch('password')
 
   async function handleRegister(data: RegisterFormData) {
-    try {
-      const response: RegisterResponse = await registerUser(data)
+    const isRegisterSuccess = await register(data)
 
-      showToastSuccess(theme, 'Cadastro realizado com sucesso!')
-
+    if (isRegisterSuccess) {
       reset()
-    } catch (error) {
-      const errorMessage = getApiErrorMessage(error)
-
-      showToastError(
-        theme,
-        errorMessage || 'Algo deu errado, por favor tente novamente mais tarde.'
-      )
     }
   }
 
@@ -76,25 +73,38 @@ export default function Register() {
       </Head>
 
       <BodyWrapper theme={theme}>
-        <RegisterHeader>
-          <ButtonToggleTheme />
+        <HeaderWrapper>
+          <ImageWrapper>
+            <Image src={orangeLogo} alt="Orange Evolution Logo" fill />
+          </ImageWrapper>
 
           <Heading asChild size="lg">
             <h1>Cadastro</h1>
           </Heading>
-        </RegisterHeader>
+        </HeaderWrapper>
 
-        <RegisterForm onSubmit={handleSubmit(handleRegister)}>
+        <FormWrapper onSubmit={handleSubmit(handleRegister)}>
           <InputName required error={errors.name} control={control} />
 
           <InputEmail required error={errors.email} control={control} />
 
           <InputPassword required error={errors.password} control={control} />
 
-          <Button disabled={isSubmitDisabled} type="submit" isFullWidth>
-            Cadastrar
-          </Button>
-        </RegisterForm>
+          <ButtonWrapper>
+            <Button
+              size="lg"
+              isLoading={isAuthLoading}
+              disabled={isSubmitDisabled}
+              type="submit"
+            >
+              Cadastrar
+            </Button>
+          </ButtonWrapper>
+        </FormWrapper>
+
+        <FooterLinkContainer>
+          <Link href="/login">Já possui uma conta? Faça login!</Link>
+        </FooterLinkContainer>
       </BodyWrapper>
     </>
   )

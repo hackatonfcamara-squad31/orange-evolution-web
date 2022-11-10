@@ -13,17 +13,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { BodyWrapper } from 'styles/pages/home'
 import {
-  ButtonContainer,
-  ImageContainer,
-  LoginForm,
-  LoginFormFooter,
-  LoginHeader,
-  RegisterLinkContainer
-} from 'styles/pages/login'
+  ButtonWrapper,
+  FooterLinkContainer,
+  FormWrapper,
+  HeaderWrapper,
+  ImageWrapper,
+  LoginFormFooter
+} from 'styles/pages/auth'
+import { BodyWrapper } from 'styles/pages/home'
 
-import orangeLogo from '../../public/orangeLogo.svg'
+import orangeLogo from '@/public/orangeLogo.svg'
 
 export default function LoginPage() {
   const { theme } = useTheme()
@@ -65,17 +65,17 @@ export default function LoginPage() {
       </Head>
 
       <BodyWrapper theme={theme}>
-        <LoginHeader>
-          <ImageContainer>
+        <HeaderWrapper>
+          <ImageWrapper>
             <Image src={orangeLogo} alt="Orange Evolution Logo" fill />
-          </ImageContainer>
+          </ImageWrapper>
 
           <Heading asChild size="lg">
             <h1>Login</h1>
           </Heading>
-        </LoginHeader>
+        </HeaderWrapper>
 
-        <LoginForm onSubmit={handleSubmit(handleLogin)}>
+        <FormWrapper onSubmit={handleSubmit(handleLogin)}>
           <InputEmail required error={errors.email} control={control} />
 
           <InputPassword required error={errors.password} control={control} />
@@ -86,7 +86,7 @@ export default function LoginPage() {
             <Link href="#">Esqueci minha senha</Link>
           </LoginFormFooter>
 
-          <ButtonContainer>
+          <ButtonWrapper>
             <Button
               size="lg"
               isLoading={isAuthLoading}
@@ -95,12 +95,12 @@ export default function LoginPage() {
             >
               Fazer Login
             </Button>
-          </ButtonContainer>
-        </LoginForm>
+          </ButtonWrapper>
+        </FormWrapper>
 
-        <RegisterLinkContainer>
-          <Link href="/cadastrar">Ainda não tem conta? Cadastra-se</Link>
-        </RegisterLinkContainer>
+        <FooterLinkContainer>
+          <Link href="/cadastrar">Ainda não tem conta? Cadastra-se!</Link>
+        </FooterLinkContainer>
       </BodyWrapper>
     </>
   )

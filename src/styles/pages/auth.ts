@@ -1,7 +1,7 @@
 import { Slot } from '@radix-ui/react-slot'
 import { styled } from 'styles'
 
-export const LoginHeader = styled('header', {
+export const HeaderWrapper = styled('header', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$md',
@@ -9,7 +9,7 @@ export const LoginHeader = styled('header', {
   marginBottom: '2rem'
 })
 
-export const ImageContainer = styled('div', {
+export const ImageWrapper = styled('div', {
   width: '200px',
   height: '100px',
   display: 'flex',
@@ -19,7 +19,7 @@ export const ImageContainer = styled('div', {
   marginBottom: '0.5rem'
 })
 
-export const LoginForm = styled('form', {
+export const FormWrapper = styled('form', {
   display: 'flex',
   flexDirection: 'column',
   gap: '1.5rem',
@@ -46,11 +46,11 @@ export const LoginFormFooter = styled('div', {
   }
 })
 
-export const ButtonContainer = styled('div', {
+export const ButtonWrapper = styled('div', {
   marginTop: '1.5rem',
   textAlign: 'center'
 })
 
-export const RegisterLinkContainer = styled(Slot, {
+export const FooterLinkContainer = styled(Slot, {
   marginTop: '1.5rem'
 })

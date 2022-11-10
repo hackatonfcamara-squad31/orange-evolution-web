@@ -105,7 +105,7 @@ export const InputLabel = styled('label', {
   display: 'inline-flex',
   fontSize: '$xs',
   marginBottom: '$xs',
-  paddingLeft: '1rem',
+  paddingLeft: '1.5rem',
   fontWeight: 600,
 
   span: {
