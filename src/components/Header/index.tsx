@@ -1,19 +1,19 @@
+import { Avatar } from 'components/Avatar'
+import { Text } from 'components/Text'
+import logoFCamara from '../../../public/logofcamara.svg'
+import logoOrangeJuice from '../../../public/logoorangejuice.svg'
+import logoPdeFormacao from '../../../public/logopdeformacao.svg'
+import { useAuth } from '../../contexts/AuthContext'
+import { useTheme } from '../../contexts/ThemeContext'
 import {
-  HeaderUserWrapper,
   HeaderImages,
   HeaderTextWrapper,
+  HeaderUserWrapper,
   HeaderWrapper,
   LogoFCamara,
   LogoOrangeJuice,
   LogoPdeFormacao
 } from './styles'
-import logoFCamara from '../../../public/logofcamara.svg'
-import logoOrangeJuice from '../../../public/logoorangejuice.svg'
-import logoPdeFormacao from '../../../public/logopdeformacao.svg'
-import { useAuth } from '../../contexts/AuthContext'
-import { Avatar } from 'components/Avatar'
-import { useTheme } from '../../contexts/ThemeContext'
-import { Text } from 'components/Text'
 
 export function Header() {
   const { theme } = useTheme()
@@ -46,17 +46,12 @@ export function Header() {
 
   return (
     <>
-      {isAuthenticaded ? (
-        <HeaderWrapper
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '1rem 1rem',
-            gap: '2.5rem'
-          }}
-        >
+      <HeaderWrapper
+        css={{
+          justifyContent: isAuthenticaded ? 'space-between' : 'center'
+        }}
+      >
+        {isAuthenticaded && (
           <HeaderUserWrapper>
             <Avatar theme={theme} />
             <HeaderTextWrapper>
@@ -64,14 +59,9 @@ export function Header() {
               <Text size="sm">{authUser.email}</Text>
             </HeaderTextWrapper>
           </HeaderUserWrapper>
-
-          <HeaderImagesContainer />
-        </HeaderWrapper>
-      ) : (
-        <HeaderWrapper style={{ padding: '1.5rem 0' }}>
-          <HeaderImagesContainer />
-        </HeaderWrapper>
-      )}
+        )}
+        <HeaderImagesContainer />
+      </HeaderWrapper>
     </>
   )
 }
