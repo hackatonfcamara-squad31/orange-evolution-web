@@ -5,7 +5,6 @@ export const BodyWrapper = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
-  // padding: '3rem 1.25rem',
 
   variants: {
     theme: {
@@ -21,9 +20,16 @@ export const BodyWrapper = styled('div', {
   }
 })
 
-export const H2 = styled('h2', {
+export const Subtitle = styled('h2', {
   fontWeight: 400,
-  fontSize: '$2xl'
+  fontSize: '$2xl',
+
+  '@bp2': {
+    fontSize: '$xl'
+  },
+  '@bp3': {
+    fontSize: '$lg'
+  }
 })
 export const Main = styled('main', {
   maxWidth: '1200px',
@@ -31,8 +37,9 @@ export const Main = styled('main', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '$2xl',
-  padding: '3rem 1.5rem'
+  gap: '$sm',
+  padding: '1rem 1.5rem',
+  margin: 'auto'
 })
 
 export const Form = styled('form', {

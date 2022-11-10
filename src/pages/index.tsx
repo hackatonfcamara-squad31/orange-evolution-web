@@ -6,7 +6,7 @@ import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BodyWrapper, H2, Main } from 'styles/pages/home'
+import { BodyWrapper, Subtitle, Main } from 'styles/pages/home'
 import logoOrangeEvolution from '../../public/logoorangeevolution.svg'
 
 export default function Home() {
@@ -21,25 +21,40 @@ export default function Home() {
         <Header />
         {/* <ButtonToggleTheme /> não está incluído no design */}
         <Main>
-          <div style={{ width: '50vw', height: '45vh', position: 'relative' }}>
+          <div
+            style={{
+              width: '50vw',
+              minWidth: '400px',
+              height: '50vh',
+              minHeight: '200px',
+              maxHeight: '500px',
+              position: 'relative'
+            }}
+          >
             <Image
               src={logoOrangeEvolution}
               alt="logo da orange evolution"
               fill
             />
           </div>
-          <div>
-            <Text size="md">
-              <H2>
-                Um guia de desenvolvimento para <br />
-                seu start no mundo da tecnologia
-              </H2>
-            </Text>
-          </div>
-          <div style={{ width: '20vw' }}>
-            <Button size="lg" isFullWidth>
-              Acesse aqui
-            </Button>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '2rem'
+            }}
+          >
+            <Subtitle>
+              Um guia de desenvolvimento para <br />
+              seu start no mundo da tecnologia
+            </Subtitle>
+
+            <div style={{ width: '300px' }}>
+              <Button size="lg" isFullWidth>
+                Acesse aqui
+              </Button>
+            </div>
           </div>
         </Main>
       </BodyWrapper>

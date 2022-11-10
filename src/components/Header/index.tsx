@@ -2,9 +2,11 @@ import {
   HeaderAvatarWrapper,
   HeaderImages,
   HeaderTextWrapper,
-  HeaderWrapper
+  HeaderWrapper,
+  LogoFCamara,
+  LogoOrangeJuice,
+  LogoPdeFormacao
 } from './styles'
-import Image from 'next/image'
 import logoFCamara from '../../../public/logofcamara.svg'
 import logoOrangeJuice from '../../../public/logoorangejuice.svg'
 import logoPdeFormacao from '../../../public/logopdeformacao.svg'
@@ -20,21 +22,21 @@ export function Header() {
   const HeaderImagesContainer = () => {
     return (
       <HeaderImages>
-        <Image
+        <LogoFCamara
           src={logoFCamara}
           alt="logo do grupo FCamara"
           width={168}
           height={37}
         />
-        <Image
+        <LogoOrangeJuice
           src={logoOrangeJuice}
-          alt="logo do grupo FCamara"
+          alt="logo Orange Juice"
           width={66}
           height={49}
         />
-        <Image
+        <LogoPdeFormacao
           src={logoPdeFormacao}
-          alt="logo do grupo FCamara"
+          alt="logo Programa de Formação"
           width={176}
           height={57}
         />
@@ -43,7 +45,7 @@ export function Header() {
   }
 
   return (
-    <HeaderWrapper>
+    <>
       {isAuthenticaded ? (
         <HeaderWrapper
           style={{
@@ -51,23 +53,25 @@ export function Header() {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 7.5rem'
+            padding: '1rem 1rem',
+            gap: '2.5rem'
           }}
         >
           <HeaderAvatarWrapper>
-            <div>
-              <Avatar size="md" theme={theme} />
-            </div>
+            <Avatar theme={theme} />
             <HeaderTextWrapper>
               <Text>{authUser.name}</Text>
               <Text size="sm">{authUser.email}</Text>
             </HeaderTextWrapper>
           </HeaderAvatarWrapper>
+
           <HeaderImagesContainer />
         </HeaderWrapper>
       ) : (
-        <HeaderImagesContainer />
+        <HeaderWrapper style={{ padding: '1.5rem 0' }}>
+          <HeaderImagesContainer />
+        </HeaderWrapper>
       )}
-    </HeaderWrapper>
+    </>
   )
 }
