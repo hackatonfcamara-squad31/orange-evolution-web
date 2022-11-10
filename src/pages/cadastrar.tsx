@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
+import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
@@ -76,6 +77,7 @@ export default function Register() {
       </Head>
 
       <BodyWrapper theme={theme}>
+        <Header />
         <RegisterHeader>
           <ButtonToggleTheme />
 

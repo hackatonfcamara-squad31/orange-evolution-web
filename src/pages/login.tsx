@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
+import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
@@ -54,6 +55,7 @@ export default function LoginPage() {
       </Head>
 
       <BodyWrapper theme={theme}>
+        <Header />
         <LoginHeader>
           <ButtonToggleTheme />
           <Heading asChild size="lg">
