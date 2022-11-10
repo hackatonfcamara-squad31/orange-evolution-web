@@ -6,7 +6,7 @@ import { MdPersonOutline } from 'react-icons/md'
 interface NameImputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError
   errorMessage?: string
-  control: Control
+  control?: Control
   validate?: RegisterOptions
 }
 

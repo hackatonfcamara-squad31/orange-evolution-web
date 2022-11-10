@@ -17,50 +17,41 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
   alignItems: 'center',
   justifyContent: 'center',
 
-  svg: {
-    fontSize: '0.875rem'
+  transition: 'all 0.2s ease',
+
+  '&[data-state="checked"]': {
+    backgroundColor: '$orange400',
+    border: 'none'
   },
 
   variants: {
     theme: {
       dark: {
-        backgroundColor: '$gray700',
-        border: '1px solid $gray400',
-        '&[data-state="checked"]': {
-          backgroundColor: '#FF5A23',
-          border: 'none'
-        },
-        svg: {
-          color: '$gray300'
-        }
+        backgroundColor: '$transparent',
+        border: '1px solid $gray600',
+        color: '$white'
       },
       light: {
-        backgroundColor: 'white',
-        border: '1px solid $gray600',
-        '&[data-state="checked"]': {
-          backgroundColor: '#FF5A23',
-          border: 'none'
-        },
-        svg: {
-          color: 'white'
-        }
+        backgroundColor: 'transparent',
+        border: '1px solid $gray400',
+        color: '$white'
       }
     },
 
     size: {
       sm: {
-        width: '1.25rem',
-        height: '1.25rem',
-        fontSize: '0.75rem'
-      },
-      md: {
         width: '1.5rem',
         height: '1.5rem',
+        fontSize: '$sm'
+      },
+      md: {
+        width: '1.75rem',
+        height: '1.75rem',
         fontSize: '$md'
       },
       lg: {
-        width: '1.75rem',
-        height: '1.75rem',
+        width: '2rem',
+        height: '2rem',
         fontSize: '$lg'
       }
     }
@@ -69,4 +60,11 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
   defaultVariants: {
     size: 'sm'
   }
+})
+
+export const CheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
+  // border: '1px solid red',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 })

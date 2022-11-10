@@ -1,11 +1,10 @@
 import { Button } from 'components/Button'
+import { ButtonLink } from 'components/ButtonLink'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Header } from 'components/Header'
-import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 import { BodyWrapper, Subtitle, Main } from 'styles/pages/home'
 import logoOrangeEvolution from '../../public/logoorangeevolution.svg'
 

@@ -18,36 +18,33 @@ export const StyledTrigger = styled(SelectTrigger, {
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: 4,
+  borderRadius: '$full',
   padding: '0.5rem 1rem',
   fontSize: '$sm',
   lineHeight: 1,
   gap: 8,
+  cursor: 'pointer',
+
+  transition: 'all 0.3s ease-in-out',
 
   '&:disabled': {
     opacity: 0.5,
     cursor: 'not-allowed'
   },
 
+  '&:not(:disabled):hover': { filter: 'brightness(1.1)' },
+  '&:not(:disabled):focus': { outline: '2px solid $orange500' },
+
   variants: {
     theme: {
       light: {
         backgroundColor: '$gray100',
         color: '$gray800',
-
-        '&:not(:disabled):hover': { backgroundColor: '$gray100' },
-        '&:not(:disabled):focus': { outline: '1px solid $gray800' },
-        '&[data-placeholder]': { color: '$gray800' },
-        boxShadow:
-          'rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset'
+        boxShadow: '$default'
       },
       dark: {
         backgroundColor: '$gray800',
         color: '$gray100',
-
-        '&:not(:disabled):hover': { backgroundColor: '$gray700' },
-        '&:not(:disabled):focus': { outline: '1px solid $gray100' },
-        '&[data-placeholder]': { color: '$gray200' },
         boxShadow: 'none'
       }
     }
@@ -62,10 +59,10 @@ export const StyledIcon = styled(SelectIcon, {
   variants: {
     theme: {
       light: {
-        color: '$gray800'
+        color: '$orange500'
       },
       dark: {
-        color: '$gray100'
+        color: '$orange500'
       }
     }
   }
@@ -75,8 +72,7 @@ export const StyledContent = styled(Content, {
   overflow: 'hidden',
   borderRadius: 6,
   zIndex: 3,
-  boxShadow:
-    '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
+  boxShadow: '$default',
 
   variants: {
     theme: {
@@ -101,7 +97,7 @@ export const StyledItem = styled(Item, {
   fontSize: '$xs',
   lineHeight: 1,
   color: '$gray800',
-  borderRadius: 3,
+  borderRadius: '$md',
   display: 'flex',
   alignItems: 'center',
   padding: '0.5rem 2rem',
@@ -113,25 +109,23 @@ export const StyledItem = styled(Item, {
     pointerEvents: 'none'
   },
 
+  '&[data-highlighted]': {
+    backgroundColor: '$orange500',
+    color: '$white',
+    svg: {
+      stroke: '$white'
+    }
+  },
+
   variants: {
     theme: {
       light: {
         backgroundColor: '$gray100',
-        color: '$gray800',
-
-        '&[data-highlighted]': {
-          backgroundColor: '$gray300',
-          color: '$gray800'
-        }
+        color: '$gray800'
       },
       dark: {
         backgroundColor: '$gray700',
-        color: '$gray100',
-
-        '&[data-highlighted]': {
-          backgroundColor: '$gray100',
-          color: '$gray800'
-        }
+        color: '$gray100'
       }
     }
   }
@@ -166,7 +160,8 @@ export const StyledItemIndicator = styled(ItemIndicator, {
   width: 25,
   display: 'inline-flex',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  color: '$orange500'
 })
 
 export const scrollButtonStyles = {

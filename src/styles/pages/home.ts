@@ -37,9 +37,8 @@ export const Main = styled('main', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '$sm',
-  padding: '1rem 1.5rem',
-  margin: 'auto'
+  gap: '$md',
+  padding: '3rem 1.25rem'
 })
 
 export const Form = styled('form', {

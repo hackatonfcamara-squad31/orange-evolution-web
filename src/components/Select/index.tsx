@@ -40,7 +40,7 @@ export function Select({
     <SelectRoot {...props}>
       <StyledTrigger theme={theme} aria-label={ariaLabel} title={title}>
         <SelectValue placeholder={placeholder} />
-        <StyledIcon>
+        <StyledIcon theme={theme}>
           <TbChevronDown size={20} />
         </StyledIcon>
       </StyledTrigger>
