@@ -25,7 +25,7 @@ import {
 } from 'styles/pages/auth'
 import { BodyWrapper } from 'styles/pages/home'
 
-import orangeLogo from '../../public/orangeLogo.svg'
+import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 export default function Register() {
   const { theme } = useTheme()
@@ -75,7 +75,7 @@ export default function Register() {
       <BodyWrapper theme={theme}>
         <HeaderWrapper>
           <ImageWrapper>
-            <Image src={orangeLogo} alt="Orange Evolution Logo" fill />
+            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
           </ImageWrapper>
 
           <Heading asChild size="lg">
