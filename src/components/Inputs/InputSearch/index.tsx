@@ -21,10 +21,6 @@ export function InputSearch({ ...props }: InputSearchProps) {
 
   return (
     <TextInput.Root>
-      <TextInput.Icon>
-        <TbSearch />
-      </TextInput.Icon>
-
       <TextInput.Input
         id="search-content"
         name="search-content"
@@ -34,6 +30,9 @@ export function InputSearch({ ...props }: InputSearchProps) {
         value={search}
         {...props}
       />
+      <TextInput.Icon>
+        <TbSearch color="#FF5A23" />
+      </TextInput.Icon>
     </TextInput.Root>
   )
 }

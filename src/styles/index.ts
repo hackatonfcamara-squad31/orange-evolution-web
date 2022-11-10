@@ -15,6 +15,10 @@ export const {
       white: '#fff',
       black: '#000',
 
+      orange600: '#FF5A23',
+      orange500: '#FF7823',
+      orange400: '#FFA000',
+
       green900: '#14532d',
       green800: '#166534',
       green700: '#15803d',
@@ -68,7 +72,7 @@ export const {
     },
 
     fonts: {
-      roboto: 'Roboto, sans-serif'
+      montserrat: 'Montserrat, sans-serif'
     },
 
     fontSizes: {
@@ -88,12 +92,7 @@ export const {
     },
 
     shadows: {
-      sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-      md: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      lg: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      xl: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-      '2xl':
-        '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+      default: '4px 4px 8px rgba(0, 0, 0, 0.25)'
     },
 
     radii: {

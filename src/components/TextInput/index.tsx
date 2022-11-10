@@ -56,7 +56,9 @@ function TextInputRoot({
         {children}
       </InputWrapper>
 
-      {error && <InputErrorMessage>{error.message}</InputErrorMessage>}
+      {error && (
+        <InputErrorMessage theme={theme}>{error.message}</InputErrorMessage>
+      )}
     </InputContainer>
   )
 }

@@ -5,7 +5,7 @@ import { TbLock } from 'react-icons/tb'
 
 interface InputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError
-  control: Control
+  control?: Control
   validate?: RegisterOptions
 }
 

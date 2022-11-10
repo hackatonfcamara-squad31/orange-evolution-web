@@ -28,7 +28,6 @@ export default function Trails({ user }: TrailsProps) {
             <li>Nome: {name}</li>
             <li>E-mail: {email}</li>
           </ul>
-          <h2>{}</h2>
           <ButtonToggleTheme />
         </Main>
       </BodyWrapper>
@@ -37,8 +36,7 @@ export default function Trails({ user }: TrailsProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const token = getCookie('@orange-evoltuion:token', ctx)
-  console.log('🚀 ~ token', token)
+  const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, ctx)
 
   if (!token) {
     return {

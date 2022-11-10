@@ -1,9 +1,9 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react'
+import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react'
 import { BallTriangle } from 'react-loader-spinner'
 import { useTheme } from '../../contexts/ThemeContext'
 import { PrimitiveButton } from './styles'
 
-export type ButtonColors = 'red' | 'green' | 'default'
+export type ButtonColors = 'red' | 'green' | 'default' | 'gray'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
@@ -13,6 +13,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isFullWidth?: boolean
   isOnlyIcon?: boolean
   color?: ButtonColors
+  asAnchor?: boolean
 }
 
 const ButtonLoader = () => {
@@ -27,21 +28,35 @@ const ButtonLoader = () => {
   )
 }
 
-export function Button({
-  size = 'md',
-  children,
-  color = 'default',
-  ...props
-}: ButtonProps) {
-  const { theme } = useTheme()
+export const Button = forwardRef(
+  (
+    {
+      size = 'md',
+      children,
+      color = 'default',
+      asAnchor = false,
+      ...props
+    }: ButtonProps,
+    ref
+  ) => {
+    const { theme } = useTheme()
+    const Comp = asAnchor ? 'a' : 'button'
 
-  return (
-    <PrimitiveButton size={size} theme={theme} {...props} color={color}>
-      {!props.isLoading && props.isOnlyIcon && children}
-      {!props.isLoading && !props.isOnlyIcon && children}
+    return (
+      <PrimitiveButton
+        size={size}
+        theme={theme}
+        {...props}
+        color={color}
+        as={Comp}
+      >
+        {!props.isLoading && children}
 
-      {props.isLoading && !props.isOnlyIcon && children}
-      {props.isLoading && <ButtonLoader />}
-    </PrimitiveButton>
-  )
-}
+        {props.isLoading && !props.isOnlyIcon && children}
+        {props.isLoading && <ButtonLoader />}
+      </PrimitiveButton>
+    )
+  }
+)
+
+Button.displayName = 'Button'

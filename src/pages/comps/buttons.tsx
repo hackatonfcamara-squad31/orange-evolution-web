@@ -37,6 +37,15 @@ export default function Home() {
 
         <Heading size="lg">Colors</Heading>
 
+        <Button isOnlyIcon color="gray">
+          <TbArrowNarrowRight />
+        </Button>
+
+        <Button isOnlyIcon color="gray" isLoading>
+          <TbArrowNarrowRight />
+        </Button>
+        <Button color="gray">Red Button</Button>
+
         <Button isOnlyIcon color="red">
           <TbArrowNarrowRight />
         </Button>
