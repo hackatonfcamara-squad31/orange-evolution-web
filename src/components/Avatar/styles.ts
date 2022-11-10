@@ -5,6 +5,7 @@ export const AvatarContainer = styled(Avatar.Root, {
   borderRadius: '$full',
   display: 'inline-block',
   overflow: 'hidden',
+  border: '1px solid red',
 
   variants: {
     theme: {
@@ -70,18 +71,8 @@ export const AvatarFallback = styled(Avatar.Fallback, {
     height: '100%'
   },
 
-  variants: {
-    theme: {
-      light: {
-        backgroundColor: '$gray200',
-        color: '$gray600'
-      },
-      dark: {
-        backgroundColor: '$gray800',
-        color: '$gray500'
-      }
-    }
-  }
+  color: '$gray100',
+  backgroundColor: 'transparent'
 })
 
 export const AvatarWrapperTemporario = styled('div', {

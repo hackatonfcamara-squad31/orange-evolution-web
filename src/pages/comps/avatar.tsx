@@ -1,4 +1,4 @@
-import { PrimitiveAvatar } from 'components/Avatar'
+import { Avatar } from 'components/Avatar'
 import { AvatarWrapperTemporario } from 'components/Avatar/styles'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Heading } from 'components/Heading'
@@ -21,24 +21,24 @@ export default function AvatarScreen() {
           <ButtonToggleTheme />
 
           <AvatarWrapperTemporario>
-            <PrimitiveAvatar theme={theme} size="sm" />
-            <PrimitiveAvatar theme={theme} size="md" />
-            <PrimitiveAvatar theme={theme} size="lg" />
+            <Avatar theme={theme} size="sm" />
+            <Avatar theme={theme} size="md" />
+            <Avatar theme={theme} size="lg" />
 
-            <PrimitiveAvatar
+            <Avatar
               size="sm"
               theme={theme}
               src={'https://github.com/renatadellamatriz.png'}
             />
 
-            <PrimitiveAvatar
+            <Avatar
               size="md"
               withBorder
               theme={theme}
               src={'https://github.com/capelaum.png'}
             />
 
-            <PrimitiveAvatar
+            <Avatar
               size="lg"
               withBorder
               theme={theme}

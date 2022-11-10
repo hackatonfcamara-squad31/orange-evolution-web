@@ -9,7 +9,7 @@ export interface AvatarImageProps extends ComponentProps<typeof AvatarImage> {
   withBorder?: boolean
 }
 
-export function PrimitiveAvatar({
+export function Avatar({
   theme,
   size = 'md',
   withBorder,
@@ -31,7 +31,7 @@ export function PrimitiveAvatar({
   return (
     <AvatarContainer size={size} withBorder={withBorder} theme={theme}>
       <AvatarImage {...props} />
-      <AvatarFallback delayMs={600} theme={theme}>
+      <AvatarFallback delayMs={600}>
         <BsPersonCircle size={getFallbackIconSize()} />
       </AvatarFallback>
     </AvatarContainer>

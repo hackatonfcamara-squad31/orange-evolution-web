@@ -59,7 +59,8 @@ export const {
       md: '1.25rem', // 20px
       lg: '1.5rem', // 24px
       xl: '2rem', // 32px
-      '2xl': '2.5rem' // 40px
+      '2xl': '2.5rem', // 40px
+      '3xl': '3rem' // 48px
     },
 
     lineHeights: {
