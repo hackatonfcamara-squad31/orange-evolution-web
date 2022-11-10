@@ -13,6 +13,7 @@ export function ButtonToggleTheme({ ...props }: ButtonToggleThemeProps) {
       <Button
         onClick={toggleTheme}
         isOnlyIcon
+        color="gray"
         title={theme === 'dark' ? 'Modo Light' : 'Modo Dark'}
         {...props}
       >

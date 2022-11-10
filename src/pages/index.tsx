@@ -1,4 +1,3 @@
-import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -22,8 +21,6 @@ export default function Home() {
         <title>Home</title>
       </Head>
       <BodyWrapper theme={theme}>
-        <Header />
-
         <Main>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />

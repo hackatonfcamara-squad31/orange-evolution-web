@@ -73,6 +73,7 @@ export default function Register() {
       </Head>
 
       <BodyWrapper theme={theme}>
+
         <HeaderWrapper>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />

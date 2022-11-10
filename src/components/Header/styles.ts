@@ -67,5 +67,11 @@ export const HeaderUserWrapper = styled('div', {
 
 export const HeaderTextWrapper = styled('div', {
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  gap: '0.25rem',
+
+  span: {
+    fontWeight: 500,
+    color: '$gray100'
+  }
 })

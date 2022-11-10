@@ -5,7 +5,6 @@ export const AvatarContainer = styled(Avatar.Root, {
   borderRadius: '$full',
   display: 'inline-block',
   overflow: 'hidden',
-  border: '1px solid red',
 
   variants: {
     theme: {

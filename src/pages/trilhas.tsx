@@ -1,4 +1,3 @@
-import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -28,7 +27,6 @@ export default function Trails({ user }: TrailsProps) {
             <li>Nome: {name}</li>
             <li>E-mail: {email}</li>
           </ul>
-          <ButtonToggleTheme />
         </Main>
       </BodyWrapper>
     </>

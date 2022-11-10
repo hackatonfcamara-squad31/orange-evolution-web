@@ -36,7 +36,8 @@ const grayDarkStyles = {
 }
 
 const grayLightStyles = {
-  backgroundColor: '$gray300',
+  backgroundColor: '$white',
+  boxShadow: '$default',
   color: '$gray800',
 
   svg: {
