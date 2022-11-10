@@ -59,6 +59,7 @@ export const Subtitle = styled('h2', {
   fontSize: '$2xl',
   textAlign: 'center',
   margin: '1rem 0',
+  maxWidth: '600px',
 
   '@bp2': {
     fontSize: '$xl'

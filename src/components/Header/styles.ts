@@ -62,34 +62,10 @@ export const LogoPdeFormacao = styled(Image, {
 export const HeaderUserWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  gap: '0.5rem',
-
-  '@bp2': {
-    svg: {
-      width: '2rem',
-      height: '2rem'
-    }
-  },
-  '@bp3': {
-    svg: {
-      width: '1.7rem',
-      height: '1.7rem'
-    }
-  }
+  gap: '0.5rem'
 })
 
 export const HeaderTextWrapper = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
-
-  '@bp2': {
-    span: {
-      fontSize: '0.7rem'
-    }
-  },
-  '@bp3': {
-    span: {
-      fontSize: '0.6rem'
-    }
-  }
+  flexDirection: 'column'
 })

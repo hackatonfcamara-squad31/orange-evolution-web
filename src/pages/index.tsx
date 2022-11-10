@@ -1,4 +1,3 @@
-import { Button } from 'components/Button'
 import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
@@ -12,6 +11,7 @@ import {
 } from 'styles/pages/home'
 
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
+import { ButtonLink } from 'components/ButtonLink'
 
 export default function Home() {
   const { theme } = useTheme()
@@ -30,14 +30,16 @@ export default function Home() {
           </ImageWrapper>
 
           <Subtitle>
-            Um guia de desenvolvimento para <br />
-            seu start no mundo da tecnologia
+            Um guia de desenvolvimento para seu start no mundo da tecnologia
           </Subtitle>
 
           <ButtonWrapper>
-            <Button size="lg" isFullWidth>
-              Acesse aqui
-            </Button>
+            <ButtonLink
+              size="lg"
+              isFullWidth
+              text="Acesse aqui"
+              href="/login"
+            />
           </ButtonWrapper>
         </Main>
       </BodyWrapper>
