@@ -109,11 +109,11 @@ export const PrimitiveButton = styled('button', {
       },
       md: {
         fontSize: '$sm',
-        padding: '0.75rem 1.5rem'
+        padding: '0.75rem 2.5rem'
       },
       lg: {
         fontSize: '$lg',
-        padding: '0.75rem 1.75rem'
+        padding: '0.75rem 3rem'
       },
       xl: {
         fontSize: '$xl',

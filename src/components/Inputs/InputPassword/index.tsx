@@ -30,7 +30,7 @@ export function InputPassword({
         id="password"
         type="password"
         name="password"
-        placeholder="Digite sua senha"
+        placeholder="Senha:"
         control={control}
         validate={validate}
         {...props}
