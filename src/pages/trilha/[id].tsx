@@ -6,6 +6,8 @@ import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
+import { getCookie } from 'cookies-next'
+import { getAuthUser } from 'libs/auth/api'
 import { Trail } from 'libs/trail/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -76,14 +78,42 @@ export default function TrailPage({ trail }: TrailPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, ctx)
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  const user = await getAuthUser(token.toString())
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
   const { id } = ctx.params
 
   try {
-    const { data } = await api.get(`/trails/${id}`)
+    const { data } = await api.get(`/trails/description/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    const { trail } = data
 
     return {
       props: {
-        trail: data
+        trail
       }
     }
   } catch (error) {

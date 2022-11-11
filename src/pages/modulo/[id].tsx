@@ -6,6 +6,9 @@ import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
+import { getCookie } from 'cookies-next'
+import { getAuthUser } from 'libs/auth/api'
+import { Content as ContentType } from 'libs/content/types'
 import { Module } from 'libs/module/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -20,9 +23,10 @@ import {
 
 interface ModulePageProps {
   module: Module
+  contents: ContentType[]
 }
 
-export default function ModulePage({ module }: ModulePageProps) {
+export default function ModulePage({ module, contents }: ModulePageProps) {
   const { theme } = useTheme()
 
   return (
@@ -54,22 +58,14 @@ export default function ModulePage({ module }: ModulePageProps) {
               <Text size="sm">Concluído</Text>
 
               <ContentList>
-                <Content title="O que é UX?" type="Vídeo" creator="UX Now" />
-                <Content
-                  title="Comof fazer UX?"
-                  type="Vídeo"
-                  creator="Criador com nome extenso e dificil"
-                />
-                <Content
-                  title="Experiência do Usuário"
-                  type="Artigo"
-                  creator="Chuck Norris"
-                />
-                <Content
-                  title='Don Norman e o termo "UX"'
-                  type="Artigo"
-                  creator="Chuck Norris"
-                />
+                {contents.map((content) => (
+                  <Content
+                    key={content.id}
+                    title={content.title}
+                    type={content.type}
+                    creator={content.creator_name}
+                  />
+                ))}
               </ContentList>
             </ContentListWrapper>
           </ModuleWrapper>
@@ -82,14 +78,44 @@ export default function ModulePage({ module }: ModulePageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const token = getCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, ctx)
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  const user = await getAuthUser(token.toString())
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
   const { id } = ctx.params
 
   try {
-    const { data } = await api.get(`/modules/${id}`)
+    const { data } = await api.get(`/modules/description/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    const { module, contents } = data
 
     return {
       props: {
-        module: data
+        module,
+        contents,
+        user
       }
     }
   } catch (error) {
