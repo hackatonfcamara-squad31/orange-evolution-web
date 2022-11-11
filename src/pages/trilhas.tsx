@@ -35,7 +35,7 @@ interface TrailsProps {
 export default function Trails({ user, trails }: TrailsProps) {
   const { theme } = useTheme()
 
-  // const { name, email } = user
+  const { name, email } = user
 
   return (
     <>
@@ -171,7 +171,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      // user,
+      user,
       trails
     }
   }
