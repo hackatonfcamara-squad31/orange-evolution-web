@@ -5,17 +5,17 @@ import { Breadcrumbs, PageHeaderWrapper } from './styles'
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 interface PageHeaderProps {
-  moduleLink: string
-  moduleName: string
+  moduleLinkName?: string
   trailLink: string
-  trailName: string
+  trailLinkName: string
+  isContentPage?: boolean
 }
 
 export function PageHeader({
-  moduleLink,
-  moduleName,
+  moduleLinkName,
   trailLink,
-  trailName
+  trailLinkName,
+  isContentPage = false
 }: PageHeaderProps) {
   return (
     <PageHeaderWrapper>
@@ -24,16 +24,17 @@ export function PageHeader({
           Trilhas
         </Link>
         &gt;
-        <Link
-          href={trailLink}
-          title={`Ir para página de módulos da Trilha ${trailName}`}
-        >
+        <Link href={trailLink} title={trailLinkName}>
           Módulos
         </Link>
-        &gt;
-        <Link href={moduleLink} title={`Página do módulo ${moduleName}`}>
-          Conteúdos
-        </Link>
+        {isContentPage && (
+          <>
+            &gt;
+            <Link href="#" title={moduleLinkName}>
+              Conteúdos
+            </Link>
+          </>
+        )}
       </Breadcrumbs>
 
       <Image

@@ -34,10 +34,9 @@ export default function ModulePage() {
 
         <Main>
           <PageHeader
-            trailName="UX/UI Design"
+            trailLinkName="Trilha UX/UI Design"
             trailLink="#"
-            moduleLink="#"
-            moduleName="UX Design"
+            moduleLinkName="Módulo UX Design"
           />
 
           <ModuleWrapper>
@@ -47,7 +46,7 @@ export default function ModulePage() {
 
             <ContentListWrapper>
               <SearchWrapper>
-                <InputSearch />
+                <InputSearch placeholder="Buscar conteúdo" />
               </SearchWrapper>
 
               <Text size="sm">Concluído</Text>

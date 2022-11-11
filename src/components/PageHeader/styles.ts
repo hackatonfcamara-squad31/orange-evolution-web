@@ -6,9 +6,9 @@ export const PageHeaderWrapper = styled('header', {
   alignItems: 'flex-start',
   justifyContent: 'space-between',
   gap: '2.5rem',
+  marginBottom: '2.5rem',
 
   '@bp2': {
-    marginBottom: '2.5rem',
     flexDirection: 'column'
   }
 })

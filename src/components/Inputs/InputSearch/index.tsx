@@ -25,7 +25,6 @@ export function InputSearch({ ...props }: InputSearchProps) {
         id="search-content"
         name="search-content"
         type="search"
-        placeholder="Buscar conteúdo"
         onChange={handleChange}
         value={search}
         {...props}
