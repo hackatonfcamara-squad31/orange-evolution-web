@@ -4,13 +4,16 @@ import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
+import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
+import { Module } from 'libs/module/types'
 import { Trail } from 'libs/trail/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useState } from 'react'
 import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
@@ -27,9 +30,12 @@ interface TrailPageProps {
 }
 
 export default function TrailPage({ trail }: TrailPageProps) {
-  const { theme } = useTheme()
+  const [isSearching, setIsSearching] = useState(false)
+  const [filteredModules, setFilteredModules] = useState<Module[]>(
+    trail.modules
+  )
 
-  console.log('💥 ~ trail', trail)
+  const { theme } = useTheme()
 
   return (
     <>
@@ -49,24 +55,37 @@ export default function TrailPage({ trail }: TrailPageProps) {
 
             <ModuleListWrapper>
               <SearchWrapper>
-                <InputSearch placeholder="Buscar módulo" />
+                <InputSearch
+                  items={trail.modules}
+                  setFilteredItems={setFilteredModules}
+                  placeholder="Buscar módulo"
+                  setIsSearching={setIsSearching}
+                />
               </SearchWrapper>
 
-              <ModuleList>
-                {trail.modules.map((module) => (
-                  <ModuleCard key={module.id}>
-                    <Heading size="md">{module.title}</Heading>
+              {isSearching && <SearchLoader />}
 
-                    <Text size="sm">{module.description}</Text>
+              {filteredModules.length === 0 && !isSearching && (
+                <Text size="lg">Nenhum módulo encontrado 🙃</Text>
+              )}
 
-                    <ModuleCardButtonWrapper>
-                      <ButtonLink href={`/modulo/${module.id}`}>
-                        Acessar
-                      </ButtonLink>
-                    </ModuleCardButtonWrapper>
-                  </ModuleCard>
-                ))}
-              </ModuleList>
+              {filteredModules.length > 0 && (
+                <ModuleList>
+                  {filteredModules.map((module) => (
+                    <ModuleCard key={module.id}>
+                      <Heading size="md">{module.title}</Heading>
+
+                      <Text size="sm">{module.description}</Text>
+
+                      <ModuleCardButtonWrapper>
+                        <ButtonLink href={`/modulo/${module.id}`}>
+                          Acessar
+                        </ButtonLink>
+                      </ModuleCardButtonWrapper>
+                    </ModuleCard>
+                  ))}
+                </ModuleList>
+              )}
             </ModuleListWrapper>
           </TrailWrapper>
 

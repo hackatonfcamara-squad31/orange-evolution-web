@@ -4,6 +4,7 @@ import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
+import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
@@ -12,6 +13,7 @@ import { Content as ContentType } from 'libs/content/types'
 import { Module } from 'libs/module/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useState } from 'react'
 import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import {
@@ -27,6 +29,10 @@ interface ModulePageProps {
 }
 
 export default function ModulePage({ module, contents }: ModulePageProps) {
+  const [isSearching, setIsSearching] = useState(false)
+  const [filteredContents, setFilteredContents] =
+    useState<ContentType[]>(contents)
+
   const { theme } = useTheme()
 
   return (
@@ -52,21 +58,36 @@ export default function ModulePage({ module, contents }: ModulePageProps) {
 
             <ContentListWrapper>
               <SearchWrapper>
-                <InputSearch placeholder="Buscar conteúdo" />
+                <InputSearch
+                  items={contents}
+                  setFilteredItems={setFilteredContents}
+                  placeholder="Buscar conteúdo"
+                  setIsSearching={setIsSearching}
+                />
               </SearchWrapper>
 
-              <Text size="sm">Concluído</Text>
+              {isSearching && <SearchLoader />}
 
-              <ContentList>
-                {contents.map((content) => (
-                  <Content
-                    key={content.id}
-                    title={content.title}
-                    type={content.type}
-                    creator={content.creator_name}
-                  />
-                ))}
-              </ContentList>
+              {filteredContents.length === 0 && !isSearching && (
+                <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
+              )}
+
+              {filteredContents.length > 0 && !isSearching && (
+                <>
+                  <Text size="sm">Concluído</Text>
+
+                  <ContentList>
+                    {filteredContents.map((content) => (
+                      <Content
+                        key={content.id}
+                        title={content.title}
+                        type={content.type}
+                        creator={content.creator_name}
+                      />
+                    ))}
+                  </ContentList>
+                </>
+              )}
             </ContentListWrapper>
           </ModuleWrapper>
 
