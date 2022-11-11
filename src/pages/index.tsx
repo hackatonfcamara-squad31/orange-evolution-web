@@ -11,6 +11,7 @@ import {
 
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 import { ButtonLink } from 'components/ButtonLink'
+import { Header } from 'components/Header'
 
 export default function Home() {
   const { theme } = useTheme()
@@ -18,9 +19,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Orange Evolution | Home</title>
       </Head>
       <BodyWrapper theme={theme}>
+        <Header />
         <Main>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />

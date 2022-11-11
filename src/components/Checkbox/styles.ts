@@ -66,5 +66,10 @@ export const CheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
   // border: '1px solid red',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  color: '$white',
+
+  svg: {
+    stroke: '$white'
+  }
 })
