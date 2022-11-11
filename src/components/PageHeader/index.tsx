@@ -8,14 +8,14 @@ interface PageHeaderProps {
   moduleLinkName?: string
   trailLink: string
   trailLinkName: string
-  isContentPage?: boolean
+  isModulePage?: boolean
 }
 
 export function PageHeader({
   moduleLinkName,
   trailLink,
   trailLinkName,
-  isContentPage = false
+  isModulePage = false
 }: PageHeaderProps) {
   return (
     <PageHeaderWrapper>
@@ -24,14 +24,14 @@ export function PageHeader({
           Trilhas
         </Link>
         &gt;
-        <Link href={trailLink} title={trailLinkName}>
-          Módulos
+        <Link href={trailLink} title={`Trilha ${trailLinkName}`}>
+          {trailLinkName}
         </Link>
-        {isContentPage && (
+        {isModulePage && (
           <>
             &gt;
-            <Link href="#" title={moduleLinkName}>
-              Conteúdos
+            <Link href="#" title={`Módulo ${moduleLinkName}`}>
+              {moduleLinkName}
             </Link>
           </>
         )}

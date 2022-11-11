@@ -6,8 +6,10 @@ import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
+import { Module } from 'libs/module/types'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import {
   ContentList,
@@ -16,32 +18,32 @@ import {
   SearchWrapper
 } from 'styles/pages/module'
 
-export default function ModulePage() {
+interface ModulePageProps {
+  module: Module
+}
+
+export default function ModulePage({ module }: ModulePageProps) {
   const { theme } = useTheme()
-
-  const router = useRouter()
-
-  const { id } = router.query
-  console.log('💥 ~ id', id)
 
   return (
     <>
       <Head>
-        <title>Orange Evolution | Módulo {id}</title>
+        <title>Orange Evolution | Módulo {module.title}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
 
         <Main>
           <PageHeader
-            trailLinkName="Trilha UX/UI Design"
+            trailLinkName="UX/UI Design"
             trailLink="#"
-            moduleLinkName="Módulo UX Design"
+            moduleLinkName={module.title}
+            isModulePage
           />
 
           <ModuleWrapper>
             <Heading asChild size="xl">
-              <h1>UX Design</h1>
+              <h1>{module.title}</h1>
             </Heading>
 
             <ContentListWrapper>
@@ -77,4 +79,27 @@ export default function ModulePage() {
       </BodyWrapper>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { id } = ctx.params
+
+  try {
+    const { data } = await api.get(`/modules/${id}`)
+
+    return {
+      props: {
+        module: data
+      }
+    }
+  } catch (error) {
+    console.log('💥 ~ error', error)
+
+    return {
+      redirect: {
+        destination: '/trilhas',
+        permanent: false
+      }
+    }
+  }
 }

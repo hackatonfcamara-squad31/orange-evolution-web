@@ -9,7 +9,7 @@ export function InputSearch({ ...props }: InputSearchProps) {
   const [search, setSearch] = useState('')
   const debouncedValue = useDebounce<string>(search, 500)
 
-  console.log('🚀 ~ search', search)
+  // console.log('🚀 ~ search', search)
 
   useEffect(() => {
     // Triggers when "debouncedValue" changes

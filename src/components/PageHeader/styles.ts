@@ -21,6 +21,7 @@ export const Breadcrumbs = styled('div', {
   fontWeight: 500,
   color: '$orange400',
   textDecoration: 'none',
+  flexWrap: 'wrap',
 
   a: {
     fontSize: '$md',

@@ -6,8 +6,10 @@ import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
+import { Trail } from 'libs/trail/types'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
 import {
@@ -18,28 +20,29 @@ import {
   TrailWrapper
 } from 'styles/pages/trail'
 
-export default function TrailPage() {
+interface TrailPageProps {
+  trail: Trail
+}
+
+export default function TrailPage({ trail }: TrailPageProps) {
   const { theme } = useTheme()
 
-  const router = useRouter()
-
-  const { id } = router.query
-  console.log('💥 ~ id', id)
+  console.log('💥 ~ trail', trail)
 
   return (
     <>
       <Head>
-        <title>Orange Evolution | Trilha {id}</title>
+        <title>Orange Evolution | Trilha {trail.title}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
 
         <Main>
-          <PageHeader trailLinkName="Trilha UX/UI Design" trailLink="#" />
+          <PageHeader trailLinkName={trail.title} trailLink="#" />
 
           <TrailWrapper>
             <Heading asChild size="xl">
-              <h1>UX/UI DESIGN - MÓDULOS</h1>
+              <h1>{trail.title} - MÓDULOS</h1>
             </Heading>
 
             <ModuleListWrapper>
@@ -48,38 +51,19 @@ export default function TrailPage() {
               </SearchWrapper>
 
               <ModuleList>
-                <ModuleCard>
-                  <Heading size="md">Design</Heading>
+                {trail.modules.map((module) => (
+                  <ModuleCard key={module.id}>
+                    <Heading size="md">{module.title}</Heading>
 
-                  <Text size="sm">Design, a arte de projetar.</Text>
+                    <Text size="sm">{module.description}</Text>
 
-                  <ModuleCardButtonWrapper>
-                    <ButtonLink href="#">Acessar</ButtonLink>
-                  </ModuleCardButtonWrapper>
-                </ModuleCard>
-                <ModuleCard>
-                  <Heading size="md">UX Design</Heading>
-
-                  <Text size="sm">
-                    Saiba mais sobre a experiência do usuário.
-                  </Text>
-
-                  <ModuleCardButtonWrapper>
-                    <ButtonLink href="#">Acessar</ButtonLink>
-                  </ModuleCardButtonWrapper>
-                </ModuleCard>
-                <ModuleCard>
-                  <Heading size="md">UX Research</Heading>
-
-                  <Text size="sm">
-                    O ato de pesquisa, o potencial de um produto ou serviço,
-                    seus usuários e ambientes existentes.
-                  </Text>
-
-                  <ModuleCardButtonWrapper>
-                    <ButtonLink href="#">Acessar</ButtonLink>
-                  </ModuleCardButtonWrapper>
-                </ModuleCard>
+                    <ModuleCardButtonWrapper>
+                      <ButtonLink href={`/modulo/${module.id}`}>
+                        Acessar
+                      </ButtonLink>
+                    </ModuleCardButtonWrapper>
+                  </ModuleCard>
+                ))}
               </ModuleList>
             </ModuleListWrapper>
           </TrailWrapper>
@@ -89,4 +73,27 @@ export default function TrailPage() {
       </BodyWrapper>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { id } = ctx.params
+
+  try {
+    const { data } = await api.get(`/trails/${id}`)
+
+    return {
+      props: {
+        trail: data
+      }
+    }
+  } catch (error) {
+    console.log('💥 ~ error', error)
+
+    return {
+      redirect: {
+        destination: '/trilhas',
+        permanent: false
+      }
+    }
+  }
 }
