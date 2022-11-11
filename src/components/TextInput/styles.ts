@@ -198,25 +198,21 @@ export const Input = styled('input', {
   backgroundColor: 'transparent',
   width: '100%',
 
+  '&::placeholder': {
+    color: '$gray400'
+  },
+
   variants: {
     theme: {
       light: {
         color: '$gray800',
-        backgroundColor: '$white',
-
-        '&::placeholder': {
-          color: '$gray500'
-        }
+        backgroundColor: '$white'
       },
       dark: {
         colorScheme: 'dark',
 
         color: '$gray100',
-        backgroundColor: '$gray800',
-
-        '&::placeholder': {
-          color: '$gray400'
-        }
+        backgroundColor: '$gray800'
       }
     }
   },
