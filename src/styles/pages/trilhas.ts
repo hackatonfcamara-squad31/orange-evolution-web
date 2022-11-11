@@ -1,3 +1,4 @@
+import { Text } from 'components/Text'
 import Image from 'next/image'
 import { styled } from 'styles'
 
@@ -16,19 +17,20 @@ export const TextWrapper = styled('div', {
   }
 })
 
+export const Title = styled('span', {
+  fontSize: '1.25rem',
+  fontWeight: '600',
+  color: '$orange400'
+})
+
 export const CardWrapper = styled('div', {
-  maxWidth: '1000px',
+  maxWidth: '1200px',
   width: '80vw',
-  height: '35vh',
   display: 'flex',
   justifyContent: 'space-around',
   gap: '$md',
-
-  '@bp1': {
-    flexWrap: 'wrap',
-    height: 'auto',
-    gap: '$xs'
-  }
+  flexWrap: 'wrap',
+  height: 'auto'
 })
 
 export const Card = styled('div', {
@@ -40,18 +42,22 @@ export const Card = styled('div', {
   width: '25%',
   minWidth: '270px',
   maxWidth: '280px',
-  height: '100%',
-  minHeight: '250px',
+  height: '350px',
+
   marginTop: '1rem',
-  backgroundColor: '$white',
-  boxShadow: '4px 4px 8px gray',
   borderRadius: '35px',
-  span: {
-    color: '$orange400',
-    fontWeight: 600
-  },
-  '@bp1': {
-    height: '350px'
+  padding: '0.5rem 1.5rem',
+
+  variants: {
+    theme: {
+      dark: {
+        backgroundColor: '$gray600'
+      },
+      light: {
+        backgroundColor: '$white',
+        boxShadow: '4px 4px 8px gray'
+      }
+    }
   }
 })
 

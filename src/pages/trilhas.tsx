@@ -15,22 +15,27 @@ import {
   Card,
   CardImage,
   CardWrapper,
-  TextWrapper
+  TextWrapper,
+  Title
 } from 'styles/pages/trilhas'
 import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 import logoAvatarUser from '../../public/user.svg'
 import logoPrancheta from '../../public/prancheta.svg'
 import logoNotebook from '../../public/notebook.svg'
 import logoEsquadro from '../../public/esquadro.svg'
+import { Progress } from 'components/Progress'
+import { Trail } from 'libs/trails/types'
+import { getAllTrails } from 'libs/trails/api'
 
 interface TrailsProps {
   user: User
+  trails: Trail[]
 }
 
-export default function Trails({ user }: TrailsProps) {
+export default function Trails({ user, trails }: TrailsProps) {
   const { theme } = useTheme()
 
-  const { name, email } = user
+  // const { name, email } = user
 
   return (
     <>
@@ -64,10 +69,13 @@ export default function Trails({ user }: TrailsProps) {
               gente nessa jornada!
             </Text>
           </TextWrapper>
+
+          {/* Provisório */}
           <CardWrapper>
-            <Card>
-              <Text>O início</Text>
-              <CardImage src={logoPrancheta} alt="imagem tema" />
+            <Card theme={theme}>
+              <Title>O início</Title>
+              <CardImage src={logoPrancheta} alt="imagem prancheta" />
+              <Progress done={13} />
               <ButtonWrapper>
                 <Button size="md" isFullWidth>
                   Acessar
@@ -75,11 +83,12 @@ export default function Trails({ user }: TrailsProps) {
               </ButtonWrapper>
             </Card>
 
-            <Card>
-              <Text>
+            <Card theme={theme}>
+              <Title>
                 Desenvolvimento <br /> Full Stack
-              </Text>
-              <CardImage src={logoNotebook} alt="imagem tema" />
+              </Title>
+              <CardImage src={logoNotebook} alt="imagem notebook" />
+              <Progress done={17} />
               <ButtonWrapper>
                 <Button size="md" isFullWidth>
                   Acessar
@@ -87,9 +96,10 @@ export default function Trails({ user }: TrailsProps) {
               </ButtonWrapper>
             </Card>
 
-            <Card>
-              <Text>UX/UI Design</Text>
-              <CardImage src={logoEsquadro} alt="imagem tema" />
+            <Card theme={theme}>
+              <Title>UX/UI Design</Title>
+              <CardImage src={logoEsquadro} alt="imagem esquadro " />
+              <Progress done={52} />
               <ButtonWrapper>
                 <Button size="md" isFullWidth>
                   Acessar
@@ -97,11 +107,12 @@ export default function Trails({ user }: TrailsProps) {
               </ButtonWrapper>
             </Card>
 
-            <Card>
-              <Text>
+            <Card theme={theme}>
+              <Title>
                 Quality Assurance <br /> QA
-              </Text>
-              <CardImage src={logoAvatarUser} alt="imagem tema" />
+              </Title>
+              <CardImage src={logoAvatarUser} alt="imagem avatar" />
+              <Progress done={80} />
               <ButtonWrapper>
                 <Button size="md" isFullWidth>
                   Acessar
@@ -109,6 +120,24 @@ export default function Trails({ user }: TrailsProps) {
               </ButtonWrapper>
             </Card>
           </CardWrapper>
+          {/* Provisório */}
+
+          {/* <CardWrapper>
+            {trails.map((trail) => {
+              return (
+                <Card theme={theme}>
+                  <Title>{trail.title}</Title>
+                  <CardImage src={trail.icon_url} fill alt="imagem avatar" />
+                  <Progress done={80} />
+                  <ButtonWrapper>
+                    <Button size="md" isFullWidth>
+                      Acessar
+                    </Button>
+                  </ButtonWrapper>
+                </Card>
+              )
+            })}
+          </CardWrapper> */}
         </Main>
       </BodyWrapper>
     </>
@@ -138,9 +167,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
+  const trails = await getAllTrails(token.toString())
+
   return {
     props: {
-      user
+      // user,
+      trails
     }
   }
 }

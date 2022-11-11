@@ -24,7 +24,7 @@ export const ProgressRoot = styled(Progress.Root, {
   background: '$white',
   borderRadius: '$full',
   width: '100%',
-  height: '10px',
+  height: '6px',
   transform: 'translateZ(0)',
   boxShadow: '4px 4px 8px gray'
 })
