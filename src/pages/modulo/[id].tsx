@@ -2,6 +2,7 @@ import { Content } from 'components/Content'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
+import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
@@ -71,6 +72,8 @@ export default function ModulePage() {
               </ContentList>
             </ContentListWrapper>
           </ModuleWrapper>
+
+          <PageFooter />
         </Main>
       </BodyWrapper>
     </>

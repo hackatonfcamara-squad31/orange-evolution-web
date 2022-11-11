@@ -63,6 +63,15 @@ const greenStyles = {
   }
 }
 
+const purpleStyles = {
+  backgroundColor: '#7600CE',
+  color: '$white',
+
+  svg: {
+    stroke: '$white'
+  }
+}
+
 export const PrimitiveButton = styled('button', {
   borderRadius: '$full',
   display: 'flex',
@@ -70,6 +79,7 @@ export const PrimitiveButton = styled('button', {
   justifyContent: 'center',
   gap: 8,
   textDecoration: 'none',
+  fontWeight: 500,
 
   transition: 'all 0.2s ease-out',
 
@@ -97,6 +107,7 @@ export const PrimitiveButton = styled('button', {
       red: { ...redStyles },
       green: { ...greenStyles },
       gray: { ...grayLightStyles },
+      purple: { ...purpleStyles },
       default: {
         backgroundColor: '$gray300',
         color: '$gray800'
@@ -198,6 +209,20 @@ export const PrimitiveButton = styled('button', {
       color: 'green',
       css: {
         ...greenStyles
+      }
+    },
+    {
+      theme: 'light',
+      color: 'purple',
+      css: {
+        ...purpleStyles
+      }
+    },
+    {
+      theme: 'dark',
+      color: 'purple',
+      css: {
+        ...purpleStyles
       }
     }
   ],

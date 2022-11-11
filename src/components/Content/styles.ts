@@ -46,6 +46,7 @@ export const Badges = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '2rem',
+  flexWrap: 'wrap',
 
   '@bp3': {
     gap: '0.5rem',

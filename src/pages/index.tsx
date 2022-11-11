@@ -33,12 +33,9 @@ export default function Home() {
           </Subtitle>
 
           <ButtonWrapper>
-            <ButtonLink
-              size="lg"
-              isFullWidth
-              text="Acesse aqui"
-              href="/login"
-            />
+            <ButtonLink size="lg" isFullWidth href="/login">
+              Acesse aqui
+            </ButtonLink>
           </ButtonWrapper>
         </Main>
       </BodyWrapper>
