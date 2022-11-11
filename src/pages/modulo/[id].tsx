@@ -2,6 +2,7 @@ import { Content } from 'components/Content'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
+import { PageHeader } from 'components/PageHeader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
@@ -31,6 +32,13 @@ export default function ModulePage() {
         <Header />
 
         <Main>
+          <PageHeader
+            trailName="UX/UI Design"
+            trailLink="#"
+            moduleLink="#"
+            moduleName="UX Design"
+          />
+
           <ModuleWrapper>
             <Heading asChild size="xl">
               <h1>UX Design</h1>
@@ -46,7 +54,7 @@ export default function ModulePage() {
               <ContentList>
                 <Content title="O que é UX?" type="Vídeo" creator="UX Now" />
                 <Content
-                  title="O que é UX?"
+                  title="Comof fazer UX?"
                   type="Vídeo"
                   creator="Criador com nome extenso e dificil"
                 />

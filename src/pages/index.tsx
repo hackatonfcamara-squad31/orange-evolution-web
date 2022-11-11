@@ -1,3 +1,5 @@
+import { ButtonLink } from 'components/ButtonLink'
+import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -10,8 +12,6 @@ import {
 } from 'styles/pages/home'
 
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
-import { ButtonLink } from 'components/ButtonLink'
-import { Header } from 'components/Header'
 
 export default function Home() {
   const { theme } = useTheme()
