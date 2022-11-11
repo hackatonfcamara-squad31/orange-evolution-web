@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { Checkbox } from 'components/Checkbox'
+import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
@@ -65,6 +66,8 @@ export default function LoginPage() {
       </Head>
 
       <BodyWrapper theme={theme}>
+        <Header />
+
         <HeaderWrapper>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
@@ -76,9 +79,14 @@ export default function LoginPage() {
         </HeaderWrapper>
 
         <FormWrapper onSubmit={handleSubmit(handleLogin)}>
-          <InputEmail required error={errors.email} control={control} />
+          <InputEmail required error={errors.email} control={control} isBig />
 
-          <InputPassword required error={errors.password} control={control} />
+          <InputPassword
+            required
+            error={errors.password}
+            control={control}
+            isBig
+          />
 
           <LoginFormFooter>
             <Checkbox label="Lembrar de mim" labelFor="remember" />

@@ -5,7 +5,6 @@ export const BodyWrapper = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
-  position: 'relative',
 
   variants: {
     theme: {
@@ -28,7 +27,7 @@ export const Main = styled('main', {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '$md',
-  padding: '3rem 1.25rem'
+  padding: '4rem 1.5rem'
 })
 
 export const ImageWrapper = styled('div', {

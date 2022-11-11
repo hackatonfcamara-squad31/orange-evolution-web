@@ -9,7 +9,7 @@ export const InputWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '$xs',
-  padding: '0.85rem 1.5rem',
+  padding: '0.25rem 1.5rem',
   borderRadius: '$full',
   width: '100%',
   boxShadow: '$default',
@@ -25,10 +25,16 @@ export const InputWrapper = styled('div', {
   variants: {
     theme: {
       light: {
-        backgroundColor: '$gray100'
+        backgroundColor: '$white'
       },
       dark: {
         backgroundColor: '$gray800'
+      }
+    },
+
+    isBig: {
+      true: {
+        padding: '0.85rem 1.5rem'
       }
     },
 
@@ -196,7 +202,7 @@ export const Input = styled('input', {
     theme: {
       light: {
         color: '$gray800',
-        backgroundColor: '$gray100',
+        backgroundColor: '$white',
 
         '&::placeholder': {
           color: '$gray500'

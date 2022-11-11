@@ -1,3 +1,4 @@
+import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -21,6 +22,8 @@ export default function Trails({ user }: TrailsProps) {
         <title>Trilhas</title>
       </Head>
       <BodyWrapper theme={theme}>
+        <Header />
+
         <Main>
           <h1>Trilhas</h1>
           <ul>

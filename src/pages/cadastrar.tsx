@@ -26,6 +26,7 @@ import {
 import { BodyWrapper } from 'styles/pages/home'
 
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
+import { Header } from 'components/Header'
 
 export default function Register() {
   const { theme } = useTheme()
@@ -73,6 +74,7 @@ export default function Register() {
       </Head>
 
       <BodyWrapper theme={theme}>
+        <Header />
 
         <HeaderWrapper>
           <ImageWrapper>
@@ -85,11 +87,16 @@ export default function Register() {
         </HeaderWrapper>
 
         <FormWrapper onSubmit={handleSubmit(handleRegister)}>
-          <InputName required error={errors.name} control={control} />
+          <InputName required error={errors.name} control={control} isBig />
 
-          <InputEmail required error={errors.email} control={control} />
+          <InputEmail required error={errors.email} control={control} isBig />
 
-          <InputPassword required error={errors.password} control={control} />
+          <InputPassword
+            required
+            error={errors.password}
+            control={control}
+            isBig
+          />
 
           <ButtonWrapper>
             <Button
