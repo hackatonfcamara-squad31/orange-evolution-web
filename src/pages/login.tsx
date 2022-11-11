@@ -22,7 +22,7 @@ import {
   ImageWrapper,
   LoginFormFooter
 } from 'styles/pages/auth'
-import { BodyWrapper } from 'styles/pages/home'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
@@ -68,47 +68,53 @@ export default function LoginPage() {
       <BodyWrapper theme={theme}>
         <Header />
 
-        <HeaderWrapper>
-          <ImageWrapper>
-            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
-          </ImageWrapper>
+        <Main>
+          <HeaderWrapper>
+            <ImageWrapper>
+              <Image
+                src={orangeEvolutionLogo}
+                alt="Orange Evolution Logo"
+                fill
+              />
+            </ImageWrapper>
 
-          <Heading asChild size="lg">
-            <h1>Login</h1>
-          </Heading>
-        </HeaderWrapper>
+            <Heading asChild size="lg">
+              <h1>Login</h1>
+            </Heading>
+          </HeaderWrapper>
 
-        <FormWrapper onSubmit={handleSubmit(handleLogin)}>
-          <InputEmail required error={errors.email} control={control} isBig />
+          <FormWrapper onSubmit={handleSubmit(handleLogin)}>
+            <InputEmail required error={errors.email} control={control} isBig />
 
-          <InputPassword
-            required
-            error={errors.password}
-            control={control}
-            isBig
-          />
+            <InputPassword
+              required
+              error={errors.password}
+              control={control}
+              isBig
+            />
 
-          <LoginFormFooter>
-            <Checkbox label="Lembrar de mim" labelFor="remember" />
+            <LoginFormFooter>
+              <Checkbox label="Lembrar de mim" labelFor="remember" />
 
-            <Link href="#">Esqueci minha senha</Link>
-          </LoginFormFooter>
+              <Link href="#">Esqueci minha senha</Link>
+            </LoginFormFooter>
 
-          <ButtonWrapper>
-            <Button
-              size="lg"
-              isLoading={isAuthLoading}
-              disabled={isSubmitDisabled}
-              type="submit"
-            >
-              Fazer Login
-            </Button>
-          </ButtonWrapper>
-        </FormWrapper>
+            <ButtonWrapper>
+              <Button
+                size="lg"
+                isLoading={isAuthLoading}
+                disabled={isSubmitDisabled}
+                type="submit"
+              >
+                Fazer Login
+              </Button>
+            </ButtonWrapper>
+          </FormWrapper>
 
-        <FooterLinkContainer>
-          <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
-        </FooterLinkContainer>
+          <FooterLinkContainer>
+            <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
+          </FooterLinkContainer>
+        </Main>
       </BodyWrapper>
     </>
   )
