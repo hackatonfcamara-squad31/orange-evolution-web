@@ -16,7 +16,11 @@ export const ModuleList = styled('div', {
   width: '100%',
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-  gridGap: '1.5rem'
+  gridGap: '1.5rem',
+
+  '@bp4': {
+    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))'
+  }
 })
 
 export const ModuleCard = styled('div', {
