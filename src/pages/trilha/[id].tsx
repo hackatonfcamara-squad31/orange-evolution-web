@@ -12,11 +12,10 @@ import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
 import { Trail } from 'libs/trail/types'
-import { TrailPageData } from 'libs/trails/types'
+import { getTrail } from 'libs/trails/api'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
-import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
 import {
@@ -126,34 +125,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const { id } = ctx.params
 
-  try {
-    const { data }: { data: TrailPageData } = await api.get(
-      `/trails/description/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    )
+  const { trail, progress } = await getTrail(token.toString(), id as string)
 
-    const { trail, total, completed } = data
-
-    const progress = total === 0 ? 0 : (completed / total) * 100
-
-    return {
-      props: {
-        trail,
-        progress
-      }
-    }
-  } catch (error) {
-    console.log('💥 ~ error', error)
-
-    return {
-      redirect: {
-        destination: '/trilhas',
-        permanent: false
-      }
+  return {
+    props: {
+      trail,
+      progress
     }
   }
 }

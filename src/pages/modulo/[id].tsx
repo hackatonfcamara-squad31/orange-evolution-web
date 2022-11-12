@@ -11,12 +11,12 @@ import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Content as ContentType } from 'libs/content/types'
-import { Module, ModulePageData } from 'libs/module/types'
+import { getModule } from 'libs/module/api'
+import { Module } from 'libs/module/types'
 import { TrailInfo } from 'libs/trails/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
-import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import {
   ContentList,
@@ -135,23 +135,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.params
 
   try {
-    const { data }: { data: ModulePageData } = await api.get(
-      `/modules/description/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
+    const { trailInfo, progress, module, contents } = await getModule(
+      token.toString(),
+      id as string
     )
-
-    const { module, contents, trail_id, trail_title, total, completed } = data
-
-    const trailInfo = {
-      id: trail_id,
-      title: trail_title
-    }
-
-    const progress = total === 0 ? 0 : (completed / total) * 100
 
     return {
       props: {

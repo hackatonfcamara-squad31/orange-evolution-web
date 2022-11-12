@@ -8,6 +8,7 @@ export interface Trail {
   updated_at: string
   total: number
   completed: number
+  modules: Module[]
 }
 
 export interface TrailInfo {
@@ -17,7 +18,6 @@ export interface TrailInfo {
 
 export interface TrailPageData {
   trail: Trail
-  modules: Module[]
   total: number
   completed: number
 }
