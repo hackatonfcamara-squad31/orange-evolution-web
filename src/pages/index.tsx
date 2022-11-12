@@ -2,6 +2,7 @@ import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
+import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import Image from 'next/image'
 import {
   BodyWrapper,

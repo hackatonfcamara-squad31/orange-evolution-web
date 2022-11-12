@@ -5,6 +5,7 @@ export const BodyWrapper = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
+  height: '100%',
 
   variants: {
     theme: {
