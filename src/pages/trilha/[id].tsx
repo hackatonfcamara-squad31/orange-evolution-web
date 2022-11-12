@@ -4,17 +4,18 @@ import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
+import { Progress } from 'components/Progress'
 import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
-import { Trail } from 'libs/trail/types'
+import { getTrail } from 'libs/trails/api'
+import { Trail } from 'libs/trails/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
-import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
 import {
@@ -27,9 +28,10 @@ import {
 
 interface TrailPageProps {
   trail: Trail
+  progress: number
 }
 
-export default function TrailPage({ trail }: TrailPageProps) {
+export default function TrailPage({ trail, progress }: TrailPageProps) {
   const [isSearching, setIsSearching] = useState(false)
   const [filteredModules, setFilteredModules] = useState<Module[]>(
     trail.modules
@@ -40,7 +42,7 @@ export default function TrailPage({ trail }: TrailPageProps) {
   return (
     <>
       <Head>
-        <title>Orange Evolution | Trilha {trail.title}</title>
+        <title>{`Orange Evolution | Trilha ${trail.title}`}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
@@ -52,6 +54,8 @@ export default function TrailPage({ trail }: TrailPageProps) {
             <Heading asChild size="xl">
               <h1>{trail.title} - MÓDULOS</h1>
             </Heading>
+
+            <Progress donePercentage={progress} />
 
             <ModuleListWrapper>
               <SearchWrapper>
@@ -122,17 +126,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.params
 
   try {
-    const { data } = await api.get(`/trails/description/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-
-    const { trail } = data
+    const { trail, progress } = await getTrail(token.toString(), id as string)
 
     return {
       props: {
-        trail
+        trail,
+        progress
       }
     }
   } catch (error) {

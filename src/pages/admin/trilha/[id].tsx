@@ -10,14 +10,13 @@ import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
-import { Trail } from 'libs/trail/types'
+import { Trail } from 'libs/trails/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
 import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
-import { HiOutlinePencil } from 'react-icons/hi'
 import {
   ModuleCard,
   ModuleCardButtonWrapper,
@@ -25,7 +24,7 @@ import {
   ModuleListWrapper,
   TrailWrapper
 } from 'styles/pages/trail'
-import { Dialog } from 'components/Dialog'
+import { EditDialog } from 'components/EditDialog'
 
 interface TrailPageProps {
   trail: Trail
@@ -78,6 +77,16 @@ export default function TrailPage({ trail }: TrailPageProps) {
                       key={module.id}
                       style={{ position: 'relative' }}
                     >
+                      <EditDialog
+                        title="Editar conteúdo"
+                        confirmText="Salvar"
+                        cancelText="Cancelar"
+                        confirmButtonProps={{ color: 'green' }}
+                        cancelButtonProps={{ color: 'red' }}
+                        onConfirm={() => console.log('Confirmou')}
+                      >
+                        Editar conteúdo
+                      </EditDialog>
                       <Heading size="md">{module.title} </Heading>
                       <Text size="sm">{module.description}</Text>
 

@@ -1,26 +1,28 @@
 import { Text } from 'components/Text'
-import { useTheme } from 'contexts/ThemeContext'
-import React, { useEffect, useState } from 'react'
 import {
   ProgressIndicator,
   ProgressRoot,
-  ProgressText,
   ProgressTextWrapper,
   ProgressWrapper
 } from './styles'
 
-export function Progress({ done }) {
+interface ProgressProps {
+  donePercentage: number
+  isTrailPage?: boolean
+}
+
+export function Progress({ donePercentage, isTrailPage }: ProgressProps) {
   return (
     <>
       <ProgressWrapper>
-        <ProgressTextWrapper>
-          <Text>Progresso</Text>
-          <ProgressText>{done}%</ProgressText>
+        <ProgressTextWrapper isTrailPage={isTrailPage}>
+          <Text size="xs">Progresso</Text>
+          <Text size="xs">{donePercentage}%</Text>
         </ProgressTextWrapper>
 
-        <ProgressRoot value={done}>
+        <ProgressRoot value={donePercentage} isTrailPage={isTrailPage}>
           <ProgressIndicator
-            style={{ transform: `translateX(-${100 - done}%)` }}
+            css={{ transform: `translateX(-${Math.round(donePercentage)}%)` }}
           />
         </ProgressRoot>
       </ProgressWrapper>

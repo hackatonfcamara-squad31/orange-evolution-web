@@ -1,4 +1,8 @@
+import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
+import { Heading } from 'components/Heading'
+import { Progress } from 'components/Progress'
+import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import useWindowSize from 'hooks/useWindowSize'
@@ -20,10 +24,6 @@ import {
 import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
-import { Heading } from 'components/Heading'
-import { Progress } from 'components/Progress'
-import { ButtonLink } from 'components/ButtonLink'
-import { Text } from 'components/Text'
 import logo from '../../public/notebook.svg'
 
 interface TrailsProps {
@@ -88,7 +88,9 @@ export default function Trails({ user, trails }: TrailsProps) {
                     Juice, de parceiros e empresas que confiamos.
                   </p>
                 </Text>
+
                 <br />
+
                 <Text asChild>
                   <p>
                     Essa trilha foi montada pensando em quem está começando na
@@ -99,28 +101,34 @@ export default function Trails({ user, trails }: TrailsProps) {
                 </Text>
               </TextWrapper>
 
-              <CardWrapper
-                style={{ display: 'flex', justifyContent: 'space-around' }}
-              >
-                {trails.map((trail) => {
-                  return (
-                    <Card key={trail.id} theme={theme}>
-                      <Heading>{trail.title}</Heading>
-                      <CardImage
-                        src={logo}
-                        alt={trail.title}
-                        width={100}
-                        height={100}
-                      />
-                      <Progress done={80} />
-                      <ButtonWrapper>
-                        <ButtonLink href={`/trilha/${trail.id}`}>
-                          Acessar
-                        </ButtonLink>
-                      </ButtonWrapper>
-                    </Card>
-                  )
-                })}
+              <CardWrapper>
+                {trails.map((trail) => (
+                  <Card key={trail.id} theme={theme}>
+                    <Heading>{trail.title}</Heading>
+
+                    <CardImage
+                      src={trail.icon_url}
+                      alt={trail.title}
+                      width={100}
+                      height={100}
+                    />
+
+                    <Progress
+                      isTrailPage
+                      donePercentage={
+                        trail.total === 0
+                          ? 0
+                          : (trail.completed / trail.total) * 100
+                      }
+                    />
+
+                    <ButtonWrapper>
+                      <ButtonLink href={`/trilha/${trail.id}`}>
+                        Acesssar
+                      </ButtonLink>
+                    </ButtonWrapper>
+                  </Card>
+                ))}
               </CardWrapper>
             </>
           ) : (
@@ -151,7 +159,14 @@ export default function Trails({ user, trails }: TrailsProps) {
                         width={100}
                         height={100}
                       />
-                      <Progress done={80} />
+                      <Progress
+                        isTrailPage
+                        donePercentage={
+                          trail.total === 0
+                            ? 0
+                            : (trail.completed / trail.total) * 100
+                        }
+                      />
                       <ButtonWrapper>
                         <ButtonLink href={`/trilha/${trail.id}`}>
                           Acessar
@@ -192,12 +207,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  const trails = await getAllTrails(token.toString())
+  try {
+    const trails = await getAllTrails(token.toString())
 
-  return {
-    props: {
-      user,
-      trails
+    return {
+      props: {
+        user,
+        trails
+      }
+    }
+  } catch (error) {
+    return {
+      notFound: true
     }
   }
 }

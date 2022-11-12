@@ -24,6 +24,11 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
     border: 'none'
   },
 
+  '&[data-disabled]': {
+    opacity: 0.5,
+    cursor: 'not-allowed'
+  },
+
   variants: {
     theme: {
       dark: {
@@ -68,6 +73,7 @@ export const CheckboxIndicator = styled(CheckboxPrimitive.Indicator, {
   alignItems: 'center',
   justifyContent: 'center',
   color: '$white',
+  zIndex: 10,
 
   svg: {
     stroke: '$white'
