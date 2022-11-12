@@ -1,4 +1,8 @@
+import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
+import { Heading } from 'components/Heading'
+import { Progress } from 'components/Progress'
+import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -85,7 +89,7 @@ export default function Trails({ user, trails }: TrailsProps) {
                 <Progress done={80} />
 
                 <ButtonWrapper>
-                  <ButtonLink href={`/trilha/${trail.id}`} text="Acesssar" />
+                  <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>
                 </ButtonWrapper>
               </Card>
             ))}
