@@ -1,5 +1,5 @@
 import { api } from 'services/api'
-import { ModulePageData } from './types'
+import { ModulePageData, Module } from './types'
 
 export const getModule = async (token: string, id: string) => {
   if (!token) {

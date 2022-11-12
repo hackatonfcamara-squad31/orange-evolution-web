@@ -16,6 +16,7 @@ import {
 } from './styles'
 import { BiEdit } from 'react-icons/bi'
 import { InputGeneral } from 'components/Inputs/InputGeneral'
+import { TextArea } from 'components/TextArea'
 
 interface DialogContentProps extends RadixDialogContentProps {
   children: ReactNode
@@ -90,7 +91,9 @@ export function EditDialog({
         </DialogCloseButton>
 
         <DialogTitle theme={theme}>{title}</DialogTitle>
+
         <InputGeneral />
+        <TextArea />
 
         <DialogBbuttonsContainer>
           <Button

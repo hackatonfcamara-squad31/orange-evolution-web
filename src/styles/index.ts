@@ -102,6 +102,7 @@ export const {
       lg: '0.5rem', // 8px
       xl: '0.75rem', // 12px
       '2xl': '1rem', // 16px
+      '3xl': '1.25rem', //20px
       full: '9999px'
     }
   },
