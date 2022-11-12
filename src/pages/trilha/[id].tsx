@@ -11,8 +11,8 @@ import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
-import { Trail } from 'libs/trail/types'
 import { getTrail } from 'libs/trails/api'
+import { Trail } from 'libs/trails/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -42,7 +42,7 @@ export default function TrailPage({ trail, progress }: TrailPageProps) {
   return (
     <>
       <Head>
-        <title>Orange Evolution | Trilha {trail.title}</title>
+        <title>{`Orange Evolution | Trilha ${trail.title}`}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />

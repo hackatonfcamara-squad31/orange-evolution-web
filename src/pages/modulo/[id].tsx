@@ -52,7 +52,7 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
   return (
     <>
       <Head>
-        <title>Orange Evolution | Módulo {module?.title}</title>
+        <title>{`Orange Evolution | Módulo ${module?.title}`}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
