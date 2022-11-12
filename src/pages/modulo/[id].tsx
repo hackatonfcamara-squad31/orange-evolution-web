@@ -4,13 +4,15 @@ import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
+import { Progress } from 'components/Progress'
 import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Content as ContentType } from 'libs/content/types'
-import { Module } from 'libs/module/types'
+import { Module, ModulePageData } from 'libs/module/types'
+import { TrailInfo } from 'libs/trails/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -26,9 +28,16 @@ import {
 interface ModulePageProps {
   module: Module
   contents: ContentType[]
+  trailInfo: TrailInfo
+  progress: number
 }
 
-export default function ModulePage({ module, contents }: ModulePageProps) {
+export default function ModulePage({
+  module,
+  contents,
+  trailInfo,
+  progress
+}: ModulePageProps) {
   const [isSearching, setIsSearching] = useState(false)
   const [filteredContents, setFilteredContents] =
     useState<ContentType[]>(contents)
@@ -45,8 +54,8 @@ export default function ModulePage({ module, contents }: ModulePageProps) {
 
         <Main>
           <PageHeader
-            trailLinkName="UX/UI Design"
-            trailLink="#"
+            trailLinkName={trailInfo.title}
+            trailLink={`/trilha/${trailInfo.id}`}
             moduleLinkName={module.title}
             isModulePage
           />
@@ -55,6 +64,8 @@ export default function ModulePage({ module, contents }: ModulePageProps) {
             <Heading asChild size="xl">
               <h1>{module.title}</h1>
             </Heading>
+
+            <Progress donePercentage={progress} />
 
             <ContentListWrapper>
               <SearchWrapper>
@@ -124,18 +135,30 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.params
 
   try {
-    const { data } = await api.get(`/modules/description/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
+    const { data }: { data: ModulePageData } = await api.get(
+      `/modules/description/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    })
+    )
 
-    const { module, contents } = data
+    const { module, contents, trail_id, trail_title, total, completed } = data
+
+    const trailInfo = {
+      id: trail_id,
+      title: trail_title
+    }
+
+    const progress = total === 0 ? 0 : (completed / total) * 100
 
     return {
       props: {
         module,
         contents,
+        trailInfo,
+        progress,
         user
       }
     }

@@ -4,6 +4,7 @@ import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
+import { Progress } from 'components/Progress'
 import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
@@ -11,6 +12,7 @@ import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
 import { Trail } from 'libs/trail/types'
+import { TrailPageData } from 'libs/trails/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -27,9 +29,10 @@ import {
 
 interface TrailPageProps {
   trail: Trail
+  progress: number
 }
 
-export default function TrailPage({ trail }: TrailPageProps) {
+export default function TrailPage({ trail, progress }: TrailPageProps) {
   const [isSearching, setIsSearching] = useState(false)
   const [filteredModules, setFilteredModules] = useState<Module[]>(
     trail.modules
@@ -52,6 +55,8 @@ export default function TrailPage({ trail }: TrailPageProps) {
             <Heading asChild size="xl">
               <h1>{trail.title} - MÓDULOS</h1>
             </Heading>
+
+            <Progress donePercentage={progress} />
 
             <ModuleListWrapper>
               <SearchWrapper>
@@ -122,17 +127,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.params
 
   try {
-    const { data } = await api.get(`/trails/description/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
+    const { data }: { data: TrailPageData } = await api.get(
+      `/trails/description/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
-    })
+    )
 
-    const { trail } = data
+    const { trail, total, completed } = data
+
+    const progress = total === 0 ? 0 : (completed / total) * 100
 
     return {
       props: {
-        trail
+        trail,
+        progress
       }
     }
   } catch (error) {

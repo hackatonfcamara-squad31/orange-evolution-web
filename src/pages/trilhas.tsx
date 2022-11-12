@@ -86,7 +86,13 @@ export default function Trails({ user, trails }: TrailsProps) {
                   height={100}
                 />
 
-                <Progress done={80} />
+                <Progress
+                  donePercentage={
+                    trail.total === 0
+                      ? 0
+                      : (trail.completed / trail.total) * 100
+                  }
+                />
 
                 <ButtonWrapper>
                   <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>

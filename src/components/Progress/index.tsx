@@ -1,6 +1,4 @@
 import { Text } from 'components/Text'
-import { useTheme } from 'contexts/ThemeContext'
-import React, { useEffect, useState } from 'react'
 import {
   ProgressIndicator,
   ProgressRoot,
@@ -9,18 +7,22 @@ import {
   ProgressWrapper
 } from './styles'
 
-export function Progress({ done }) {
+interface ProgressProps {
+  donePercentage: number
+}
+
+export function Progress({ donePercentage }) {
   return (
     <>
       <ProgressWrapper>
         <ProgressTextWrapper>
           <Text>Progresso</Text>
-          <ProgressText>{done}%</ProgressText>
+          <ProgressText>{donePercentage}%</ProgressText>
         </ProgressTextWrapper>
 
-        <ProgressRoot value={done}>
+        <ProgressRoot value={donePercentage}>
           <ProgressIndicator
-            style={{ transform: `translateX(-${100 - done}%)` }}
+            style={{ transform: `translateX(-${100 - donePercentage}%)` }}
           />
         </ProgressRoot>
       </ProgressWrapper>
