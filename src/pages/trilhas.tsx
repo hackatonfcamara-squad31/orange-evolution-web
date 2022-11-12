@@ -87,6 +87,7 @@ export default function Trails({ user, trails }: TrailsProps) {
                 />
 
                 <Progress
+                  isTrailPage
                   donePercentage={
                     trail.total === 0
                       ? 0

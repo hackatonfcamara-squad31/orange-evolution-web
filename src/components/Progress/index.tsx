@@ -2,27 +2,27 @@ import { Text } from 'components/Text'
 import {
   ProgressIndicator,
   ProgressRoot,
-  ProgressText,
   ProgressTextWrapper,
   ProgressWrapper
 } from './styles'
 
 interface ProgressProps {
   donePercentage: number
+  isTrailPage?: boolean
 }
 
-export function Progress({ donePercentage }) {
+export function Progress({ donePercentage, isTrailPage }: ProgressProps) {
   return (
     <>
       <ProgressWrapper>
-        <ProgressTextWrapper>
-          <Text>Progresso</Text>
-          <ProgressText>{donePercentage}%</ProgressText>
+        <ProgressTextWrapper isTrailPage={isTrailPage}>
+          <Text size="xs">Progresso</Text>
+          <Text size="xs">{donePercentage}%</Text>
         </ProgressTextWrapper>
 
-        <ProgressRoot value={donePercentage}>
+        <ProgressRoot value={donePercentage} isTrailPage={isTrailPage}>
           <ProgressIndicator
-            style={{ transform: `translateX(-${100 - donePercentage}%)` }}
+            css={{ transform: `translateX(-${100 - donePercentage}%)` }}
           />
         </ProgressRoot>
       </ProgressWrapper>
