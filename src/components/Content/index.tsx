@@ -7,27 +7,35 @@ import {
 } from 'components/Content/styles'
 import { Heading } from 'components/Heading'
 import { useTheme } from 'contexts/ThemeContext'
+import { Content as ContentType } from 'libs/content/types'
 
 export interface ContentProps {
-  title: string
-  type: string
-  creator: string
+  content: ContentType
 }
 
-export function Content({ title, type, creator }: ContentProps) {
+export function Content({ content }: ContentProps) {
+  const { title, type, creator_name, duration, is_completed, link } = content
+
   const { theme } = useTheme()
   return (
     <ContentWrapper theme={theme}>
       <TitleWrapper>
-        <Checkbox size="sm" title="Concluir" />
-        <Heading size="sm" color="gray">
-          {title}
+        <Checkbox size="sm" title="Concluir" checked={is_completed} />
+        <Heading size="sm" color="gray" asChild>
+          <a
+            href={link}
+            title={`Acessar ${link}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {title}
+          </a>
         </Heading>
       </TitleWrapper>
 
       <Badges>
         <Badge title={type}>{type}</Badge>
-        <Badge title={creator}>{creator}</Badge>
+        <Badge title={creator_name}>{creator_name}</Badge>
       </Badges>
     </ContentWrapper>
   )

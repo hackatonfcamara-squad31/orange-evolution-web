@@ -89,12 +89,7 @@ export default function ModulePage({
 
                   <ContentList>
                     {filteredContents.map((content) => (
-                      <Content
-                        key={content.id}
-                        title={content.title}
-                        type={content.type}
-                        creator={content.creator_name}
-                      />
+                      <Content key={content.id} content={content} />
                     ))}
                   </ContentList>
                 </>

@@ -16,17 +16,11 @@ export const ContentWrapper = styled('div', {
   variants: {
     theme: {
       light: {
-        backgroundColor: 'white',
-        span: {
-          color: '$gray800'
-        }
+        backgroundColor: '$white'
       },
       dark: {
         backgroundColor: '$gray700',
-        boxShadow: 'none',
-        span: {
-          color: '$gray100'
-        }
+        boxShadow: 'none'
       }
     }
   }
@@ -36,6 +30,14 @@ export const TitleWrapper = styled('div', {
   display: 'flex',
   alignItems: 'center',
   gap: '1.5rem',
+
+  a: {
+    textDecoration: 'none',
+
+    '&:hover': {
+      color: '$orange500'
+    }
+  },
 
   '@bp3': {
     gap: '0.75rem'
