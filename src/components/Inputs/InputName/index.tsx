@@ -7,6 +7,7 @@ interface NameImputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError
   errorMessage?: string
   control?: Control
+  isBig?: boolean
   validate?: RegisterOptions
 }
 
@@ -15,6 +16,7 @@ export function InputName({
   errorMessage = '',
   control,
   validate,
+  isBig,
   ...props
 }: NameImputProps) {
   return (
@@ -23,6 +25,7 @@ export function InputName({
       labelFor="name"
       error={error}
       required={props.required}
+      isBig={isBig}
     >
       <TextInput.Icon>
         <MdPersonOutline />

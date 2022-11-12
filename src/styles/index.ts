@@ -83,7 +83,7 @@ export const {
       lg: '1.25rem', // 20px
       xl: '1.5rem', // 24px
       '2xl': '2rem', // 32px
-      '3xl': '3rem' // 48px
+      '3xl': '2.5rem' // 40px
     },
 
     transitions: {

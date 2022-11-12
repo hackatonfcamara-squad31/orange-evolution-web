@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
+import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
@@ -23,7 +24,7 @@ import {
   HeaderWrapper,
   ImageWrapper
 } from 'styles/pages/auth'
-import { BodyWrapper } from 'styles/pages/home'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
@@ -73,38 +74,51 @@ export default function Register() {
       </Head>
 
       <BodyWrapper theme={theme}>
-        <HeaderWrapper>
-          <ImageWrapper>
-            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
-          </ImageWrapper>
+        <Header />
 
-          <Heading asChild size="lg">
-            <h1>Cadastro</h1>
-          </Heading>
-        </HeaderWrapper>
+        <Main>
+          <HeaderWrapper>
+            <ImageWrapper>
+              <Image
+                src={orangeEvolutionLogo}
+                alt="Orange Evolution Logo"
+                fill
+              />
+            </ImageWrapper>
 
-        <FormWrapper onSubmit={handleSubmit(handleRegister)}>
-          <InputName required error={errors.name} control={control} />
+            <Heading asChild size="lg">
+              <h1>Cadastro</h1>
+            </Heading>
+          </HeaderWrapper>
 
-          <InputEmail required error={errors.email} control={control} />
+          <FormWrapper onSubmit={handleSubmit(handleRegister)}>
+            <InputName required error={errors.name} control={control} isBig />
 
-          <InputPassword required error={errors.password} control={control} />
+            <InputEmail required error={errors.email} control={control} isBig />
 
-          <ButtonWrapper>
-            <Button
-              size="lg"
-              isLoading={isAuthLoading}
-              disabled={isSubmitDisabled}
-              type="submit"
-            >
-              Cadastrar
-            </Button>
-          </ButtonWrapper>
-        </FormWrapper>
+            <InputPassword
+              required
+              error={errors.password}
+              control={control}
+              isBig
+            />
 
-        <FooterLinkContainer>
-          <Link href="/login">Já possui uma conta? Faça login!</Link>
-        </FooterLinkContainer>
+            <ButtonWrapper>
+              <Button
+                size="lg"
+                isLoading={isAuthLoading}
+                disabled={isSubmitDisabled}
+                type="submit"
+              >
+                Cadastrar
+              </Button>
+            </ButtonWrapper>
+          </FormWrapper>
+
+          <FooterLinkContainer>
+            <Link href="/login">Já possui uma conta? Faça login!</Link>
+          </FooterLinkContainer>
+        </Main>
       </BodyWrapper>
     </>
   )
