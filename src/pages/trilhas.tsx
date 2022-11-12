@@ -1,9 +1,14 @@
-import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
+import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
+import { Heading } from 'components/Heading'
+import { Progress } from 'components/Progress'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
+import useWindowSize from 'hooks/useWindowSize'
 import { getAuthUser } from 'libs/auth/api'
+import { getAllTrails } from 'libs/trails/api'
+import { Trail } from 'libs/trails/types'
 import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -14,19 +19,11 @@ import {
   Card,
   CardImage,
   CardWrapper,
-  TextWrapper,
-  Title
+  TextWrapper
 } from 'styles/pages/trilhas'
 import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
-import logoAvatarUser from '../../public/user.svg'
-import { Progress } from 'components/Progress'
-import { Trail } from 'libs/trails/types'
-import { getAllTrails } from 'libs/trails/api'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
-import useWindowSize from 'hooks/useWindowSize'
-import { ButtonLink } from 'components/ButtonLink'
-import { Heading } from 'components/Heading'
 
 interface TrailsProps {
   user: User
@@ -70,11 +67,13 @@ export default function Trails({ user, trails }: TrailsProps) {
         <Main>
           <Image
             src={orangeEvolutionLogo}
-            alt="logo da orange evolution"
+            alt="Logo da orange evolution"
             width={197}
             height={122}
           />
-          <Title>Escolha sua trilha</Title>
+          <Heading asChild size="lg">
+            <h1>Escolha sua trilha!</h1>
+          </Heading>
         </Main>
 
         {size.width > 900 ? (
@@ -109,7 +108,7 @@ export default function Trails({ user, trails }: TrailsProps) {
                   <Card key={trail.id} theme={theme}>
                     <Heading>{trail.title}</Heading>
                     <CardImage
-                      src={logoAvatarUser}
+                      src={trail.icon_url}
                       alt={trail.title}
                       width={100}
                       height={100}
@@ -150,7 +149,7 @@ export default function Trails({ user, trails }: TrailsProps) {
                   >
                     <Heading>{trail.title}</Heading>
                     <CardImage
-                      src={logoAvatarUser}
+                      src={trail.icon_url}
                       alt={trail.title}
                       width={100}
                       height={100}

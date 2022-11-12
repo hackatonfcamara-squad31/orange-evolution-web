@@ -1,4 +1,3 @@
-import { Text } from 'components/Text'
 import Image from 'next/image'
 import { styled } from 'styles'
 
@@ -8,6 +7,7 @@ export const TextWrapper = styled('div', {
   p: {
     textAlign: 'justify'
   },
+
   '@bp2': {
     p: {
       padding: '0 1rem',
@@ -18,15 +18,6 @@ export const TextWrapper = styled('div', {
     p: {
       fontSize: '$xs'
     }
-  }
-})
-
-export const Title = styled('h2', {
-  fontSize: '2.5rem',
-  color: '$orange400',
-  fontWeight: 600,
-  '@bp3': {
-    fontSize: '1.5rem'
   }
 })
 
