@@ -11,12 +11,12 @@ import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Content as ContentType } from 'libs/content/types'
-import { getModule } from 'libs/module/api'
-import { Module } from 'libs/module/types'
-import { TrailInfo } from 'libs/trails/types'
+import { useModule } from 'libs/module/hooks'
+import { useModuleStore } from 'libs/module/store'
+import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import {
   ContentList,
@@ -26,78 +26,89 @@ import {
 } from 'styles/pages/module'
 
 interface ModulePageProps {
-  module: Module
-  contents: ContentType[]
-  trailInfo: TrailInfo
-  progress: number
+  moduleId: string
+  token: string
+  user: User
 }
 
-export default function ModulePage({
-  module,
-  contents,
-  trailInfo,
-  progress
-}: ModulePageProps) {
+export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
   const [isSearching, setIsSearching] = useState(false)
-  const [filteredContents, setFilteredContents] =
-    useState<ContentType[]>(contents)
+  const [filteredContents, setFilteredContents] = useState<ContentType[]>(
+    [] as ContentType[]
+  )
 
   const { theme } = useTheme()
+
+  const { isLoading } = useModule(token, moduleId)
+
+  const { trailInfo, progress, module, contents } = useModuleStore()
+
+  useEffect(() => {
+    if (contents) {
+      setFilteredContents(contents)
+    }
+  }, [contents])
 
   return (
     <>
       <Head>
-        <title>Orange Evolution | Módulo {module.title}</title>
+        <title>Orange Evolution | Módulo {module?.title}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
 
         <Main>
-          <PageHeader
-            trailLinkName={trailInfo.title}
-            trailLink={`/trilha/${trailInfo.id}`}
-            moduleLinkName={module.title}
-            isModulePage
-          />
+          {isLoading ? (
+            <SearchLoader />
+          ) : (
+            <>
+              <PageHeader
+                trailLinkName={trailInfo?.title}
+                trailLink={`/trilha/${trailInfo?.id}`}
+                moduleLinkName={module?.title}
+                isModulePage
+              />
 
-          <ModuleWrapper>
-            <Heading asChild size="xl">
-              <h1>{module.title}</h1>
-            </Heading>
+              <ModuleWrapper>
+                <Heading asChild size="xl">
+                  <h1>{module?.title}</h1>
+                </Heading>
 
-            <Progress donePercentage={progress} />
+                <Progress donePercentage={progress} />
 
-            <ContentListWrapper>
-              <SearchWrapper>
-                <InputSearch
-                  items={contents}
-                  setFilteredItems={setFilteredContents}
-                  placeholder="Buscar conteúdo"
-                  setIsSearching={setIsSearching}
-                />
-              </SearchWrapper>
+                <ContentListWrapper>
+                  <SearchWrapper>
+                    <InputSearch
+                      items={contents}
+                      setFilteredItems={setFilteredContents}
+                      placeholder="Buscar conteúdo"
+                      setIsSearching={setIsSearching}
+                    />
+                  </SearchWrapper>
 
-              {isSearching && <SearchLoader />}
+                  {isSearching && <SearchLoader />}
 
-              {filteredContents.length === 0 && !isSearching && (
-                <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
-              )}
+                  {filteredContents.length === 0 && !isSearching && (
+                    <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
+                  )}
 
-              {filteredContents.length > 0 && !isSearching && (
-                <>
-                  <Text size="sm">Concluído</Text>
+                  {filteredContents.length > 0 && !isSearching && (
+                    <>
+                      <Text size="sm">Concluído</Text>
 
-                  <ContentList>
-                    {filteredContents.map((content) => (
-                      <Content key={content.id} content={content} />
-                    ))}
-                  </ContentList>
-                </>
-              )}
-            </ContentListWrapper>
-          </ModuleWrapper>
+                      <ContentList>
+                        {filteredContents.map((content) => (
+                          <Content key={content.id} content={content} />
+                        ))}
+                      </ContentList>
+                    </>
+                  )}
+                </ContentListWrapper>
+              </ModuleWrapper>
 
-          <PageFooter />
+              <PageFooter />
+            </>
+          )}
         </Main>
       </BodyWrapper>
     </>
@@ -129,29 +140,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const { id } = ctx.params
 
-  try {
-    const { trailInfo, progress, module, contents } = await getModule(
-      token.toString(),
-      id as string
-    )
-
-    return {
-      props: {
-        module,
-        contents,
-        trailInfo,
-        progress,
-        user
-      }
-    }
-  } catch (error) {
-    console.log('💥 ~ error', error)
-
-    return {
-      redirect: {
-        destination: '/trilhas',
-        permanent: false
-      }
+  return {
+    props: {
+      token,
+      user,
+      moduleId: id
     }
   }
 }

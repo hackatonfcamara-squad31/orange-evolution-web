@@ -1,4 +1,5 @@
 import { Content } from 'libs/content/types'
+import { TrailInfo } from 'libs/trails/types'
 
 export type Module = {
   id: string
@@ -16,4 +17,11 @@ export type ModulePageData = {
   completed: number
   module: Module
   contents: Content[]
+}
+
+export type ModuleData = {
+  module: Module
+  contents: Content[]
+  trailInfo: TrailInfo
+  progress: number
 }
