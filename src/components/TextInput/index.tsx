@@ -23,6 +23,7 @@ export interface TextInputRootProps {
   labelFor?: string
   disabled?: boolean
   error?: FieldError
+  isBig?: boolean
   required?: boolean
 }
 
@@ -40,6 +41,7 @@ function TextInputRoot({
   children,
   labelFor = '',
   label = '',
+  isBig,
   disabled = false,
   error,
   required = false
@@ -52,7 +54,12 @@ function TextInputRoot({
         {label} {required && <span>*</span>}
       </InputLabel>
 
-      <InputWrapper error={!!error} disabled={disabled} theme={theme}>
+      <InputWrapper
+        error={!!error}
+        disabled={disabled}
+        theme={theme}
+        isBig={isBig}
+      >
         {children}
       </InputWrapper>
 

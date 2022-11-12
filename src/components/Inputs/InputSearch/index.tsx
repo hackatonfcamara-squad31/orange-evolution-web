@@ -1,19 +1,36 @@
 import { TextInput } from 'components/TextInput'
 import useDebounce from 'hooks/useDebounce'
+import { Content } from 'libs/content/types'
+import { Module } from 'libs/module/types'
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 
-interface InputSearchProps extends InputHTMLAttributes<HTMLInputElement> {}
+interface InputSearchProps extends InputHTMLAttributes<HTMLInputElement> {
+  // items as array of Module or Content
+  items: Array<Content | Module>
+  setFilteredItems: (items: any[]) => void
+  setIsSearching: (isSearching: boolean) => void
+}
 
-export function InputSearch({ ...props }: InputSearchProps) {
+export function InputSearch({
+  items,
+  setFilteredItems,
+  setIsSearching,
+  ...props
+}: InputSearchProps) {
   const [search, setSearch] = useState('')
   const debouncedValue = useDebounce<string>(search, 500)
 
-  console.log('🚀 ~ search', search)
-
   useEffect(() => {
-    // Triggers when "debouncedValue" changes
-  }, [debouncedValue])
+    setIsSearching(true)
+    const filteredItems = items.filter((item) => {
+      return item.title.toLowerCase().includes(debouncedValue.toLowerCase())
+    })
+
+    setFilteredItems(filteredItems)
+
+    setIsSearching(false)
+  }, [debouncedValue, items, setFilteredItems, setIsSearching])
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value)
@@ -25,7 +42,6 @@ export function InputSearch({ ...props }: InputSearchProps) {
         id="search-content"
         name="search-content"
         type="search"
-        placeholder="Buscar conteúdo"
         onChange={handleChange}
         value={search}
         {...props}

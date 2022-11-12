@@ -1,3 +1,4 @@
+import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
@@ -11,8 +12,7 @@ import {
   Subtitle
 } from 'styles/pages/home'
 
-import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
-import { ButtonLink } from 'components/ButtonLink'
+import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 export default function Home() {
   const { theme } = useTheme()
@@ -20,11 +20,10 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Orange Evolution | Home</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
-        <ButtonToggleTheme style={{ position: 'absolute', right: '1rem' }} />
         <Main>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
@@ -35,12 +34,9 @@ export default function Home() {
           </Subtitle>
 
           <ButtonWrapper>
-            <ButtonLink
-              size="lg"
-              isFullWidth
-              text="Acesse aqui"
-              href="/login"
-            />
+            <ButtonLink size="lg" isFullWidth href="/login">
+              Acesse aqui
+            </ButtonLink>
           </ButtonWrapper>
         </Main>
       </BodyWrapper>

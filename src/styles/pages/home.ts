@@ -28,8 +28,7 @@ export const Main = styled('main', {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '$md',
-  padding: '3rem 1.25rem',
-  minHeight: '100%'
+  padding: '6.25rem 1.5rem'
 })
 
 export const ImageWrapper = styled('div', {

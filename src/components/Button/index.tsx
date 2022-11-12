@@ -3,7 +3,7 @@ import { BallTriangle } from 'react-loader-spinner'
 import { useTheme } from '../../contexts/ThemeContext'
 import { PrimitiveButton } from './styles'
 
-export type ButtonColors = 'red' | 'green' | 'default' | 'gray'
+export type ButtonColors = 'red' | 'green' | 'default' | 'gray' | 'purple'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode
@@ -14,6 +14,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isOnlyIcon?: boolean
   color?: ButtonColors
   asAnchor?: boolean
+  target?: '_blank' | '_self' | '_parent' | '_top'
+  rel?: 'noreferrer noopener'
 }
 
 const ButtonLoader = () => {

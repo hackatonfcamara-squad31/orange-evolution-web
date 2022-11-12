@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from 'components/Button'
 import { Checkbox } from 'components/Checkbox'
+import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
@@ -21,7 +22,7 @@ import {
   ImageWrapper,
   LoginFormFooter
 } from 'styles/pages/auth'
-import { BodyWrapper } from 'styles/pages/home'
+import { BodyWrapper, Main } from 'styles/pages/home'
 
 import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
@@ -65,42 +66,55 @@ export default function LoginPage() {
       </Head>
 
       <BodyWrapper theme={theme}>
-        <HeaderWrapper>
-          <ImageWrapper>
-            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
-          </ImageWrapper>
+        <Header />
 
-          <Heading asChild size="lg">
-            <h1>Login</h1>
-          </Heading>
-        </HeaderWrapper>
+        <Main>
+          <HeaderWrapper>
+            <ImageWrapper>
+              <Image
+                src={orangeEvolutionLogo}
+                alt="Orange Evolution Logo"
+                fill
+              />
+            </ImageWrapper>
 
-        <FormWrapper onSubmit={handleSubmit(handleLogin)}>
-          <InputEmail required error={errors.email} control={control} />
+            <Heading asChild size="lg">
+              <h1>Login</h1>
+            </Heading>
+          </HeaderWrapper>
 
-          <InputPassword required error={errors.password} control={control} />
+          <FormWrapper onSubmit={handleSubmit(handleLogin)}>
+            <InputEmail required error={errors.email} control={control} isBig />
 
-          <LoginFormFooter>
-            <Checkbox label="Lembrar de mim" labelFor="remember" />
+            <InputPassword
+              required
+              error={errors.password}
+              control={control}
+              isBig
+            />
 
-            <Link href="#">Esqueci minha senha</Link>
-          </LoginFormFooter>
+            <LoginFormFooter>
+              <Checkbox label="Lembrar de mim" labelFor="remember" />
 
-          <ButtonWrapper>
-            <Button
-              size="lg"
-              isLoading={isAuthLoading}
-              disabled={isSubmitDisabled}
-              type="submit"
-            >
-              Fazer Login
-            </Button>
-          </ButtonWrapper>
-        </FormWrapper>
+              <Link href="#">Esqueci minha senha</Link>
+            </LoginFormFooter>
 
-        <FooterLinkContainer>
-          <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
-        </FooterLinkContainer>
+            <ButtonWrapper>
+              <Button
+                size="lg"
+                isLoading={isAuthLoading}
+                disabled={isSubmitDisabled}
+                type="submit"
+              >
+                Fazer Login
+              </Button>
+            </ButtonWrapper>
+          </FormWrapper>
+
+          <FooterLinkContainer>
+            <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
+          </FooterLinkContainer>
+        </Main>
       </BodyWrapper>
     </>
   )

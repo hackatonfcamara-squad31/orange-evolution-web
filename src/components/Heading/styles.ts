@@ -2,6 +2,8 @@ import { Slot } from '@radix-ui/react-slot'
 import { styled } from 'styles'
 
 export const StyledHeading = styled(Slot, {
+  fontWeight: 600,
+
   variants: {
     theme: {
       light: {
@@ -9,6 +11,15 @@ export const StyledHeading = styled(Slot, {
       },
       dark: {
         color: '$orange400'
+      }
+    },
+
+    color: {
+      default: {
+        color: '$orange400'
+      },
+      gray: {
+        color: '$gray800'
       }
     },
 
@@ -27,6 +38,23 @@ export const StyledHeading = styled(Slot, {
       }
     }
   },
+
+  compoundVariants: [
+    {
+      theme: 'light',
+      color: 'gray',
+      css: {
+        color: '$gray800'
+      }
+    },
+    {
+      theme: 'dark',
+      color: 'gray',
+      css: {
+        color: '$gray800'
+      }
+    }
+  ],
 
   defaultVariants: {
     theme: 'light',
