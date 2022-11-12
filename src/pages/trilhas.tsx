@@ -1,4 +1,3 @@
-import { Button } from 'components/Button'
 import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import { Header } from 'components/Header'
 import { Text } from 'components/Text'
@@ -20,22 +19,46 @@ import {
 } from 'styles/pages/trilhas'
 import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 import logoAvatarUser from '../../public/user.svg'
-import logoPrancheta from '../../public/prancheta.svg'
-import logoNotebook from '../../public/notebook.svg'
-import logoEsquadro from '../../public/esquadro.svg'
 import { Progress } from 'components/Progress'
 import { Trail } from 'libs/trails/types'
 import { getAllTrails } from 'libs/trails/api'
+import { useKeenSlider } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
+import useWindowSize from 'hooks/useWindowSize'
+import { ButtonLink } from 'components/ButtonLink'
+import { Heading } from 'components/Heading'
 
 interface TrailsProps {
   user: User
   trails: Trail[]
 }
+interface Size {
+  width: number | undefined
+  height: number | undefined
+}
 
 export default function Trails({ user, trails }: TrailsProps) {
   const { theme } = useTheme()
+  const size: Size = useWindowSize()
+  // const { name, email } = user
 
-  const { name, email } = user
+  const [sliderRef] = useKeenSlider({
+    breakpoints: {
+      '(max-width: 900px)': {
+        slides: { origin: 'center', perView: 2.5, spacing: 10 }
+      },
+      '(max-width: 768px)': {
+        slides: { origin: 'center', perView: 2, spacing: 10 }
+      },
+      '(max-width: 600px)': {
+        slides: { origin: 'center', perView: 1.8, spacing: 10 }
+      },
+      '(max-width: 400px)': {
+        slides: { origin: 'center', perView: 1.35, spacing: 7 }
+      }
+    },
+    slides: { origin: 'center', perView: 2.5, spacing: 10 }
+  })
 
   return (
     <>
@@ -44,7 +67,6 @@ export default function Trails({ user, trails }: TrailsProps) {
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
-        <ButtonToggleTheme style={{ position: 'absolute', right: '1rem' }} />
         <Main>
           <Image
             src={orangeEvolutionLogo}
@@ -52,93 +74,100 @@ export default function Trails({ user, trails }: TrailsProps) {
             width={197}
             height={122}
           />
-          <TextWrapper>
-            <Text>
-              O Orange Evolution consiste em trilhas totalmente gratuitas para
-              que você possa iniciar a sua carreira na tecnologia. Você terá
-              acesso a vídeos, lives, artigos, apostilas e até cursos gratuitos,
-              além desses conteúdos serem da Orange Juice, de parceiros e
-              empresas que confiamos.
-            </Text>
-          </TextWrapper>
-          <TextWrapper>
-            <Text>
-              Essa trilha foi montada pensando em quem está começando na área,
-              ou passando por uma migração de carreira e ainda não sabe
-              exatamente o que é esse mundo. Então, aperta o cinto e vem com a
-              gente nessa jornada!
-            </Text>
-          </TextWrapper>
-
-          {/* Provisório */}
-          <CardWrapper>
-            <Card theme={theme}>
-              <Title>O início</Title>
-              <CardImage src={logoPrancheta} alt="imagem prancheta" />
-              <Progress done={13} />
-              <ButtonWrapper>
-                <Button size="md" isFullWidth>
-                  Acessar
-                </Button>
-              </ButtonWrapper>
-            </Card>
-
-            <Card theme={theme}>
-              <Title>
-                Desenvolvimento <br /> Full Stack
-              </Title>
-              <CardImage src={logoNotebook} alt="imagem notebook" />
-              <Progress done={17} />
-              <ButtonWrapper>
-                <Button size="md" isFullWidth>
-                  Acessar
-                </Button>
-              </ButtonWrapper>
-            </Card>
-
-            <Card theme={theme}>
-              <Title>UX/UI Design</Title>
-              <CardImage src={logoEsquadro} alt="imagem esquadro " />
-              <Progress done={52} />
-              <ButtonWrapper>
-                <Button size="md" isFullWidth>
-                  Acessar
-                </Button>
-              </ButtonWrapper>
-            </Card>
-
-            <Card theme={theme}>
-              <Title>
-                Quality Assurance <br /> QA
-              </Title>
-              <CardImage src={logoAvatarUser} alt="imagem avatar" />
-              <Progress done={80} />
-              <ButtonWrapper>
-                <Button size="md" isFullWidth>
-                  Acessar
-                </Button>
-              </ButtonWrapper>
-            </Card>
-          </CardWrapper>
-          {/* Provisório */}
-
-          {/* <CardWrapper>
-            {trails.map((trail) => {
-              return (
-                <Card theme={theme}>
-                  <Title>{trail.title}</Title>
-                  <CardImage src={trail.icon_url} fill alt="imagem avatar" />
-                  <Progress done={80} />
-                  <ButtonWrapper>
-                    <Button size="md" isFullWidth>
-                      Acessar
-                    </Button>
-                  </ButtonWrapper>
-                </Card>
-              )
-            })}
-          </CardWrapper> */}
+          <Title>Escolha sua trilha</Title>
         </Main>
+
+        {size.width > 900 ? (
+          <>
+            <Main>
+              <TextWrapper>
+                <Text asChild>
+                  <p>
+                    O Orange Evolution consiste em trilhas totalmente gratuitas
+                    para que você possa iniciar a sua carreira na tecnologia.
+                    Você terá acesso a vídeos, lives, artigos, apostilas e até
+                    cursos gratuitos, além desses conteúdos serem da Orange
+                    Juice, de parceiros e empresas que confiamos.
+                  </p>
+                </Text>
+                <br />
+                <Text asChild>
+                  <p>
+                    Essa trilha foi montada pensando em quem está começando na
+                    área, ou passando por uma migração de carreira e ainda não
+                    sabe exatamente o que é esse mundo. Então, aperta o cinto e
+                    vem com a gente nessa jornada!
+                  </p>
+                </Text>
+              </TextWrapper>
+            </Main>
+            <CardWrapper
+              style={{ display: 'flex', justifyContent: 'space-around' }}
+            >
+              {trails.map((trail) => {
+                return (
+                  <Card key={trail.id} theme={theme}>
+                    <Heading>{trail.title}</Heading>
+                    <CardImage
+                      src={logoAvatarUser}
+                      alt={trail.title}
+                      width={100}
+                      height={100}
+                    />
+                    <Progress done={80} />
+                    <ButtonWrapper>
+                      <ButtonLink
+                        href={`/trilha/${trail.id}`}
+                        text="Acesssar"
+                      />
+                    </ButtonWrapper>
+                  </Card>
+                )
+              })}
+            </CardWrapper>
+          </>
+        ) : (
+          <>
+            <Main style={{ paddingTop: '0', marginTop: '-3rem' }}>
+              <TextWrapper>
+                <Text asChild>
+                  <p>
+                    O Orange Evolution consiste em trilhas totalmente gratuitas
+                    para que você possa iniciar a sua carreira na tecnologia e
+                    ainda não sabe exatamente o que é esse mundo. Então, aperta
+                    o cinto e vem com a gente nessa jornada!
+                  </p>
+                </Text>
+              </TextWrapper>
+            </Main>
+            <CardWrapper ref={sliderRef} className="keen-slider">
+              {trails.map((trail) => {
+                return (
+                  <Card
+                    key={trail.id}
+                    theme={theme}
+                    className="keen-slider__slide"
+                  >
+                    <Heading>{trail.title}</Heading>
+                    <CardImage
+                      src={logoAvatarUser}
+                      alt={trail.title}
+                      width={100}
+                      height={100}
+                    />
+                    <Progress done={80} />
+                    <ButtonWrapper>
+                      <ButtonLink
+                        href={`/trilha/${trail.id}`}
+                        text="Acesssar"
+                      />
+                    </ButtonWrapper>
+                  </Card>
+                )
+              })}
+            </CardWrapper>
+          </>
+        )}
       </BodyWrapper>
     </>
   )

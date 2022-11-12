@@ -4,33 +4,40 @@ import { styled } from 'styles'
 
 export const TextWrapper = styled('div', {
   maxWidth: '1000px',
-  padding: '0 2rem',
-  textAlign: 'justify',
-  span: {
-    fontSize: '$sm',
-    fontWeight: '400'
+  marginTop: '2rem',
+  p: {
+    textAlign: 'justify'
   },
   '@bp2': {
-    span: {
+    p: {
+      padding: '0 1rem',
+      fontSize: '$sm'
+    }
+  },
+  '@bp3': {
+    p: {
       fontSize: '$xs'
     }
   }
 })
 
-export const Title = styled('span', {
-  fontSize: '1.25rem',
-  fontWeight: '600',
-  color: '$orange400'
+export const Title = styled('h2', {
+  fontSize: '2.5rem',
+  color: '$orange400',
+  fontWeight: 600,
+  '@bp3': {
+    fontSize: '1.5rem'
+  }
 })
 
 export const CardWrapper = styled('div', {
   maxWidth: '1200px',
-  width: '80vw',
-  display: 'flex',
-  justifyContent: 'space-around',
-  gap: '$md',
+  width: '100%',
   flexWrap: 'wrap',
-  height: 'auto'
+
+  '@media(max-width:900px)': {
+    flexWrap: 'nowrap'
+  }
 })
 
 export const Card = styled('div', {
@@ -39,12 +46,10 @@ export const Card = styled('div', {
   justifyContent: 'space-evenly',
   alignItems: 'center',
   textAlign: 'center',
-  width: '25%',
-  minWidth: '270px',
-  maxWidth: '280px',
+  minwidth: '280px',
+  width: '280px',
   height: '350px',
-
-  marginTop: '1rem',
+  margin: '1rem 0',
   borderRadius: '35px',
   padding: '0.5rem 1.5rem',
 
@@ -63,7 +68,8 @@ export const Card = styled('div', {
 
 export const CardImage = styled(Image, {
   width: '100px',
-  height: '100px'
+  height: '100px',
+  objectFit: 'contain'
 })
 
 export const ButtonWrapper = styled('div', {
