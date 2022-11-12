@@ -20,6 +20,11 @@ import {
 import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
+import { Heading } from 'components/Heading'
+import { Progress } from 'components/Progress'
+import { ButtonLink } from 'components/ButtonLink'
+import { Text } from 'components/Text'
+import logo from '../../public/notebook.svg'
 
 interface TrailsProps {
   user: User
@@ -60,7 +65,7 @@ export default function Trails({ user, trails }: TrailsProps) {
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
-        <Main>
+        <Main style={{ padding: '2rem 0' }}>
           <Image
             src={orangeEvolutionLogo}
             alt="Logo da orange evolution"
@@ -70,11 +75,9 @@ export default function Trails({ user, trails }: TrailsProps) {
           <Heading asChild size="lg">
             <h1>Escolha sua trilha!</h1>
           </Heading>
-        </Main>
 
-        {size.width > 900 ? (
-          <>
-            <Main>
+          {size.width > 900 ? (
+            <>
               <TextWrapper>
                 <Text asChild>
                   <p>
@@ -95,35 +98,33 @@ export default function Trails({ user, trails }: TrailsProps) {
                   </p>
                 </Text>
               </TextWrapper>
-            </Main>
-            <CardWrapper
-              style={{ display: 'flex', justifyContent: 'space-around' }}
-            >
-              {trails.map((trail) => {
-                return (
-                  <Card key={trail.id} theme={theme}>
-                    <Heading>{trail.title}</Heading>
-                    <CardImage
-                      src={trail.icon_url}
-                      alt={trail.title}
-                      width={100}
-                      height={100}
-                    />
-                    <Progress done={80} />
-                    <ButtonWrapper>
-                      <ButtonLink
-                        href={`/trilha/${trail.id}`}
-                        text="Acesssar"
+
+              <CardWrapper
+                style={{ display: 'flex', justifyContent: 'space-around' }}
+              >
+                {trails.map((trail) => {
+                  return (
+                    <Card key={trail.id} theme={theme}>
+                      <Heading>{trail.title}</Heading>
+                      <CardImage
+                        src={logo}
+                        alt={trail.title}
+                        width={100}
+                        height={100}
                       />
-                    </ButtonWrapper>
-                  </Card>
-                )
-              })}
-            </CardWrapper>
-          </>
-        ) : (
-          <>
-            <Main style={{ paddingTop: '0', marginTop: '-3rem' }}>
+                      <Progress done={80} />
+                      <ButtonWrapper>
+                        <ButtonLink href={`/trilha/${trail.id}`}>
+                          Acessar
+                        </ButtonLink>
+                      </ButtonWrapper>
+                    </Card>
+                  )
+                })}
+              </CardWrapper>
+            </>
+          ) : (
+            <>
               <TextWrapper>
                 <Text asChild>
                   <p>
@@ -134,35 +135,35 @@ export default function Trails({ user, trails }: TrailsProps) {
                   </p>
                 </Text>
               </TextWrapper>
-            </Main>
-            <CardWrapper ref={sliderRef} className="keen-slider">
-              {trails.map((trail) => {
-                return (
-                  <Card
-                    key={trail.id}
-                    theme={theme}
-                    className="keen-slider__slide"
-                  >
-                    <Heading>{trail.title}</Heading>
-                    <CardImage
-                      src={trail.icon_url}
-                      alt={trail.title}
-                      width={100}
-                      height={100}
-                    />
-                    <Progress done={80} />
-                    <ButtonWrapper>
-                      <ButtonLink
-                        href={`/trilha/${trail.id}`}
-                        text="Acesssar"
+
+              <CardWrapper ref={sliderRef} className="keen-slider">
+                {trails.map((trail) => {
+                  return (
+                    <Card
+                      key={trail.id}
+                      theme={theme}
+                      className="keen-slider__slide"
+                    >
+                      <Heading>{trail.title}</Heading>
+                      <CardImage
+                        src={logo}
+                        alt={trail.title}
+                        width={100}
+                        height={100}
                       />
-                    </ButtonWrapper>
-                  </Card>
-                )
-              })}
-            </CardWrapper>
-          </>
-        )}
+                      <Progress done={80} />
+                      <ButtonWrapper>
+                        <ButtonLink href={`/trilha/${trail.id}`}>
+                          Acessar
+                        </ButtonLink>
+                      </ButtonWrapper>
+                    </Card>
+                  )
+                })}
+              </CardWrapper>
+            </>
+          )}
+        </Main>
       </BodyWrapper>
     </>
   )

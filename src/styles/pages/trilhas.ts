@@ -4,17 +4,19 @@ import { styled } from 'styles'
 export const TextWrapper = styled('div', {
   maxWidth: '1000px',
   marginTop: '2rem',
+  padding: '0 4rem',
   p: {
     textAlign: 'justify'
   },
 
   '@bp2': {
+    padding: '0 2.5rem',
     p: {
-      padding: '0 1rem',
       fontSize: '$sm'
     }
   },
   '@bp3': {
+    padding: '0 2rem',
     p: {
       fontSize: '$xs'
     }
