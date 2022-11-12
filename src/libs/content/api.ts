@@ -14,3 +14,9 @@ export const markContentAsCompleted = async ({
 
   return data
 }
+
+export const markContentAsUncompleted = async (content_id: string) => {
+  const { data } = await api.delete(`/completed/${content_id}`)
+
+  return data
+}

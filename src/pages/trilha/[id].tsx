@@ -125,12 +125,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const { id } = ctx.params
 
-  const { trail, progress } = await getTrail(token.toString(), id as string)
+  try {
+    const { trail, progress } = await getTrail(token.toString(), id as string)
 
-  return {
-    props: {
-      trail,
-      progress
+    return {
+      props: {
+        trail,
+        progress
+      }
+    }
+  } catch (error) {
+    console.log('💥 ~ error', error)
+
+    return {
+      redirect: {
+        destination: '/trilhas',
+        permanent: false
+      }
     }
   }
 }

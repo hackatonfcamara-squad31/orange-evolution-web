@@ -130,12 +130,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  const trails = await getAllTrails(token.toString())
+  try {
+    const trails = await getAllTrails(token.toString())
 
-  return {
-    props: {
-      user,
-      trails
+    return {
+      props: {
+        user,
+        trails
+      }
+    }
+  } catch (error) {
+    return {
+      notFound: true
     }
   }
 }
