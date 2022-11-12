@@ -24,6 +24,11 @@ export const CheckboxRoot = styled(CheckboxPrimitive.Root, {
     border: 'none'
   },
 
+  '&[data-disabled]': {
+    opacity: 0.5,
+    cursor: 'not-allowed'
+  },
+
   variants: {
     theme: {
       dark: {

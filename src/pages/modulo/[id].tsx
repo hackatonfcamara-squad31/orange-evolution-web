@@ -10,6 +10,7 @@ import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
+import { useMarkContent } from 'libs/content/hooks'
 import { Content as ContentType } from 'libs/content/types'
 import { useModule } from 'libs/module/hooks'
 import { useModuleStore } from 'libs/module/store'
@@ -43,11 +44,25 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
 
   const { trailInfo, progress, module, contents } = useModuleStore()
 
+  const { markContentAsCompletedMutation, markContentAsUncompletedMutation } =
+    useMarkContent()
+
   useEffect(() => {
     if (contents) {
       setFilteredContents(contents)
     }
   }, [contents])
+
+  async function handleMarkContentAsCompleted(contentId: string) {
+    await markContentAsCompletedMutation.mutateAsync({
+      user_id: user.id,
+      content_id: contentId
+    })
+  }
+
+  async function handleMarkContentAsUncompleted(contentId: string) {
+    await markContentAsUncompletedMutation.mutateAsync(contentId)
+  }
 
   return (
     <>
@@ -98,7 +113,16 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
 
                       <ContentList>
                         {filteredContents.map((content) => (
-                          <Content key={content.id} content={content} />
+                          <Content
+                            key={content.id}
+                            content={content}
+                            handleMarkContentAsCompleted={
+                              handleMarkContentAsCompleted
+                            }
+                            handleMarkContentAsUncompleted={
+                              handleMarkContentAsUncompleted
+                            }
+                          />
                         ))}
                       </ContentList>
                     </>
