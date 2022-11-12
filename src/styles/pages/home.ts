@@ -5,12 +5,13 @@ export const BodyWrapper = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   minHeight: '100vh',
+  height: '100%',
 
   variants: {
     theme: {
       light: {
         color: '$gray900',
-        backgroundColor: '#F5F5F5'
+        backgroundColor: '$gray100'
       },
       dark: {
         color: '$gray100',
@@ -27,7 +28,8 @@ export const Main = styled('main', {
   flexDirection: 'column',
   alignItems: 'center',
   gap: '$md',
-  padding: '3rem 1.25rem'
+  padding: '3rem 1.25rem',
+  minHeight: '100%'
 })
 
 export const ImageWrapper = styled('div', {
