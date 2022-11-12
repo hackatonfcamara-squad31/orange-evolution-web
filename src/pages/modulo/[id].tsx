@@ -4,17 +4,20 @@ import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
+import { Progress } from 'components/Progress'
 import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
+import { useMarkContent } from 'libs/content/hooks'
 import { Content as ContentType } from 'libs/content/types'
-import { Module } from 'libs/module/types'
+import { useModule } from 'libs/module/hooks'
+import { useModuleStore } from 'libs/module/store'
+import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
-import { api } from 'services/api'
+import { useEffect, useState } from 'react'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import {
   ContentList,
@@ -24,74 +27,112 @@ import {
 } from 'styles/pages/module'
 
 interface ModulePageProps {
-  module: Module
-  contents: ContentType[]
+  moduleId: string
+  token: string
+  user: User
 }
 
-export default function ModulePage({ module, contents }: ModulePageProps) {
+export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
   const [isSearching, setIsSearching] = useState(false)
-  const [filteredContents, setFilteredContents] =
-    useState<ContentType[]>(contents)
+  const [filteredContents, setFilteredContents] = useState<ContentType[]>(
+    [] as ContentType[]
+  )
 
   const { theme } = useTheme()
+
+  const { isLoading } = useModule(token, moduleId)
+
+  const { trailInfo, progress, module, contents } = useModuleStore()
+
+  const { markContentAsCompletedMutation, markContentAsUncompletedMutation } =
+    useMarkContent()
+
+  useEffect(() => {
+    if (contents) {
+      setFilteredContents(contents)
+    }
+  }, [contents])
+
+  async function handleMarkContentAsCompleted(contentId: string) {
+    await markContentAsCompletedMutation.mutateAsync({
+      user_id: user.id,
+      content_id: contentId
+    })
+  }
+
+  async function handleMarkContentAsUncompleted(contentId: string) {
+    await markContentAsUncompletedMutation.mutateAsync(contentId)
+  }
 
   return (
     <>
       <Head>
-        <title>Orange Evolution | Módulo {module.title}</title>
+        <title>{`Orange Evolution | Módulo ${module?.title}`}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
 
         <Main>
-          <PageHeader
-            trailLinkName="UX/UI Design"
-            trailLink="#"
-            moduleLinkName={module.title}
-            isModulePage
-          />
+          {isLoading ? (
+            <SearchLoader />
+          ) : (
+            <>
+              <PageHeader
+                trailLinkName={trailInfo?.title}
+                trailLink={`/trilha/${trailInfo?.id}`}
+                moduleLinkName={module?.title}
+                isModulePage
+              />
 
-          <ModuleWrapper>
-            <Heading asChild size="xl">
-              <h1>{module.title}</h1>
-            </Heading>
+              <ModuleWrapper>
+                <Heading asChild size="xl">
+                  <h1>{module?.title}</h1>
+                </Heading>
 
-            <ContentListWrapper>
-              <SearchWrapper>
-                <InputSearch
-                  items={contents}
-                  setFilteredItems={setFilteredContents}
-                  placeholder="Buscar conteúdo"
-                  setIsSearching={setIsSearching}
-                />
-              </SearchWrapper>
+                <Progress donePercentage={progress} />
 
-              {isSearching && <SearchLoader />}
+                <ContentListWrapper>
+                  <SearchWrapper>
+                    <InputSearch
+                      items={contents}
+                      setFilteredItems={setFilteredContents}
+                      placeholder="Buscar conteúdo"
+                      setIsSearching={setIsSearching}
+                    />
+                  </SearchWrapper>
 
-              {filteredContents.length === 0 && !isSearching && (
-                <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
-              )}
+                  {isSearching && <SearchLoader />}
 
-              {filteredContents.length > 0 && !isSearching && (
-                <>
-                  <Text size="sm">Concluído</Text>
+                  {filteredContents.length === 0 && !isSearching && (
+                    <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
+                  )}
 
-                  <ContentList>
-                    {filteredContents.map((content) => (
-                      <Content
-                        key={content.id}
-                        title={content.title}
-                        type={content.type}
-                        creator={content.creator_name}
-                      />
-                    ))}
-                  </ContentList>
-                </>
-              )}
-            </ContentListWrapper>
-          </ModuleWrapper>
+                  {filteredContents.length > 0 && !isSearching && (
+                    <>
+                      <Text size="sm">Concluído</Text>
 
-          <PageFooter />
+                      <ContentList>
+                        {filteredContents.map((content) => (
+                          <Content
+                            key={content.id}
+                            content={content}
+                            handleMarkContentAsCompleted={
+                              handleMarkContentAsCompleted
+                            }
+                            handleMarkContentAsUncompleted={
+                              handleMarkContentAsUncompleted
+                            }
+                          />
+                        ))}
+                      </ContentList>
+                    </>
+                  )}
+                </ContentListWrapper>
+              </ModuleWrapper>
+
+              <PageFooter />
+            </>
+          )}
         </Main>
       </BodyWrapper>
     </>
@@ -123,30 +164,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const { id } = ctx.params
 
-  try {
-    const { data } = await api.get(`/modules/description/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-
-    const { module, contents } = data
-
-    return {
-      props: {
-        module,
-        contents,
-        user
-      }
-    }
-  } catch (error) {
-    console.log('💥 ~ error', error)
-
-    return {
-      redirect: {
-        destination: '/trilhas',
-        permanent: false
-      }
+  return {
+    props: {
+      token,
+      user,
+      moduleId: id
     }
   }
 }

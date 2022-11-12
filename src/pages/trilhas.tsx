@@ -1,4 +1,8 @@
+import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
+import { Heading } from 'components/Heading'
+import { Progress } from 'components/Progress'
+import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -82,10 +86,17 @@ export default function Trails({ user, trails }: TrailsProps) {
                   height={100}
                 />
 
-                <Progress done={80} />
+                <Progress
+                  isTrailPage
+                  donePercentage={
+                    trail.total === 0
+                      ? 0
+                      : (trail.completed / trail.total) * 100
+                  }
+                />
 
                 <ButtonWrapper>
-                  <ButtonLink href={`/trilha/${trail.id}`} text="Acesssar" />
+                  <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>
                 </ButtonWrapper>
               </Card>
             ))}
@@ -119,12 +130,18 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  const trails = await getAllTrails(token.toString())
+  try {
+    const trails = await getAllTrails(token.toString())
 
-  return {
-    props: {
-      user,
-      trails
+    return {
+      props: {
+        user,
+        trails
+      }
+    }
+  } catch (error) {
+    return {
+      notFound: true
     }
   }
 }
