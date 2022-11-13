@@ -12,9 +12,34 @@ export const TextAreaStyled = styled('textarea', {
   fontFamily: '$montserrat',
   fontSize: '$sm',
   marginTop: '$md',
+
   '&::placeholder': {
     fontFamily: '$montserrat',
     fontSize: '$md',
     color: '$gray400'
+  },
+
+  '&:focus-within': {
+    '& > div > svg': {
+      color: '$orange600 !important'
+    },
+
+    outline: '2px solid $orange600 '
+  },
+
+  variants: {
+    error: {
+      true: {
+        outline: '2px solid $red500',
+
+        '& > div > svg': {
+          color: '$red500'
+        },
+
+        '&:focus-within': {
+          outline: '2px solid $red500'
+        }
+      }
+    }
   }
 })

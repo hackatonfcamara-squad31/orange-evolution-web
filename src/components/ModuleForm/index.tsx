@@ -157,7 +157,11 @@ export function ModuleForm({ module }: ModuleFormProps) {
           />
         </TextInput.Root>
 
-        <TextArea control={control} name="description" />
+        <TextArea
+          control={control}
+          name="description"
+          error={errors.description}
+        />
 
         <DialogButtonsContainer>
           <Button

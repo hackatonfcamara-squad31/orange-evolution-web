@@ -1,11 +1,19 @@
+import { InputErrorMessage } from 'components/TextInput/styles'
+import { useTheme } from 'contexts/ThemeContext'
+import {
+  Control,
+  Controller,
+  FieldError,
+  RegisterOptions
+} from 'react-hook-form'
 import { TextAreaStyled } from './styles'
-import { Control, Controller, RegisterOptions } from 'react-hook-form'
 
 interface TextAreaProps {
   name?: string
   placeholder?: string
   control: Control
   validate?: RegisterOptions
+  error?: FieldError
 }
 
 export function TextArea({
@@ -13,8 +21,11 @@ export function TextArea({
   placeholder,
   control,
   validate,
+  error,
   ...props
 }: TextAreaProps) {
+  const { theme } = useTheme()
+
   return (
     <>
       <Controller
@@ -22,13 +33,22 @@ export function TextArea({
         control={control}
         name={name}
         render={({ field: { onChange, value } }) => (
-          <TextAreaStyled
-            {...props}
-            name="Description"
-            placeholder="Descrição"
-            value={value}
-            onChange={onChange}
-          />
+          <>
+            <TextAreaStyled
+              {...props}
+              name="Description"
+              placeholder="Descrição"
+              value={value}
+              onChange={onChange}
+              error={!!error}
+            />
+
+            {error && (
+              <InputErrorMessage theme={theme}>
+                {error.message}
+              </InputErrorMessage>
+            )}
+          </>
         )}
       ></Controller>
     </>
