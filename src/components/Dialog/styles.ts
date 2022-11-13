@@ -120,7 +120,7 @@ export const DialogCloseButton = styled('button', {
 export const DialogBbuttonsContainer = styled('div', {
   marginTop: '1.5rem',
   display: 'flex',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   gap: '$lg'
 })
 

@@ -80,14 +80,23 @@ export function ModuleForm({
               }
             }
       }
-      cancelText="Cancel"
-      confirmText="Confirm"
+      cancelText="Cancelar"
+      confirmText="Salvar"
       description=""
       onConfirm={handleSubmit(onConfirm)}
       title={id ? 'Editar módulo' : 'Adicionar módulo'}
     >
       <form onSubmit={handleSubmit(onConfirm)}>
-        <TextInputInput control={control} name="title" />
+        <TextInputInput
+          style={{
+            padding: '0.8rem 1rem',
+            boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.25)',
+            borderRadius: '7rem'
+          }}
+          control={control}
+          name="title"
+          placeholder="Título"
+        />
         <TextArea control={control} name="description" />
       </form>
     </Dialog>

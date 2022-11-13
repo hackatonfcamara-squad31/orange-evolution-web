@@ -93,19 +93,22 @@ export function Dialog({
 
         <DialogBbuttonsContainer>
           <Button
-            onClick={handleClose}
-            title={cancelText}
-            {...cancelButtonProps}
-          >
-            {cancelText}
-          </Button>
-
-          <Button
+            isFullWidth
+            color="green"
             onClick={handleConfirm}
             title={confirmText}
             {...confirmButtonProps}
           >
             {confirmText}
+          </Button>
+          <Button
+            isFullWidth
+            color="red"
+            onClick={handleClose}
+            title={cancelText}
+            {...cancelButtonProps}
+          >
+            {cancelText}
           </Button>
         </DialogBbuttonsContainer>
       </DialogContent>
