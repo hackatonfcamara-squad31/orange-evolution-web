@@ -24,7 +24,7 @@ import {
   ModuleListWrapper,
   TrailWrapper
 } from 'styles/pages/trail'
-import ModuleForm from 'components/ModuleForm'
+import { ModuleForm } from 'components/ModuleForm'
 
 interface TrailPageProps {
   trail: Trail
@@ -91,7 +91,7 @@ export default function TrailPage({ trail }: TrailPageProps) {
                       <Text size="sm">{module.description}</Text>
 
                       <ModuleCardButtonWrapper>
-                        <ButtonLink href={`/modulo/${module.id}`}>
+                        <ButtonLink href={`/admin/modulo/${module.id}`}>
                           Acessar
                         </ButtonLink>
                       </ModuleCardButtonWrapper>
