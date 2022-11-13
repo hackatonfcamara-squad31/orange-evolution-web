@@ -39,6 +39,8 @@ export const getTrail = async (
 
   const { trail, total, completed } = data
 
+  trail.modules.sort((a, b) => a.order - b.order)
+
   const progress = total === 0 ? 0 : (completed / total) * 100
 
   return { trail, progress }

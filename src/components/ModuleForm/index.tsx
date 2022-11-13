@@ -55,7 +55,8 @@ export function ModuleForm({ module }: ModuleFormProps) {
     formState: { errors }
   } = moduleForm
 
-  const { createModuleMutation, updateModuleMutation } = useUpdateModule()
+  const { createModuleMutation, updateModuleMutation, deleteModuleMutation } =
+    useUpdateModule()
 
   const isSubmitDisabled =
     !!errors.title ||
@@ -92,8 +93,21 @@ export function ModuleForm({ module }: ModuleFormProps) {
     }
   }
 
+  const onCancel = async () => {
+    try {
+      if (module) {
+        await deleteModuleMutation.mutateAsync(module.id)
+
+        showToastSuccess(theme, 'Módulo deletado com sucesso!')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <Dialog
+      description=""
       triggerText={module ? '' : 'Adicionar módulo'}
       triggerButtonProps={
         module
@@ -103,11 +117,11 @@ export function ModuleForm({ module }: ModuleFormProps) {
             }
           : { color: 'gray', title: 'Adicionar módulo' }
       }
-      cancelText={module ? 'Excluir' : 'Cancelar'}
       confirmText="Salvar"
-      confirmButtonProps={{ isLoading, disabled: isSubmitDisabled }}
-      description=""
       onConfirm={handleSubmit(onConfirm)}
+      confirmButtonProps={{ isLoading, disabled: isSubmitDisabled }}
+      cancelText={module ? 'Excluir' : 'Cancelar'}
+      onCancel={onCancel}
       title={module ? 'Editar módulo' : 'Adicionar módulo'}
     >
       <form onSubmit={handleSubmit(onConfirm)}>

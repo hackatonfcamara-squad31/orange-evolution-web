@@ -49,6 +49,7 @@ interface DialogProps {
   cancelButtonProps?: ButtonProps
   confirmButtonProps?: ButtonProps
   onConfirm: () => void
+  onCancel: () => void
 }
 
 export function Dialog({
@@ -61,7 +62,8 @@ export function Dialog({
   triggerButtonProps,
   cancelButtonProps,
   confirmButtonProps,
-  onConfirm
+  onConfirm,
+  onCancel
 }: DialogProps) {
   const { theme } = useTheme()
   const [open, setOpen] = useState(false)
@@ -71,6 +73,11 @@ export function Dialog({
 
   const handleConfirm = () => {
     onConfirm()
+    handleClose()
+  }
+
+  const handleCancel = () => {
+    onCancel()
     handleClose()
   }
 
@@ -104,7 +111,7 @@ export function Dialog({
           <Button
             isFullWidth
             color="red"
-            onClick={handleClose}
+            onClick={handleCancel}
             title={cancelText}
             {...cancelButtonProps}
           >

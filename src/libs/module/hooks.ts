@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTheme } from 'contexts/ThemeContext'
 import { getApiErrorMessage } from 'libs/functions/api'
 import { showToastError } from 'utils/toasts'
-import { createModule, getModule, updateModule } from './api'
+import { createModule, deleteModule, getModule, updateModule } from './api'
 import { useModuleStore } from './store'
 
 export const useModule = (token: string, moduleId: string) => {
@@ -45,7 +45,7 @@ export const useUpdateModule = () => {
     }
   })
 
-  const deleteModuleMutation = useMutation(updateModule, {
+  const deleteModuleMutation = useMutation(deleteModule, {
     onSuccess: () => {
       queryClient.invalidateQueries(['trail'])
     },

@@ -1,5 +1,5 @@
 import { api } from 'services/api'
-import { ModulePageData, Module } from './types'
+import { Module, ModulePageData } from './types'
 
 export const getModule = async (token: string, id: string) => {
   if (!token) {
@@ -21,6 +21,8 @@ export const getModule = async (token: string, id: string) => {
     id: trail_id,
     title: trail_title
   }
+
+  contents.sort((a, b) => a.order - b.order)
 
   const progress = total === 0 ? 0 : (completed / total) * 100
 
@@ -64,4 +66,10 @@ export const createModule = async ({
   })
 
   return data
+}
+
+export const deleteModule = async (id: string) => {
+  await api.delete(`/modules/${id}`)
+
+  return true
 }

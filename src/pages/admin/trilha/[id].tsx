@@ -63,7 +63,7 @@ export default function AdminTrailPage({
             <SearchLoader />
           ) : (
             <>
-              <PageHeader trailLinkName={trail.title} trailLink="#" />
+              <PageHeader trailLinkName={trail?.title} trailLink="#" />
 
               <TrailWrapper>
                 <AdminTrailHeaderWrapper>
@@ -77,7 +77,7 @@ export default function AdminTrailPage({
                 <ModuleListWrapper>
                   <SearchWrapper>
                     <InputSearch
-                      items={trail.modules}
+                      items={trail?.modules}
                       setFilteredItems={setFilteredModules}
                       placeholder="Buscar módulo"
                       setIsSearching={setIsSearching}

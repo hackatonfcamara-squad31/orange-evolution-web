@@ -1,7 +1,5 @@
 import { TextInput } from 'components/TextInput'
 import useDebounce from 'hooks/useDebounce'
-import { Content } from 'libs/content/types'
-import { Module } from 'libs/module/types'
 import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 
@@ -31,7 +29,6 @@ export function InputSearch({
       return a?.order - b?.order
     })
 
-    console.log(filteredItems)
     setFilteredItems(filteredItems)
     setIsSearching(false)
   }, [debouncedValue, items, setFilteredItems, setIsSearching])

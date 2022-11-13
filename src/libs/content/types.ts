@@ -6,4 +6,5 @@ export type Content = {
   link: string
   duration: number
   is_completed: boolean
+  order: number
 }

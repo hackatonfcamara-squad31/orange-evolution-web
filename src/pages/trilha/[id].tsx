@@ -84,11 +84,11 @@ export default function TrailPage({ token, user, trailId }: TrailPageProps) {
             <SearchLoader />
           ) : (
             <>
-              <PageHeader trailLinkName={trail.title} trailLink="#" />
+              <PageHeader trailLinkName={trail?.title} trailLink="#" />
 
               <TrailWrapper>
                 <Heading asChild size="xl">
-                  <h1>{trail.title} - MÓDULOS</h1>
+                  <h1>{trail?.title} - MÓDULOS</h1>
                 </Heading>
 
                 <Progress donePercentage={progress} />
@@ -96,7 +96,7 @@ export default function TrailPage({ token, user, trailId }: TrailPageProps) {
                 <ModuleListWrapper>
                   <SearchWrapper>
                     <InputSearch
-                      items={trail.modules}
+                      items={trail?.modules}
                       setFilteredItems={setFilteredModules}
                       placeholder="Buscar módulo"
                       setIsSearching={setIsSearching}
