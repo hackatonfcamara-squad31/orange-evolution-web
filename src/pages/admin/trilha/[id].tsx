@@ -16,7 +16,7 @@ import { useTrailStore } from 'libs/trail/store'
 import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
 import {
@@ -50,6 +50,12 @@ export default function AdminTrailPage({
 
   const { trail } = useTrailStore()
 
+  useEffect(() => {
+    if (trail?.modules) {
+      setFilteredModules(trail.modules)
+    }
+  }, [trail])
+
   return (
     <>
       <Head>
@@ -59,7 +65,7 @@ export default function AdminTrailPage({
         <Header />
 
         <Main>
-          {isLoading ? (
+          {isLoading || !trail ? (
             <SearchLoader />
           ) : (
             <>

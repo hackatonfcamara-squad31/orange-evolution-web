@@ -16,7 +16,7 @@ import { useTrailStore } from 'libs/trail/store'
 import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
 import {
@@ -51,6 +51,12 @@ export default function TrailPage({ token, user, trailId }: TrailPageProps) {
 
   const { trail, progress } = useTrailStore()
 
+  useEffect(() => {
+    if (trail?.modules) {
+      setFilteredModules(trail.modules)
+    }
+  }, [trail])
+
   // const size: Size = useWindowSize()
 
   // const [sliderRef] = useKeenSlider({
@@ -80,7 +86,7 @@ export default function TrailPage({ token, user, trailId }: TrailPageProps) {
         <Header />
 
         <Main>
-          {isLoading ? (
+          {isLoading || !trail ? (
             <SearchLoader />
           ) : (
             <>
