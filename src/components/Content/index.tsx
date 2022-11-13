@@ -5,6 +5,7 @@ import {
   ContentWrapper,
   TitleWrapper
 } from 'components/Content/styles'
+import { ContentForm } from 'components/ContentForm'
 import { Heading } from 'components/Heading'
 import { useTheme } from 'contexts/ThemeContext'
 import { useMarkContent } from 'libs/content/hooks'
@@ -15,8 +16,8 @@ import { showToastInfo, showToastSuccess } from 'utils/toasts'
 
 export interface ContentProps {
   content: ContentType
-  handleMarkContentAsCompleted: (contentId: string) => Promise<void>
-  handleMarkContentAsUncompleted: (contentId: string) => Promise<void>
+  handleMarkContentAsCompleted?: (contentId: string) => Promise<void>
+  handleMarkContentAsUncompleted?: (contentId: string) => Promise<void>
 }
 
 export function Content({
@@ -59,23 +60,27 @@ export function Content({
   return (
     <ContentWrapper theme={theme}>
       <TitleWrapper>
-        {isCheckboxLoading ? (
-          <BallTriangle
-            height={24}
-            width={24}
-            radius={4}
-            color="#FF5A23"
-            ariaLabel="Carregando..."
-            visible={true}
-          />
+        {handleMarkContentAsCompleted && handleMarkContentAsUncompleted ? (
+          isCheckboxLoading ? (
+            <BallTriangle
+              height={24}
+              width={24}
+              radius={4}
+              color="#FF5A23"
+              ariaLabel="Carregando..."
+              visible={true}
+            />
+          ) : (
+            <Checkbox
+              disabled={isMarkContentLoading || isCheckboxLoading}
+              size="sm"
+              title="Concluir"
+              checked={is_completed}
+              onClick={handleMarkContent}
+            />
+          )
         ) : (
-          <Checkbox
-            disabled={isMarkContentLoading || isCheckboxLoading}
-            size="sm"
-            title="Concluir"
-            checked={is_completed}
-            onClick={handleMarkContent}
-          />
+          <ContentForm content={content} />
         )}
         <Heading size="sm" color="gray" asChild>
           <a
