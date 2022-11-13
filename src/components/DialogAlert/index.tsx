@@ -71,7 +71,14 @@ export function DialogAlert({
 
   return (
     <AlertDialog open={open}>
-      <Button onClick={handleOpen} title={triggerText} {...triggerButtonProps}>
+      <Button
+        onClick={handleOpen}
+        title={triggerText}
+        color="red"
+        type="button"
+        isFullWidth
+        {...triggerButtonProps}
+      >
         {triggerText}
       </Button>
 
@@ -84,6 +91,9 @@ export function DialogAlert({
 
         <DialogAlertBbuttonsContainer>
           <Button
+            size="sm"
+            isFullWidth
+            color="green"
             onClick={handleClose}
             title={cancelText}
             {...cancelButtonProps}
@@ -92,6 +102,9 @@ export function DialogAlert({
           </Button>
 
           <Button
+            size="sm"
+            isFullWidth
+            color="red"
             onClick={handleConfirm}
             title={confirmText}
             {...confirmButtonProps}

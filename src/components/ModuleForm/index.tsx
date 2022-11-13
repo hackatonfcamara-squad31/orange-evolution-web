@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ButtonProps } from 'components/Button'
+import { Button, ButtonProps } from 'components/Button'
 import { Dialog } from 'components/Dialog'
+import { DialogButtonsContainer } from 'components/Dialog/styles'
+import { DialogAlert } from 'components/DialogAlert'
 import { TextArea } from 'components/TextArea'
 import { TextInput } from 'components/TextInput'
 import { useTheme } from 'contexts/ThemeContext'
@@ -32,10 +34,14 @@ interface ModuleFormProps {
 
 export function ModuleForm({ module }: ModuleFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const { theme } = useTheme()
 
   const { trail } = useTrailStore()
+
+  const { createModuleMutation, updateModuleMutation, deleteModuleMutation } =
+    useUpdateModule()
 
   const moduleForm = useForm<ModuleFormData>({
     resolver: zodResolver(createOrUpdateModuleSchema),
@@ -55,16 +61,37 @@ export function ModuleForm({ module }: ModuleFormProps) {
     formState: { errors }
   } = moduleForm
 
-  const { createModuleMutation, updateModuleMutation, deleteModuleMutation } =
-    useUpdateModule()
-
   const isSubmitDisabled =
     !!errors.title ||
     !!errors.description ||
     !watch('title') ||
     !watch('description')
 
-  const onConfirm = async ({ title, description }: ModuleFormData) => {
+  const handleCreateModule = async ({ title, description }: ModuleFormData) => {
+    setIsLoading(true)
+
+    try {
+      await createModuleMutation.mutateAsync({
+        title,
+        description,
+        trailId: trail.id,
+        order: trail.modules.length + 1
+      })
+
+      showToastSuccess(theme, 'Módulo adicionado com sucesso!')
+      setIsDialogOpen(false)
+
+      reset()
+    } catch (error) {
+      console.error(error)
+    }
+
+    setIsLoading(false)
+  }
+
+  const handleUpdateModule = async ({ title, description }: ModuleFormData) => {
+    setIsLoading(true)
+
     try {
       if (module) {
         await updateModuleMutation.mutateAsync({
@@ -74,40 +101,37 @@ export function ModuleForm({ module }: ModuleFormProps) {
         })
 
         showToastSuccess(theme, 'Módulo atualizado com sucesso!')
-      }
-
-      if (!module) {
-        await createModuleMutation.mutateAsync({
-          title,
-          description,
-          trailId: trail.id,
-          order: trail.modules.length + 1
-        })
-
-        showToastSuccess(theme, 'Módulo adicionado com sucesso!')
-
-        reset()
+        setIsDialogOpen(false)
       }
     } catch (error) {
       console.error(error)
     }
+
+    setIsLoading(false)
   }
 
-  const onCancel = async () => {
+  const handleDeleteModule = async () => {
+    setIsLoading(true)
+
     try {
       if (module) {
         await deleteModuleMutation.mutateAsync(module.id)
 
         showToastSuccess(theme, 'Módulo deletado com sucesso!')
+        setIsDialogOpen(false)
       }
     } catch (error) {
       console.error(error)
     }
+
+    setIsLoading(false)
   }
 
   return (
     <Dialog
-      description=""
+      isDialogOpen={isDialogOpen}
+      setIsDialogOpen={setIsDialogOpen}
+      title={module ? 'Editar módulo' : 'Adicionar módulo'}
       triggerText={module ? '' : 'Adicionar módulo'}
       triggerButtonProps={
         module
@@ -117,14 +141,12 @@ export function ModuleForm({ module }: ModuleFormProps) {
             }
           : { color: 'gray', title: 'Adicionar módulo' }
       }
-      confirmText="Salvar"
-      onConfirm={handleSubmit(onConfirm)}
-      confirmButtonProps={{ isLoading, disabled: isSubmitDisabled }}
-      cancelText={module ? 'Excluir' : 'Cancelar'}
-      onCancel={onCancel}
-      title={module ? 'Editar módulo' : 'Adicionar módulo'}
     >
-      <form onSubmit={handleSubmit(onConfirm)}>
+      <form
+        onSubmit={handleSubmit(
+          module ? handleUpdateModule : handleCreateModule
+        )}
+      >
         <TextInput.Root error={errors.title} required isBig>
           <TextInput.Input
             id="title"
@@ -136,6 +158,40 @@ export function ModuleForm({ module }: ModuleFormProps) {
         </TextInput.Root>
 
         <TextArea control={control} name="description" />
+
+        <DialogButtonsContainer>
+          <Button
+            type="submit"
+            isFullWidth
+            color="green"
+            title="Salvar"
+            isLoading={isLoading}
+            disabled={isSubmitDisabled}
+          >
+            Salvar
+          </Button>
+
+          {module ? (
+            <DialogAlert
+              triggerText="Excluir"
+              confirmText="Sim, excluir módulo"
+              cancelText="Cancelar"
+              title={`Você tem certeza que deseja excluir o módulo ${module.title}?`}
+              description="Essa ação não poderá ser desfeita. Todos os dados deste módulo serão perdidos."
+              onConfirm={handleDeleteModule}
+            />
+          ) : (
+            <Button
+              type="button"
+              isFullWidth
+              color="red"
+              onClick={() => setIsDialogOpen(false)}
+              title="Cancelar"
+            >
+              Cancelar
+            </Button>
+          )}
+        </DialogButtonsContainer>
       </form>
     </Dialog>
   )

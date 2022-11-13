@@ -4,10 +4,9 @@ import {
 } from '@radix-ui/react-dialog'
 import { Button, ButtonProps } from 'components/Button'
 import { Theme, useTheme } from 'contexts/ThemeContext'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { MdClose } from 'react-icons/md'
 import {
-  DialogBbuttonsContainer,
   DialogCloseButton,
   DialogDescription,
   DialogRoot,
@@ -39,85 +38,56 @@ function DialogContent({
 }
 
 interface DialogProps {
+  isDialogOpen: boolean
+  setIsDialogOpen: (value: boolean) => void
   children: ReactNode
   title: string
-  description: string
+  description?: string
   triggerText: string
-  confirmText: string
-  cancelText: string
   triggerButtonProps?: ButtonProps
-  cancelButtonProps?: ButtonProps
-  confirmButtonProps?: ButtonProps
-  onConfirm: () => void
-  onCancel: () => void
 }
 
 export function Dialog({
+  isDialogOpen,
+  setIsDialogOpen,
   children,
   title,
   description,
   triggerText,
-  confirmText,
-  cancelText,
-  triggerButtonProps,
-  cancelButtonProps,
-  confirmButtonProps,
-  onConfirm,
-  onCancel
+  triggerButtonProps
 }: DialogProps) {
   const { theme } = useTheme()
-  const [open, setOpen] = useState(false)
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-
-  const handleConfirm = () => {
-    onConfirm()
-    handleClose()
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true)
   }
 
-  const handleCancel = () => {
-    onCancel()
-    handleClose()
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false)
   }
 
   return (
-    <DialogRoot open={open}>
-      <Button onClick={handleOpen} title={triggerText} {...triggerButtonProps}>
+    <DialogRoot open={isDialogOpen}>
+      <Button
+        onClick={handleOpenDialog}
+        title={triggerText}
+        {...triggerButtonProps}
+      >
         {triggerButtonProps?.children}
         {triggerText}
       </Button>
 
-      <DialogContent theme={theme} onClickOverlay={handleClose}>
-        <DialogCloseButton theme={theme} onClick={handleClose}>
+      <DialogContent theme={theme} onClickOverlay={handleCloseDialog}>
+        <DialogCloseButton theme={theme} onClick={handleCloseDialog}>
           <MdClose />
         </DialogCloseButton>
 
         <DialogTitle theme={theme}>{title}</DialogTitle>
-        <DialogDescription theme={theme}>{description}</DialogDescription>
+        {description && (
+          <DialogDescription theme={theme}>{description}</DialogDescription>
+        )}
 
         {children}
-
-        <DialogBbuttonsContainer>
-          <Button
-            isFullWidth
-            color="green"
-            onClick={handleConfirm}
-            title={confirmText}
-            {...confirmButtonProps}
-          >
-            {confirmText}
-          </Button>
-          <Button
-            isFullWidth
-            color="red"
-            onClick={handleCancel}
-            title={cancelText}
-            {...cancelButtonProps}
-          >
-            {cancelText}
-          </Button>
-        </DialogBbuttonsContainer>
       </DialogContent>
     </DialogRoot>
   )
