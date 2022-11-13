@@ -2,6 +2,7 @@ import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
+import ModuleForm from 'components/ModuleForm'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { SearchLoader } from 'components/SearchLoader'
@@ -10,7 +11,7 @@ import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
-import { Trail } from 'libs/trails/types'
+import { Trail } from 'libs/trail/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
@@ -24,7 +25,6 @@ import {
   ModuleListWrapper,
   TrailWrapper
 } from 'styles/pages/trail'
-import ModuleForm from 'components/ModuleForm'
 
 interface TrailPageProps {
   trail: Trail

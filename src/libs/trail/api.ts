@@ -1,5 +1,5 @@
 import { api } from 'services/api'
-import { Trail, TrailPageData } from '../trails/types'
+import { Trail, TrailPageData } from './types'
 
 export const getAllTrails = async (token: string): Promise<Trail[] | null> => {
   if (!token) {

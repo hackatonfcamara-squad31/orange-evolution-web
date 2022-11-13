@@ -6,9 +6,11 @@ import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import useWindowSize from 'hooks/useWindowSize'
+import 'keen-slider/keen-slider.min.css'
+import { useKeenSlider } from 'keen-slider/react'
 import { getAuthUser } from 'libs/auth/api'
-import { getAllTrails } from 'libs/trails/api'
-import { Trail } from 'libs/trails/types'
+import { getAllTrails } from 'libs/trail/api'
+import { Trail } from 'libs/trail/types'
 import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -21,10 +23,8 @@ import {
   CardWrapper,
   TextWrapper
 } from 'styles/pages/trilhas'
-import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
-import { useKeenSlider } from 'keen-slider/react'
-import 'keen-slider/keen-slider.min.css'
 import logo from '../../public/notebook.svg'
+import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 
 interface TrailsProps {
   user: User
