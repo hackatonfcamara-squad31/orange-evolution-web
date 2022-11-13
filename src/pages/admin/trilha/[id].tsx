@@ -2,7 +2,7 @@ import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
-import ModuleForm from 'components/ModuleForm'
+import { ModuleForm } from 'components/ModuleForm'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { SearchLoader } from 'components/SearchLoader'
@@ -11,14 +11,16 @@ import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
-import { Trail } from 'libs/trail/types'
+import { useTrail } from 'libs/trail/hooks'
+import { useTrailStore } from 'libs/trail/store'
+import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useState } from 'react'
-import { api } from 'services/api'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
 import {
+  AdminTrailHeaderWrapper,
   ModuleCard,
   ModuleCardButtonWrapper,
   ModuleList,
@@ -27,82 +29,90 @@ import {
 } from 'styles/pages/trail'
 
 interface TrailPageProps {
-  trail: Trail
+  token: string
+  user: User
+  trailId: string
 }
 
-export default function TrailPage({ trail }: TrailPageProps) {
+export default function AdminTrailPage({
+  token,
+  user,
+  trailId
+}: TrailPageProps) {
   const [isSearching, setIsSearching] = useState(false)
   const [filteredModules, setFilteredModules] = useState<Module[]>(
-    trail.modules
+    [] as Module[]
   )
+
   const { theme } = useTheme()
+
+  const { isLoading } = useTrail(token, trailId)
+
+  const { trail } = useTrailStore()
 
   return (
     <>
       <Head>
-        <title>Orange Evolution | Trilha {trail.title}</title>
+        <title>Orange Evolution | Trilha {trail?.title}</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
 
         <Main>
-          <PageHeader trailLinkName={trail.title} trailLink="#" />
+          {isLoading ? (
+            <SearchLoader />
+          ) : (
+            <>
+              <PageHeader trailLinkName={trail.title} trailLink="#" />
 
-          <TrailWrapper>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '1rem'
-              }}
-            >
-              <Heading asChild size="xl">
-                <h1>{trail.title} - MÓDULOS</h1>
-              </Heading>
-              <ModuleForm trail={trail} order={trail.modules.length} />
-            </div>
+              <TrailWrapper>
+                <AdminTrailHeaderWrapper>
+                  <Heading asChild size="xl">
+                    <h1>{trail?.title} - MÓDULOS</h1>
+                  </Heading>
 
-            <ModuleListWrapper>
-              <SearchWrapper>
-                <InputSearch
-                  items={trail.modules}
-                  setFilteredItems={setFilteredModules}
-                  placeholder="Buscar módulo"
-                  setIsSearching={setIsSearching}
-                />
-              </SearchWrapper>
+                  <ModuleForm />
+                </AdminTrailHeaderWrapper>
 
-              {isSearching && <SearchLoader />}
+                <ModuleListWrapper>
+                  <SearchWrapper>
+                    <InputSearch
+                      items={trail.modules}
+                      setFilteredItems={setFilteredModules}
+                      placeholder="Buscar módulo"
+                      setIsSearching={setIsSearching}
+                    />
+                  </SearchWrapper>
 
-              {filteredModules.length === 0 && !isSearching && (
-                <Text size="lg">Nenhum módulo encontrado 🙃</Text>
-              )}
+                  {isSearching && <SearchLoader />}
 
-              {filteredModules.length > 0 && (
-                <ModuleList>
-                  {filteredModules.map((module) => (
-                    <ModuleCard
-                      key={module.id}
-                      style={{ position: 'relative' }}
-                    >
-                      <ModuleForm id={module.id} trail={trail} />
-                      <Heading size="md">{module.title} </Heading>
-                      <Text size="sm">{module.description}</Text>
+                  {filteredModules.length === 0 && !isSearching && (
+                    <Text size="lg">Nenhum módulo encontrado 🙃</Text>
+                  )}
 
-                      <ModuleCardButtonWrapper>
-                        <ButtonLink href={`/modulo/${module.id}`}>
-                          Acessar
-                        </ButtonLink>
-                      </ModuleCardButtonWrapper>
-                    </ModuleCard>
-                  ))}
-                </ModuleList>
-              )}
-            </ModuleListWrapper>
-          </TrailWrapper>
+                  {filteredModules.length > 0 && (
+                    <ModuleList>
+                      {filteredModules.map((module) => (
+                        <ModuleCard key={module.id}>
+                          <ModuleForm module={module} />
+                          <Heading size="md">{module.title} </Heading>
+                          <Text size="sm">{module.description}</Text>
 
-          <PageFooter />
+                          <ModuleCardButtonWrapper>
+                            <ButtonLink href={`admin/modulo/${module.id}`}>
+                              Acessar
+                            </ButtonLink>
+                          </ModuleCardButtonWrapper>
+                        </ModuleCard>
+                      ))}
+                    </ModuleList>
+                  )}
+                </ModuleListWrapper>
+              </TrailWrapper>
+
+              <PageFooter />
+            </>
+          )}
         </Main>
       </BodyWrapper>
     </>
@@ -134,28 +144,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const { id } = ctx.params
 
-  try {
-    const { data } = await api.get(`/trails/description/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-
-    const { trail } = data
-
-    return {
-      props: {
-        trail
-      }
-    }
-  } catch (error) {
-    console.log('💥 ~ error', error)
-
-    return {
-      redirect: {
-        destination: '/trilhas',
-        permanent: false
-      }
+  return {
+    props: {
+      token,
+      user,
+      trailId: id
     }
   }
 }

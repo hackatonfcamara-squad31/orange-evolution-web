@@ -1,106 +1,128 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ButtonProps } from 'components/Button'
 import { Dialog } from 'components/Dialog'
 import { TextArea } from 'components/TextArea'
-import { TextInputInput } from 'components/TextInput'
-import { BiEdit } from 'react-icons/bi'
+import { TextInput } from 'components/TextInput'
+import { useTheme } from 'contexts/ThemeContext'
+import { useUpdateModule } from 'libs/module/hooks'
+import { createOrUpdateModuleSchema, ModuleFormData } from 'libs/module/schemas'
+import { Module } from 'libs/module/types'
+import { useTrailStore } from 'libs/trail/store'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { createModule, updateModule } from '../../libs/module/api'
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  ModuleFormData,
-  moduleSchema
-} from '../../libs/auth/schemas/moduleSchema'
-import { Trail } from 'libs/trails/types'
-import { useRouter } from 'next/router'
-import { showToastSuccess, showToastError } from '../../utils/toasts'
-import { useTheme } from '../../contexts/ThemeContext'
+import { BiEdit } from 'react-icons/bi'
+import { showToastSuccess } from 'utils/toasts'
 
-export function ModuleForm({
-  id,
-  trail,
-  order
-}: {
-  id?: string
-  trail: Trail
-  order?: number
-}) {
-  const router = useRouter()
-  const theme = useTheme()
+export const editTriggerButtonProps = {
+  isOnlyIcon: true,
+  children: <BiEdit color="black" />,
+  size: 'lg',
+  color: 'gray',
+  css: {
+    boxShadow: 'none',
+    position: 'absolute',
+    right: '0.5rem',
+    top: '0.5rem'
+  }
+} as ButtonProps
 
-  const { control, handleSubmit } = useForm<ModuleFormData>({
-    resolver: zodResolver(moduleSchema),
+interface ModuleFormProps {
+  module?: Module
+}
+
+export function ModuleForm({ module }: ModuleFormProps) {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { theme } = useTheme()
+
+  const { trail } = useTrailStore()
+
+  const moduleForm = useForm<ModuleFormData>({
+    resolver: zodResolver(createOrUpdateModuleSchema),
     defaultValues: {
-      title: '',
-      description: ''
+      title: module ? module.title : '',
+      description: module ? module.description : ''
     },
     mode: 'onChange',
     reValidateMode: 'onChange'
   })
 
+  const {
+    control,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors }
+  } = moduleForm
+
+  const { createModuleMutation, updateModuleMutation } = useUpdateModule()
+
+  const isSubmitDisabled =
+    !!errors.title ||
+    !!errors.description ||
+    !watch('title') ||
+    !watch('description')
+
   const onConfirm = async ({ title, description }: ModuleFormData) => {
     try {
-      if (id) {
-        await updateModule({ id, title, description })
-      } else {
-        await createModule({
+      if (module) {
+        await updateModuleMutation.mutateAsync({
+          id: module.id,
+          title,
+          description
+        })
+
+        showToastSuccess(theme, 'Módulo atualizado com sucesso!')
+      }
+
+      if (!module) {
+        await createModuleMutation.mutateAsync({
           title,
           description,
           trailId: trail.id,
-          order
+          order: trail.modules.length + 1
         })
+
+        showToastSuccess(theme, 'Módulo adicionado com sucesso!')
+
+        reset()
       }
-      showToastSuccess(theme.theme, 'Sucesso')
-      router.replace(router.asPath)
-    } catch (e) {
-      showToastError(theme.theme, 'Erro interno, tente novamente mais tarde.')
+    } catch (error) {
+      console.error(error)
     }
   }
 
   return (
     <Dialog
-      triggerText={!id ? 'Adicionar módulo' : ''}
+      triggerText={module ? '' : 'Adicionar módulo'}
       triggerButtonProps={
-        id
+        module
           ? {
-              isOnlyIcon: true,
-              children: <BiEdit color="black" />,
-              style: {
-                background: 'transparent',
-                display: 'flex',
-                justifyContent: 'right',
-                position: 'absolute',
-                right: '0.5rem',
-                top: '0.5rem'
-              }
+              title: `Editar módulo ${module.title}`,
+              ...editTriggerButtonProps
             }
-          : {
-              style: {
-                background: 'white',
-                color: 'black',
-                boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.25)'
-              }
-            }
+          : { color: 'gray', title: 'Adicionar módulo' }
       }
-      cancelText="Cancelar"
+      cancelText={module ? 'Excluir' : 'Cancelar'}
       confirmText="Salvar"
+      confirmButtonProps={{ isLoading, disabled: isSubmitDisabled }}
       description=""
       onConfirm={handleSubmit(onConfirm)}
-      title={id ? 'Editar módulo' : 'Adicionar módulo'}
+      title={module ? 'Editar módulo' : 'Adicionar módulo'}
     >
       <form onSubmit={handleSubmit(onConfirm)}>
-        <TextInputInput
-          style={{
-            padding: '0.8rem 1rem',
-            boxShadow: '4px 4px 8px rgba(0, 0, 0, 0.25)',
-            borderRadius: '7rem'
-          }}
-          control={control}
-          name="title"
-          placeholder="Título"
-        />
+        <TextInput.Root error={errors.title} required isBig>
+          <TextInput.Input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Título do módulo"
+            control={control}
+          />
+        </TextInput.Root>
+
         <TextArea control={control} name="description" />
       </form>
     </Dialog>
   )
 }
-
-export default ModuleForm
