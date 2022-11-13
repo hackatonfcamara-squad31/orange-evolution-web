@@ -1,5 +1,5 @@
 import { Content } from 'libs/content/types'
-import { TrailInfo } from 'libs/trails/types'
+import { TrailInfo } from 'libs/trail/types'
 import create from 'zustand'
 import { Module } from './types'
 

@@ -51,9 +51,11 @@ function TextInputRoot({
 
   return (
     <InputContainer>
-      <InputLabel htmlFor={labelFor} theme={theme}>
-        {label} {required && <span>*</span>}
-      </InputLabel>
+      {label && (
+        <InputLabel htmlFor={labelFor} theme={theme}>
+          {label} {required && <span>*</span>}
+        </InputLabel>
+      )}
 
       <InputWrapper
         error={!!error}

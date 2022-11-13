@@ -16,7 +16,10 @@ export const useMarkContent = () => {
       setIsMarkContentLoading(false)
     },
     onError: () => {
-      showToastError(theme, 'Erro ao marcar conteúdo como concluído')
+      showToastError(
+        theme,
+        'Erro ao marcar conteúdo como concluído. Por favor tente novamente.'
+      )
 
       setIsMarkContentLoading(false)
     }
@@ -30,7 +33,10 @@ export const useMarkContent = () => {
         setIsMarkContentLoading(false)
       },
       onError: () => {
-        showToastError(theme, 'Erro ao marcar conteúdo como não concluído')
+        showToastError(
+          theme,
+          'Erro ao marcar conteúdo como não concluído. Por favor tente novamente.'
+        )
 
         setIsMarkContentLoading(false)
       }
