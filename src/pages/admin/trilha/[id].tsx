@@ -24,7 +24,7 @@ import {
   ModuleListWrapper,
   TrailWrapper
 } from 'styles/pages/trail'
-import { EditDialog } from 'components/EditDialog'
+import ModuleForm from 'components/ModuleForm'
 
 interface TrailPageProps {
   trail: Trail
@@ -35,7 +35,6 @@ export default function TrailPage({ trail }: TrailPageProps) {
   const [filteredModules, setFilteredModules] = useState<Module[]>(
     trail.modules
   )
-
   const { theme } = useTheme()
 
   return (
@@ -50,9 +49,19 @@ export default function TrailPage({ trail }: TrailPageProps) {
           <PageHeader trailLinkName={trail.title} trailLink="#" />
 
           <TrailWrapper>
-            <Heading asChild size="xl">
-              <h1>{trail.title} - MÓDULOS</h1>
-            </Heading>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '1rem'
+              }}
+            >
+              <Heading asChild size="xl">
+                <h1>{trail.title} - MÓDULOS</h1>
+              </Heading>
+              <ModuleForm trail={trail} order={trail.modules.length} />
+            </div>
 
             <ModuleListWrapper>
               <SearchWrapper>
@@ -77,16 +86,7 @@ export default function TrailPage({ trail }: TrailPageProps) {
                       key={module.id}
                       style={{ position: 'relative' }}
                     >
-                      <EditDialog
-                        title="Editar conteúdo"
-                        confirmText="Salvar"
-                        cancelText="Cancelar"
-                        confirmButtonProps={{ color: 'green' }}
-                        cancelButtonProps={{ color: 'red' }}
-                        onConfirm={() => console.log('Confirmou')}
-                      >
-                        Editar conteúdo
-                      </EditDialog>
+                      <ModuleForm id={module.id} trail={trail} />
                       <Heading size="md">{module.title} </Heading>
                       <Text size="sm">{module.description}</Text>
 

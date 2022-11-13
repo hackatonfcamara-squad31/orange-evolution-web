@@ -26,3 +26,42 @@ export const getModule = async (token: string, id: string) => {
 
   return { trailInfo, progress, module, contents }
 }
+
+export const updateModule = async ({
+  id,
+  title,
+  description
+}: {
+  id: string
+  title: string
+  description: string
+  order?: number
+}) => {
+  const { data }: { data: Module } = await api.put(`/modules/${id}`, {
+    title,
+    description
+  })
+
+  return data
+}
+
+export const createModule = async ({
+  title,
+  description,
+  trailId,
+  order
+}: {
+  title: string
+  description: string
+  trailId: string
+  order: number
+}) => {
+  const { data }: { data: Module } = await api.post(`/modules`, {
+    title,
+    description,
+    trail: trailId,
+    order
+  })
+
+  return data
+}

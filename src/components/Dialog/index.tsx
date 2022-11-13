@@ -77,6 +77,7 @@ export function Dialog({
   return (
     <DialogRoot open={open}>
       <Button onClick={handleOpen} title={triggerText} {...triggerButtonProps}>
+        {triggerButtonProps?.children}
         {triggerText}
       </Button>
 

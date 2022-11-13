@@ -35,6 +35,7 @@ export interface TextInputInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
   control?: Control
   validate?: RegisterOptions
+  name: string
 }
 
 function TextInputRoot({

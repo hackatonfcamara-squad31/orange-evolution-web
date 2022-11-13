@@ -4,7 +4,6 @@ import { Control, FieldError, RegisterOptions } from 'react-hook-form'
 
 interface NameImputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: FieldError
-  errorMessage?: string
   control?: Control
   isBig?: boolean
   validate?: RegisterOptions

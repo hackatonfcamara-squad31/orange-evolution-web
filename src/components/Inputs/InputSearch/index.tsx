@@ -7,7 +7,7 @@ import { TbSearch } from 'react-icons/tb'
 
 interface InputSearchProps extends InputHTMLAttributes<HTMLInputElement> {
   // items as array of Module or Content
-  items: Array<Content | Module>
+  items: Array<any>
   setFilteredItems: (items: any[]) => void
   setIsSearching: (isSearching: boolean) => void
 }
@@ -27,8 +27,12 @@ export function InputSearch({
       return item.title.toLowerCase().includes(debouncedValue.toLowerCase())
     })
 
-    setFilteredItems(filteredItems)
+    filteredItems.sort((a, b) => {
+      return a?.order - b?.order
+    })
 
+    console.log(filteredItems)
+    setFilteredItems(filteredItems)
     setIsSearching(false)
   }, [debouncedValue, items, setFilteredItems, setIsSearching])
 
