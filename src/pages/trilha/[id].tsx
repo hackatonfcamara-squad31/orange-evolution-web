@@ -9,8 +9,6 @@ import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
-import useWindowSize from 'hooks/useWindowSize'
-import { useKeenSlider } from 'keen-slider/react'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
 import { getTrail } from 'libs/trails/api'
@@ -27,15 +25,17 @@ import {
   ModuleListWrapper,
   TrailWrapper
 } from 'styles/pages/trail'
+// import useWindowSize from 'hooks/useWindowSize'
+// import { useKeenSlider } from 'keen-slider/react'
 
 interface TrailPageProps {
   trail: Trail
   progress: number
 }
-interface Size {
-  width: number | undefined
-  height: number | undefined
-}
+// interface Size {
+//   width: number | undefined
+//   height: number | undefined
+// }
 
 export default function TrailPage({ trail, progress }: TrailPageProps) {
   const [isSearching, setIsSearching] = useState(false)
@@ -44,25 +44,25 @@ export default function TrailPage({ trail, progress }: TrailPageProps) {
   )
 
   const { theme } = useTheme()
-  const size: Size = useWindowSize()
+  // const size: Size = useWindowSize()
 
-  const [sliderRef] = useKeenSlider({
-    breakpoints: {
-      '(max-width: 900px)': {
-        slides: { origin: 'center', perView: 2.5, spacing: 10 }
-      },
-      '(max-width: 768px)': {
-        slides: { origin: 'center', perView: 2, spacing: 10 }
-      },
-      '(max-width: 600px)': {
-        slides: { origin: 'center', perView: 1.8, spacing: 10 }
-      },
-      '(max-width: 400px)': {
-        slides: { origin: 'center', perView: 1.35, spacing: 7 }
-      }
-    },
-    slides: { origin: 'center', perView: 2.5, spacing: 10 }
-  })
+  // const [sliderRef] = useKeenSlider({
+  //   breakpoints: {
+  //     '(max-width: 900px)': {
+  //       slides: { origin: 'center', perView: 2.5, spacing: 10 }
+  //     },
+  //     '(max-width: 768px)': {
+  //       slides: { origin: 'center', perView: 2, spacing: 10 }
+  //     },
+  //     '(max-width: 600px)': {
+  //       slides: { origin: 'center', perView: 1.8, spacing: 10 }
+  //     },
+  //     '(max-width: 400px)': {
+  //       slides: { origin: 'center', perView: 1.35, spacing: 7 }
+  //     }
+  //   },
+  //   slides: { origin: 'center', perView: 2.5, spacing: 10 }
+  // })
 
   return (
     <>
