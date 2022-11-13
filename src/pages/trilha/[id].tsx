@@ -9,6 +9,8 @@ import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
+import useWindowSize from 'hooks/useWindowSize'
+import { useKeenSlider } from 'keen-slider/react'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
 import { getTrail } from 'libs/trails/api'
@@ -30,6 +32,10 @@ interface TrailPageProps {
   trail: Trail
   progress: number
 }
+interface Size {
+  width: number | undefined
+  height: number | undefined
+}
 
 export default function TrailPage({ trail, progress }: TrailPageProps) {
   const [isSearching, setIsSearching] = useState(false)
@@ -38,6 +44,25 @@ export default function TrailPage({ trail, progress }: TrailPageProps) {
   )
 
   const { theme } = useTheme()
+  const size: Size = useWindowSize()
+
+  const [sliderRef] = useKeenSlider({
+    breakpoints: {
+      '(max-width: 900px)': {
+        slides: { origin: 'center', perView: 2.5, spacing: 10 }
+      },
+      '(max-width: 768px)': {
+        slides: { origin: 'center', perView: 2, spacing: 10 }
+      },
+      '(max-width: 600px)': {
+        slides: { origin: 'center', perView: 1.8, spacing: 10 }
+      },
+      '(max-width: 400px)': {
+        slides: { origin: 'center', perView: 1.35, spacing: 7 }
+      }
+    },
+    slides: { origin: 'center', perView: 2.5, spacing: 10 }
+  })
 
   return (
     <>
@@ -73,23 +98,46 @@ export default function TrailPage({ trail, progress }: TrailPageProps) {
                 <Text size="lg">Nenhum módulo encontrado 🙃</Text>
               )}
 
-              {filteredModules.length > 0 && (
-                <ModuleList>
-                  {filteredModules.map((module) => (
-                    <ModuleCard key={module.id}>
-                      <Heading size="md">{module.title}</Heading>
+              {
+                filteredModules.length > 0 && (
+                  // (size.width > 900 ? (
+                  <ModuleList>
+                    {filteredModules.map((module) => (
+                      <ModuleCard key={module.id}>
+                        <Heading size="md">{module.title}</Heading>
 
-                      <Text size="sm">{module.description}</Text>
+                        <Text size="sm">{module.description}</Text>
 
-                      <ModuleCardButtonWrapper>
-                        <ButtonLink href={`/modulo/${module.id}`}>
-                          Acessar
-                        </ButtonLink>
-                      </ModuleCardButtonWrapper>
-                    </ModuleCard>
-                  ))}
-                </ModuleList>
-              )}
+                        <ModuleCardButtonWrapper>
+                          <ButtonLink href={`/modulo/${module.id}`}>
+                            Acessar
+                          </ButtonLink>
+                        </ModuleCardButtonWrapper>
+                      </ModuleCard>
+                    ))}
+                  </ModuleList>
+                )
+                // ) : (
+                //   <ModuleList ref={sliderRef} className="keen-slider">
+                //     {filteredModules.map((module) => (
+                //       <ModuleCard
+                //         key={module.id}
+                //         className="keen-slider__slide"
+                //       >
+                //         <Heading size="md">{module.title}</Heading>
+
+                //         <Text size="sm">{module.description}</Text>
+
+                //         <ModuleCardButtonWrapper>
+                //           <ButtonLink href={`/modulo/${module.id}`}>
+                //             Acessar
+                //           </ButtonLink>
+                //         </ModuleCardButtonWrapper>
+                //       </ModuleCard>
+                //     ))}
+                //   </ModuleList>
+                // ))
+              }
             </ModuleListWrapper>
           </TrailWrapper>
 
