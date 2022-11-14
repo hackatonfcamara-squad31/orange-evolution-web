@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getTrail } from './api'
+import { getAllTrails, getTrail } from './api'
 import { useTrailStore } from './store'
 
 export const useTrail = (token: string, trailId: string) => {
@@ -9,6 +9,16 @@ export const useTrail = (token: string, trailId: string) => {
     onSuccess: ({ trail, progress }) => {
       setTrail(trail)
       setProgress(progress)
+    }
+  })
+}
+
+export const useTrails = (token: string) => {
+  const { setTrails } = useTrailStore()
+
+  return useQuery(['trails'], () => getAllTrails(token), {
+    onSuccess: (trails) => {
+      setTrails(trails)
     }
   })
 }

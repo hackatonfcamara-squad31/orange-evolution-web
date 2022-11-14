@@ -1,3 +1,4 @@
+import 'keen-slider/keen-slider.min.css'
 import Image from 'next/image'
 import { styled } from 'styles'
 
@@ -23,13 +24,39 @@ export const TextWrapper = styled('div', {
   }
 })
 
-export const CardWrapper = styled('div', {
-  maxWidth: '1200px',
+export const CardListWrapper = styled('div', {
   width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '0 1.5rem'
+})
+
+export const CardList = styled('div', {
+  width: 'calc(100% - 4rem)',
+  position: 'relative',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '1.125rem',
   flexWrap: 'wrap',
 
-  '@media(max-width:900px)': {
-    flexWrap: 'nowrap'
+  padding: '1rem 0',
+
+  '@bp2': {
+    justifyContent: 'flex-start',
+    flexWrap: 'nowrap',
+
+    gap: 0,
+
+    '&:hover': {
+      cursor: 'grab'
+    },
+
+    '&:active': {
+      cursor: 'grabbing'
+    }
   }
 })
 
@@ -39,12 +66,10 @@ export const Card = styled('div', {
   justifyContent: 'space-evenly',
   alignItems: 'center',
   textAlign: 'center',
-  minwidth: '280px',
-  width: '280px',
-  height: '350px',
-  margin: '1rem 0',
+  gap: '2rem',
+
   borderRadius: '35px',
-  padding: '0.5rem 1.5rem',
+  padding: '1.5rem',
 
   variants: {
     theme: {
@@ -53,7 +78,7 @@ export const Card = styled('div', {
       },
       light: {
         backgroundColor: '$white',
-        boxShadow: '4px 4px 8px gray'
+        boxShadow: '$default'
       }
     }
   }
