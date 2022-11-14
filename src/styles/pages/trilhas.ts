@@ -67,6 +67,10 @@ export const Card = styled('div', {
   alignItems: 'center',
   textAlign: 'center',
   gap: '2rem',
+  position: 'relative',
+
+  width: '280px',
+  alignSelf: 'stretch',
 
   borderRadius: '35px',
   padding: '1.5rem',

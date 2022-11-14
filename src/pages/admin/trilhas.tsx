@@ -3,6 +3,7 @@ import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { Text } from 'components/Text'
+import { TrailForm } from 'components/TrailForm'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import useWindowSize from 'hooks/useWindowSize'
@@ -96,6 +97,8 @@ export default function Trails({ token, user }: TrailsProps) {
             </Text>
           </TextWrapper>
 
+          <TrailForm />
+
           <CardListWrapper>
             <CardList
               ref={width <= 768 ? sliderRef : null}
@@ -106,8 +109,13 @@ export default function Trails({ token, user }: TrailsProps) {
                   key={trail.id}
                   theme={theme}
                   className={width <= 768 ? 'keen-slider__slide' : ''}
+                  css={{
+                    paddingTop: '2.5rem'
+                  }}
                 >
                   <Heading>{trail.title}</Heading>
+
+                  <TrailForm trail={trail} />
 
                   <CardImage
                     src={trail.icon_url}

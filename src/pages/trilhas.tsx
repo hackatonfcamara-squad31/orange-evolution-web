@@ -117,7 +117,7 @@ export default function Trails({ token, user }: TrailsProps) {
                   />
 
                   <ButtonWrapper>
-                    <ButtonLink href={`/admin/trilha/${trail.id}`}>
+                    <ButtonLink href={`/trilha/${trail.id}`}>
                       Acesssar
                     </ButtonLink>
                   </ButtonWrapper>

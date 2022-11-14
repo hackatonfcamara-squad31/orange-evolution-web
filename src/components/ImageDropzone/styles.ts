@@ -7,7 +7,7 @@ export const DropzoneContainer = styled('div', {
   justifyContent: 'center',
 
   borderRadius: '$lg',
-  padding: '1.25rem 0',
+  padding: '1.25rem',
   cursor: 'pointer',
 
   position: 'relative',
@@ -18,7 +18,8 @@ export const DropzoneContainer = styled('div', {
   img: {
     width: '100%',
     height: '100%',
-    objectFit: 'cover'
+    padding: '1rem',
+    objectFit: 'contain'
   },
 
   transition: 'all 0.2s ease-in-out',

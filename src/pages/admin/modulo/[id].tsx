@@ -87,6 +87,7 @@ export default function AdminModulePage({
                 trailLink={`/admin/trilha/${trailInfo?.id}`}
                 moduleLinkName={module?.title}
                 isModulePage
+                isAdminPage
               />
 
               <ModuleWrapper>

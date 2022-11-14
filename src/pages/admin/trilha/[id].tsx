@@ -69,7 +69,11 @@ export default function AdminTrailPage({
             <SearchLoader />
           ) : (
             <>
-              <PageHeader trailLinkName={trail?.title} trailLink="#" />
+              <PageHeader
+                trailLinkName={trail?.title}
+                trailLink="#"
+                isAdminPage
+              />
 
               <TrailWrapper>
                 <AdminTrailHeaderWrapper>

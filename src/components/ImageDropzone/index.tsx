@@ -1,8 +1,7 @@
-import { Button } from 'components/Button'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import Image from 'next/image'
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { TbUpload } from 'react-icons/tb'
 import { showToastError } from 'utils/toasts'
@@ -12,16 +11,19 @@ interface ImageDropzoneProps {
   height?: number
   width?: number
   isFullRounded?: boolean
+  preview: string | null
+  setImage: (file: File) => void
+  setPreview: (preview: string | null) => void
 }
 
 export function ImageDropzone({
   width,
   height,
-  isFullRounded
+  isFullRounded,
+  preview,
+  setImage,
+  setPreview
 }: ImageDropzoneProps) {
-  const [preview, setPreview] = useState<string | null>(null)
-  const [image, setImage] = useState<File | null>(null)
-
   const { theme } = useTheme()
 
   const onDrop = useCallback(
@@ -40,7 +42,7 @@ export function ImageDropzone({
         )
       }
     },
-    [theme]
+    [theme, setImage, setPreview]
   )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -81,8 +83,8 @@ export function ImageDropzone({
         )}
       </DropzoneContainer>
 
-      <Button
-        disabled={!image || !preview}
+      {/* <Button
+        disabled={!preview}
         size="sm"
         onClick={() => {
           setPreview(null)
@@ -91,7 +93,7 @@ export function ImageDropzone({
         color="red"
       >
         Resetar
-      </Button>
+      </Button> */}
     </>
   )
 }
