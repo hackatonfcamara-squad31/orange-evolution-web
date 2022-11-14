@@ -1,7 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
-import { LoginFormData } from 'libs/auth/schemas/loginSchema'
-import { RegisterFormData } from 'libs/auth/schemas/registerSchema'
+import { LoginFormData, RegisterFormData } from 'libs/auth/schemas'
 import { LoginResponse, RegisterResponse } from 'libs/auth/types'
 import { getApiErrorMessage } from 'libs/functions/api'
 import { User } from 'libs/user/types'

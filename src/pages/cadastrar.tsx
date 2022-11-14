@@ -9,10 +9,7 @@ import { InputPassword } from 'components/Inputs/InputPassword'
 import { useAuth } from 'contexts/AuthContext'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
-import {
-  RegisterFormData,
-  registerSchema
-} from 'libs/auth/schemas/registerSchema'
+import { RegisterFormData, registerSchema } from 'libs/auth/schemas'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
