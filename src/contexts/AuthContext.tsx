@@ -29,6 +29,7 @@ interface AuthContextData {
   setIsAuthLoading: (isAuthLoading: boolean) => void
   register: (registerFormData: RegisterFormData) => Promise<boolean>
   login: (loginFormData: LoginFormData) => Promise<boolean>
+  adminLogin: (loginFormData: LoginFormData) => Promise<boolean>
   logout: () => Promise<boolean>
 }
 
@@ -130,10 +131,58 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       deleteCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME)
 
-      showToastSuccess(theme, 'Logout realizado com sucesso!')
+      showToastSuccess(theme, 'Logout realizado com sucesso. Volte sempre!')
 
       setAuthUser(null)
       setIsAuthLoading(false)
+
+      Router.push('/login')
+
+      return true
+    } catch (error) {
+      const errorMessage = getApiErrorMessage(error)
+
+      showToastError(theme, errorMessage)
+      setIsAuthLoading(false)
+
+      return false
+    }
+  }
+
+  const adminLogin = async ({ email, password }: LoginFormData) => {
+    setIsAuthLoading(true)
+
+    try {
+      const { data }: { data: LoginResponse } = await api.post('/login', {
+        email,
+        password
+      })
+
+      const { access_token } = data
+
+      const user = await getAuthUser(access_token)
+
+      if (!user?.is_admin) {
+        showToastError(
+          theme,
+          'Você não tem permissão para acessar essa página.'
+        )
+        setIsAuthLoading(false)
+        return false
+      }
+
+      api.defaults.headers.Authorization = `Bearer ${access_token}`
+
+      setCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME, access_token, {
+        maxAge: 60 * 60 * 24 * 30 // 30 days
+      })
+
+      setAuthUser(user)
+
+      showToastSuccess(theme, 'Login realizado com sucesso!')
+      setIsAuthLoading(false)
+
+      Router.push('/trilhas')
 
       return true
     } catch (error) {
@@ -156,6 +205,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setIsAuthLoading,
         register,
         login,
+        adminLogin,
         logout
       }}
     >

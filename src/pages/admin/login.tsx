@@ -26,9 +26,9 @@ import {
 } from 'styles/pages/auth'
 import { BodyWrapper, Main } from 'styles/pages/home'
 
-export default function LoginPage() {
+export default function AdminLoginPage() {
   const { theme } = useTheme()
-  const { isAuthLoading, login } = useAuth()
+  const { isAuthLoading, adminLogin } = useAuth()
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -52,7 +52,7 @@ export default function LoginPage() {
     !!errors.email || !!errors.password || !watch('email') || !watch('password')
 
   async function handleLogin(data: LoginFormData) {
-    const isLogged = await login(data)
+    const isLogged = await adminLogin(data)
 
     if (isLogged) {
       reset()
@@ -125,10 +125,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const user = await getAuthUser(token?.toString())
 
-  if (token || user) {
+  if (user?.is_admin) {
     return {
       redirect: {
-        destination: '/trilhas',
+        destination: '/admin/trilhas',
         permanent: false
       }
     }
