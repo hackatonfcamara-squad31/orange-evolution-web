@@ -1,13 +1,16 @@
+import { orangeEvolutionLogo } from 'components/@constants'
 import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
-import { Progress } from 'components/Progress'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
+import useWindowSize from 'hooks/useWindowSize'
+import 'keen-slider/keen-slider.min.css'
+import { useKeenSlider } from 'keen-slider/react'
 import { getAuthUser } from 'libs/auth/api'
-import { getAllTrails } from 'libs/trails/api'
-import { Trail } from 'libs/trails/types'
+import { useTrails } from 'libs/trail/hooks'
+import { useTrailStore } from 'libs/trail/store'
 import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
@@ -17,20 +20,40 @@ import {
   ButtonWrapper,
   Card,
   CardImage,
-  CardWrapper,
+  CardList,
+  CardListWrapper,
   TextWrapper
 } from 'styles/pages/trilhas'
-import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 
 interface TrailsProps {
+  token: string
   user: User
-  trails: Trail[]
 }
 
-export default function Trails({ user, trails }: TrailsProps) {
+export default function Trails({ token, user }: TrailsProps) {
+  const [sliderRef] = useKeenSlider({
+    initial: 0,
+    slides: {
+      perView: 2,
+      spacing: 20
+    },
+    breakpoints: {
+      '(max-width: 480px)': {
+        slides: {
+          perView: 1,
+          spacing: 20
+        }
+      }
+    }
+  })
+
   const { theme } = useTheme()
 
-  const { name, email } = user
+  const { width } = useWindowSize()
+
+  const { isLoading } = useTrails(token)
+
+  const { trails } = useTrailStore()
 
   return (
     <>
@@ -39,14 +62,13 @@ export default function Trails({ user, trails }: TrailsProps) {
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
-        <Main>
+        <Main style={{ padding: '2rem 0' }}>
           <Image
             src={orangeEvolutionLogo}
             alt="Logo da orange evolution"
             width={197}
             height={122}
           />
-
           <Heading asChild size="lg">
             <h1>Escolha sua trilha!</h1>
           </Heading>
@@ -74,33 +96,35 @@ export default function Trails({ user, trails }: TrailsProps) {
             </Text>
           </TextWrapper>
 
-          <CardWrapper>
-            {trails.map((trail) => (
-              <Card key={trail.id} theme={theme}>
-                <Heading>{trail.title}</Heading>
+          <CardListWrapper>
+            <CardList
+              ref={width <= 768 ? sliderRef : null}
+              className={width <= 768 ? 'keen-slider' : ''}
+            >
+              {trails.map((trail) => (
+                <Card
+                  key={trail.id}
+                  theme={theme}
+                  className={width <= 768 ? 'keen-slider__slide' : ''}
+                >
+                  <Heading>{trail.title}</Heading>
 
-                <CardImage
-                  src={trail.icon_url}
-                  alt={trail.title}
-                  width={100}
-                  height={100}
-                />
+                  <CardImage
+                    src={trail.icon_url}
+                    alt={trail.title}
+                    width={100}
+                    height={100}
+                  />
 
-                <Progress
-                  isTrailPage
-                  donePercentage={
-                    trail.total === 0
-                      ? 0
-                      : (trail.completed / trail.total) * 100
-                  }
-                />
-
-                <ButtonWrapper>
-                  <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>
-                </ButtonWrapper>
-              </Card>
-            ))}
-          </CardWrapper>
+                  <ButtonWrapper>
+                    <ButtonLink href={`/trilha/${trail.id}`}>
+                      Acesssar
+                    </ButtonLink>
+                  </ButtonWrapper>
+                </Card>
+              ))}
+            </CardList>
+          </CardListWrapper>
         </Main>
       </BodyWrapper>
     </>
@@ -130,18 +154,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  try {
-    const trails = await getAllTrails(token.toString())
-
-    return {
-      props: {
-        user,
-        trails
-      }
-    }
-  } catch (error) {
-    return {
-      notFound: true
+  return {
+    props: {
+      token,
+      user
     }
   }
 }

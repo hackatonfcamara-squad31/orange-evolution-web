@@ -73,7 +73,7 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
         <Header />
 
         <Main>
-          {isLoading ? (
+          {isLoading || !module ? (
             <SearchLoader />
           ) : (
             <>

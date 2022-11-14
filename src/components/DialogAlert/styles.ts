@@ -21,7 +21,7 @@ export const StyledOverlay = styled(AlertDialogPrimitive.Overlay, {
 })
 
 export const StyledContent = styled(AlertDialogPrimitive.Content, {
-  borderRadius: 6,
+  borderRadius: '$xl',
   boxShadow:
     'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
   position: 'fixed',
@@ -66,7 +66,8 @@ const StyledTitle = styled(AlertDialogPrimitive.Title, {
 })
 
 const StyledDescription = styled(AlertDialogPrimitive.Description, {
-  margin: '1.25rem 0',
+  marginTop: '1.5rem',
+  marginBottom: '2rem',
   fontSize: '$sm',
   lineHeight: 1.6,
 
@@ -103,10 +104,11 @@ export const DialogAlertCloseButton = styled('button', {
   variants: {
     theme: {
       light: {
-        color: '$gray600',
+        color: '$white',
+        backgroundColor: '$gray600',
 
         '&:hover': {
-          backgroundColor: 'rgba(0, 0, 0, 0.05)'
+          backgroundColor: '$gray500'
         }
       },
       dark: {

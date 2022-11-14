@@ -1,29 +1,63 @@
+import 'keen-slider/keen-slider.min.css'
 import Image from 'next/image'
 import { styled } from 'styles'
 
 export const TextWrapper = styled('div', {
   maxWidth: '1000px',
   marginTop: '2rem',
-
+  padding: '0 4rem',
   p: {
     textAlign: 'justify'
   },
 
   '@bp2': {
+    padding: '0 2.5rem',
+    p: {
+      fontSize: '$sm'
+    }
+  },
+  '@bp3': {
+    padding: '0 2rem',
     p: {
       fontSize: '$xs'
     }
   }
 })
 
-export const CardWrapper = styled('div', {
-  maxWidth: '1200px',
+export const CardListWrapper = styled('div', {
   width: '100%',
   display: 'flex',
-  justifyContent: 'space-around',
-  gap: '$md',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '0 1.5rem'
+})
+
+export const CardList = styled('div', {
+  width: 'calc(100% - 4rem)',
+  position: 'relative',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '1.125rem',
   flexWrap: 'wrap',
-  height: 'auto'
+
+  padding: '1rem 0',
+
+  '@bp2': {
+    justifyContent: 'flex-start',
+    flexWrap: 'nowrap',
+
+    gap: 0,
+
+    '&:hover': {
+      cursor: 'grab'
+    },
+
+    '&:active': {
+      cursor: 'grabbing'
+    }
+  }
 })
 
 export const Card = styled('div', {
@@ -32,14 +66,14 @@ export const Card = styled('div', {
   justifyContent: 'space-evenly',
   alignItems: 'center',
   textAlign: 'center',
-  width: '25%',
-  minWidth: '270px',
-  maxWidth: '280px',
-  height: '350px',
+  gap: '2rem',
+  position: 'relative',
 
-  marginTop: '1rem',
+  width: '280px',
+  alignSelf: 'stretch',
+
   borderRadius: '35px',
-  padding: '0.5rem 1.5rem',
+  padding: '1.5rem',
 
   variants: {
     theme: {
@@ -48,7 +82,7 @@ export const Card = styled('div', {
       },
       light: {
         backgroundColor: '$white',
-        boxShadow: '4px 4px 8px gray'
+        boxShadow: '$default'
       }
     }
   }

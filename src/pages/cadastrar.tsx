@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { orangeEvolutionLogo } from 'components/@constants'
 import { Button } from 'components/Button'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
@@ -25,8 +26,6 @@ import {
   ImageWrapper
 } from 'styles/pages/auth'
 import { BodyWrapper, Main } from 'styles/pages/home'
-
-import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 export default function Register() {
   const { theme } = useTheme()

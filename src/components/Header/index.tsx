@@ -1,10 +1,12 @@
+import {
+  FCamaraLogo,
+  orangeJuiceLogo,
+  PdeFormacaoLogo
+} from 'components/@constants'
 import { Avatar } from 'components/Avatar'
 import { Text } from 'components/Text'
-import logoFCamara from '../../../public/logofcamara.svg'
-import logoOrangeJuice from '../../../public/logoorangejuice.svg'
-import logoPdeFormacao from '../../../public/logopdeformacao.svg'
-import { useAuth } from '../../contexts/AuthContext'
-import { useTheme } from '../../contexts/ThemeContext'
+import { useAuth } from 'contexts/AuthContext'
+import { useTheme } from 'contexts/ThemeContext'
 import {
   HeaderImages,
   HeaderTextWrapper,
@@ -23,19 +25,19 @@ export function Header() {
     return (
       <HeaderImages>
         <LogoFCamara
-          src={logoFCamara}
+          src={FCamaraLogo}
           alt="logo do grupo FCamara"
           width={168}
           height={37}
         />
         <LogoOrangeJuice
-          src={logoOrangeJuice}
+          src={orangeJuiceLogo}
           alt="logo Orange Juice"
           width={66}
           height={49}
         />
         <LogoPdeFormacao
-          src={logoPdeFormacao}
+          src={PdeFormacaoLogo}
           alt="logo Programa de Formação"
           width={176}
           height={57}

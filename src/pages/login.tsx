@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { orangeEvolutionLogo } from 'components/@constants'
 import { Button } from 'components/Button'
 import { Checkbox } from 'components/Checkbox'
 import { Header } from 'components/Header'
@@ -23,8 +24,6 @@ import {
   LoginFormFooter
 } from 'styles/pages/auth'
 import { BodyWrapper, Main } from 'styles/pages/home'
-
-import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 export default function LoginPage() {
   const { theme } = useTheme()

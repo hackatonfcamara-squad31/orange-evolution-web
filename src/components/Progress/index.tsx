@@ -12,17 +12,21 @@ interface ProgressProps {
 }
 
 export function Progress({ donePercentage, isTrailPage }: ProgressProps) {
+  const donePercentageFormatted = Math.round(donePercentage)
+
   return (
     <>
       <ProgressWrapper>
         <ProgressTextWrapper isTrailPage={isTrailPage}>
           <Text size="xs">Progresso</Text>
-          <Text size="xs">{donePercentage}%</Text>
+          <Text size="xs">{donePercentageFormatted}%</Text>
         </ProgressTextWrapper>
 
-        <ProgressRoot value={donePercentage} isTrailPage={isTrailPage}>
+        <ProgressRoot value={donePercentageFormatted} isTrailPage={isTrailPage}>
           <ProgressIndicator
-            css={{ transform: `translateX(-${100 - donePercentage}%)` }}
+            css={{
+              transform: `translateX(-${100 - donePercentageFormatted}%)`
+            }}
           />
         </ProgressRoot>
       </ProgressWrapper>

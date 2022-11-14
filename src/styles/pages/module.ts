@@ -7,6 +7,13 @@ export const ModuleWrapper = styled('div', {
   gap: '2.5rem'
 })
 
+export const AdminModuleHeaderWrapper = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexWrap: 'wrap',
+  gap: '1rem'
+})
+
 export const ContentListWrapper = styled('section', {
   display: 'flex',
   flexDirection: 'column'

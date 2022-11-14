@@ -21,7 +21,7 @@ export const StyledOverlay = styled(DialogPrimitive.Overlay, {
 })
 
 export const StyledContent = styled(DialogPrimitive.Content, {
-  borderRadius: '$md',
+  borderRadius: '$xl',
   boxShadow:
     'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
   position: 'fixed',
@@ -40,7 +40,7 @@ export const StyledContent = styled(DialogPrimitive.Content, {
   variants: {
     theme: {
       light: {
-        backgroundColor: '$gray100',
+        backgroundColor: '$white',
         color: '$gray800'
       },
       dark: {
@@ -54,6 +54,7 @@ export const StyledContent = styled(DialogPrimitive.Content, {
 export const StyledTitle = styled(DialogPrimitive.Title, {
   fontSize: '$lg',
   fontWeight: 500,
+  marginBottom: '1.25rem',
 
   variants: {
     theme: {
@@ -68,7 +69,6 @@ export const StyledTitle = styled(DialogPrimitive.Title, {
 })
 
 export const StyledDescription = styled(DialogPrimitive.Description, {
-  marginTop: '1rem',
   marginBottom: '1.25rem',
   fontSize: '$sm',
   lineHeight: 1.6,
@@ -95,15 +95,17 @@ export const DialogCloseButton = styled('button', {
   alignItems: 'center',
   justifyContent: 'center',
   padding: '0.25rem',
-  borderRadius: '50%',
+  borderRadius: '$full',
+  boxShadow: '$default',
 
   variants: {
     theme: {
       light: {
-        color: '$gray600',
+        color: '$white',
+        backgroundColor: '$gray600',
 
         '&:hover': {
-          backgroundColor: 'rgba(0, 0, 0, 0.05)'
+          backgroundColor: '$gray500'
         }
       },
       dark: {
@@ -117,10 +119,10 @@ export const DialogCloseButton = styled('button', {
   }
 })
 
-export const DialogBbuttonsContainer = styled('div', {
+export const DialogButtonsContainer = styled('div', {
   marginTop: '1.5rem',
   display: 'flex',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   gap: '$lg'
 })
 

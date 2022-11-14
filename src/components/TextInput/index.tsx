@@ -35,6 +35,7 @@ export interface TextInputInputProps
   extends InputHTMLAttributes<HTMLInputElement> {
   control?: Control
   validate?: RegisterOptions
+  name: string
 }
 
 function TextInputRoot({
@@ -50,9 +51,11 @@ function TextInputRoot({
 
   return (
     <InputContainer>
-      <InputLabel htmlFor={labelFor} theme={theme}>
-        {label} {required && <span>*</span>}
-      </InputLabel>
+      {label && (
+        <InputLabel htmlFor={labelFor} theme={theme}>
+          {label} {required && <span>*</span>}
+        </InputLabel>
+      )}
 
       <InputWrapper
         error={!!error}

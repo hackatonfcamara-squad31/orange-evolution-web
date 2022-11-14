@@ -2,13 +2,21 @@ import { TextInput } from 'components/TextInput'
 import useDebounce from 'hooks/useDebounce'
 import { Content } from 'libs/content/types'
 import { Module } from 'libs/module/types'
-import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  InputHTMLAttributes,
+  SetStateAction,
+  useEffect,
+  useState
+} from 'react'
 import { TbSearch } from 'react-icons/tb'
 
+export type ItemsArrayType = Array<Content | Module>
+
 interface InputSearchProps extends InputHTMLAttributes<HTMLInputElement> {
-  // items as array of Module or Content
-  items: Array<Content | Module>
-  setFilteredItems: (items: any[]) => void
+  items: ItemsArrayType
+  setFilteredItems: Dispatch<SetStateAction<ItemsArrayType>>
   setIsSearching: (isSearching: boolean) => void
 }
 
@@ -23,12 +31,16 @@ export function InputSearch({
 
   useEffect(() => {
     setIsSearching(true)
+
     const filteredItems = items.filter((item) => {
       return item.title.toLowerCase().includes(debouncedValue.toLowerCase())
     })
 
-    setFilteredItems(filteredItems)
+    filteredItems.sort((a, b) => {
+      return a?.order - b?.order
+    })
 
+    setFilteredItems(filteredItems)
     setIsSearching(false)
   }, [debouncedValue, items, setFilteredItems, setIsSearching])
 
