@@ -1,3 +1,4 @@
+import { orangeEvolutionLogo } from 'components/@constants'
 import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
@@ -23,8 +24,6 @@ import {
   CardWrapper,
   TextWrapper
 } from 'styles/pages/trilhas'
-import logo from '../../public/notebook.svg'
-import orangeEvolutionLogo from '../../public/orangeEvolutionLogo.svg'
 
 interface TrailsProps {
   user: User
@@ -154,7 +153,7 @@ export default function Trails({ user, trails }: TrailsProps) {
                     >
                       <Heading>{trail.title}</Heading>
                       <CardImage
-                        src={logo}
+                        src={trail.icon_url}
                         alt={trail.title}
                         width={100}
                         height={100}

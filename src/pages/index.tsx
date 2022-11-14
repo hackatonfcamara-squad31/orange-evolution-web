@@ -1,8 +1,8 @@
+import { orangeEvolutionLogo } from 'components/@constants'
 import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import Head from 'next/head'
-import { ButtonToggleTheme } from 'components/ButtonToggleTheme'
 import Image from 'next/image'
 import {
   BodyWrapper,
@@ -11,8 +11,6 @@ import {
   Main,
   Subtitle
 } from 'styles/pages/home'
-
-import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 export default function Home() {
   const { theme } = useTheme()

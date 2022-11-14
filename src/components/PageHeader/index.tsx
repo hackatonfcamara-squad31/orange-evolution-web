@@ -1,8 +1,7 @@
+import { orangeEvolutionLogo } from 'components/@constants'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Breadcrumbs, PageHeaderWrapper } from './styles'
-
-import orangeEvolutionLogo from '@/public/orangeEvolutionLogo.svg'
 
 interface PageHeaderProps {
   moduleLinkName?: string
