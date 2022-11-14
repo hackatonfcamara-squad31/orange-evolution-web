@@ -63,13 +63,13 @@ export const CardList = styled('div', {
 export const Card = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'space-evenly',
+  justifyContent: 'space-between',
   alignItems: 'center',
   textAlign: 'center',
   gap: '2rem',
   position: 'relative',
 
-  width: '280px',
+  width: 280,
   alignSelf: 'stretch',
 
   borderRadius: '35px',

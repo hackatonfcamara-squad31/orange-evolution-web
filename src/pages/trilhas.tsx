@@ -2,6 +2,7 @@ import { orangeEvolutionLogo } from 'components/@constants'
 import { ButtonLink } from 'components/ButtonLink'
 import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
+import { Progress } from 'components/Progress'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
@@ -58,7 +59,7 @@ export default function Trails({ token, user }: TrailsProps) {
   return (
     <>
       <Head>
-        <title>Trilhas</title>
+        <title>Orange Evolution - Trilhas</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
@@ -107,13 +108,22 @@ export default function Trails({ token, user }: TrailsProps) {
                   theme={theme}
                   className={width <= 768 ? 'keen-slider__slide' : ''}
                 >
-                  <Heading>{trail.title}</Heading>
+                  <Heading size="sm">{trail.title}</Heading>
 
                   <CardImage
                     src={trail.icon_url}
                     alt={trail.title}
                     width={100}
                     height={100}
+                  />
+
+                  <Progress
+                    isTrailPage
+                    donePercentage={
+                      trail.total === 0
+                        ? 0
+                        : (trail.completed / trail.total) * 100
+                    }
                   />
 
                   <ButtonWrapper>

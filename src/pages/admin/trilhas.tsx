@@ -59,7 +59,7 @@ export default function Trails({ token, user }: TrailsProps) {
   return (
     <>
       <Head>
-        <title>Trilhas</title>
+        <title>Orange Evolution - Trilhas</title>
       </Head>
       <BodyWrapper theme={theme}>
         <Header />
@@ -113,7 +113,7 @@ export default function Trails({ token, user }: TrailsProps) {
                     paddingTop: '2.5rem'
                   }}
                 >
-                  <Heading>{trail.title}</Heading>
+                  <Heading size="sm">{trail.title}</Heading>
 
                   <TrailForm trail={trail} />
 
