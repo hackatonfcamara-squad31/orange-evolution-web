@@ -5,6 +5,7 @@ import {
   ContentWrapper,
   TitleWrapper
 } from 'components/Content/styles'
+import { ContentForm } from 'components/ContentForm'
 import { Heading } from 'components/Heading'
 import { useTheme } from 'contexts/ThemeContext'
 import { useMarkContent } from 'libs/content/hooks'
@@ -15,12 +16,14 @@ import { showToastInfo, showToastSuccess } from 'utils/toasts'
 
 export interface ContentProps {
   content: ContentType
+  isAdmin?: boolean
   handleMarkContentAsCompleted: (contentId: string) => Promise<void>
   handleMarkContentAsUncompleted: (contentId: string) => Promise<void>
 }
 
 export function Content({
   content,
+  isAdmin,
   handleMarkContentAsCompleted,
   handleMarkContentAsUncompleted
 }: ContentProps) {
@@ -59,7 +62,7 @@ export function Content({
   return (
     <ContentWrapper theme={theme}>
       <TitleWrapper>
-        {isCheckboxLoading ? (
+        {isCheckboxLoading && (
           <BallTriangle
             height={24}
             width={24}
@@ -68,7 +71,11 @@ export function Content({
             ariaLabel="Carregando..."
             visible={true}
           />
-        ) : (
+        )}
+
+        {isAdmin && !isCheckboxLoading && <ContentForm content={content} />}
+
+        {!isAdmin && !isCheckboxLoading && (
           <Checkbox
             disabled={isMarkContentLoading || isCheckboxLoading}
             size="sm"
@@ -77,6 +84,7 @@ export function Content({
             onClick={handleMarkContent}
           />
         )}
+
         <Heading size="sm" color="gray" asChild>
           <a
             href={link}

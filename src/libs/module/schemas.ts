@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createOrUpdateModuleSchema = z.object({
+export const moduleSchema = z.object({
   description: z
     .string()
     .trim()
@@ -13,4 +13,4 @@ export const createOrUpdateModuleSchema = z.object({
     .max(100, 'Título deve ter no máximo 100 caracteres')
 })
 
-export type ModuleFormData = z.infer<typeof createOrUpdateModuleSchema>
+export type ModuleFormData = z.infer<typeof moduleSchema>

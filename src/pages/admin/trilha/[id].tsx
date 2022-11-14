@@ -105,7 +105,7 @@ export default function AdminTrailPage({
                           <Text size="sm">{module.description}</Text>
 
                           <ModuleCardButtonWrapper>
-                            <ButtonLink href={`admin/modulo/${module.id}`}>
+                            <ButtonLink href={`/admin/modulo/${module.id}`}>
                               Acessar
                             </ButtonLink>
                           </ModuleCardButtonWrapper>

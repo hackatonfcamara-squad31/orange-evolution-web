@@ -40,7 +40,7 @@ export const StyledContent = styled(DialogPrimitive.Content, {
   variants: {
     theme: {
       light: {
-        backgroundColor: '$gray100',
+        backgroundColor: '$white',
         color: '$gray800'
       },
       dark: {
@@ -95,15 +95,17 @@ export const DialogCloseButton = styled('button', {
   alignItems: 'center',
   justifyContent: 'center',
   padding: '0.25rem',
-  borderRadius: '50%',
+  borderRadius: '$full',
+  boxShadow: '$default',
 
   variants: {
     theme: {
       light: {
-        color: '$gray600',
+        color: '$white',
+        backgroundColor: '$gray600',
 
         '&:hover': {
-          backgroundColor: 'rgba(0, 0, 0, 0.05)'
+          backgroundColor: '$gray500'
         }
       },
       dark: {

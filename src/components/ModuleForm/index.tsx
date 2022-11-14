@@ -7,7 +7,7 @@ import { TextArea } from 'components/TextArea'
 import { TextInput } from 'components/TextInput'
 import { useTheme } from 'contexts/ThemeContext'
 import { useUpdateModule } from 'libs/module/hooks'
-import { createOrUpdateModuleSchema, ModuleFormData } from 'libs/module/schemas'
+import { ModuleFormData, moduleSchema } from 'libs/module/schemas'
 import { Module } from 'libs/module/types'
 import { useTrailStore } from 'libs/trail/store'
 import { useState } from 'react'
@@ -44,7 +44,7 @@ export function ModuleForm({ module }: ModuleFormProps) {
     useUpdateModule()
 
   const moduleForm = useForm<ModuleFormData>({
-    resolver: zodResolver(createOrUpdateModuleSchema),
+    resolver: zodResolver(moduleSchema),
     defaultValues: {
       title: module ? module.title : '',
       description: module ? module.description : ''
@@ -136,7 +136,7 @@ export function ModuleForm({ module }: ModuleFormProps) {
       triggerButtonProps={
         module
           ? {
-              title: `Editar módulo ${module.title}`,
+              title: `Editar ${module.title}`,
               ...editTriggerButtonProps
             }
           : { color: 'gray', title: 'Adicionar módulo' }
@@ -152,7 +152,7 @@ export function ModuleForm({ module }: ModuleFormProps) {
             id="title"
             name="title"
             type="text"
-            placeholder="Título do módulo"
+            placeholder="Título"
             control={control}
           />
         </TextInput.Root>
@@ -189,7 +189,10 @@ export function ModuleForm({ module }: ModuleFormProps) {
               type="button"
               isFullWidth
               color="red"
-              onClick={() => setIsDialogOpen(false)}
+              onClick={() => {
+                setIsDialogOpen(false)
+                reset()
+              }}
               title="Cancelar"
             >
               Cancelar

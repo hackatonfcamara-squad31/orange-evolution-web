@@ -104,10 +104,11 @@ export const DialogAlertCloseButton = styled('button', {
   variants: {
     theme: {
       light: {
-        color: '$gray600',
+        color: '$white',
+        backgroundColor: '$gray600',
 
         '&:hover': {
-          backgroundColor: 'rgba(0, 0, 0, 0.05)'
+          backgroundColor: '$gray500'
         }
       },
       dark: {

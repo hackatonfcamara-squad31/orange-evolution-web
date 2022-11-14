@@ -1,8 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTheme } from 'contexts/ThemeContext'
+import { getApiErrorMessage } from 'libs/functions/api'
 import { useState } from 'react'
 import { showToastError } from 'utils/toasts'
-import { markContentAsCompleted, markContentAsUncompleted } from './api'
+import {
+  createContent,
+  deleteContent,
+  markContentAsCompleted,
+  markContentAsUncompleted,
+  updateContent
+} from './api'
 
 export const useMarkContent = () => {
   const [isMarkContentLoading, setIsMarkContentLoading] = useState(false)
@@ -48,5 +55,50 @@ export const useMarkContent = () => {
     setIsMarkContentLoading,
     markContentAsCompletedMutation,
     markContentAsUncompletedMutation
+  }
+}
+
+export const useUpdateContent = () => {
+  const { theme } = useTheme()
+
+  const queryClient = useQueryClient()
+
+  const createContentMutation = useMutation(createContent, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['module'])
+    },
+    onError: (error) => {
+      const errorMessage = getApiErrorMessage(error)
+
+      showToastError(theme, errorMessage)
+    }
+  })
+
+  const updateContentMutation = useMutation(updateContent, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['module'])
+    },
+    onError: (error) => {
+      const errorMessage = getApiErrorMessage(error)
+
+      showToastError(theme, errorMessage)
+    }
+  })
+
+  const deleteContentMutation = useMutation(deleteContent, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['module'])
+    },
+    onError: (error) => {
+      const errorMessage = getApiErrorMessage(error)
+
+      showToastError(theme, errorMessage)
+    }
+  })
+
+  return {
+    createContentMutation,
+    updateContentMutation,
+    deleteContentMutation
   }
 }
