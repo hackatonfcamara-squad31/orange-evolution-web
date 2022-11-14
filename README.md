@@ -1,6 +1,10 @@
 # Orange Evolution Web
 
+Um guia de desenvolvimento para seu start no mundo da tecnologia.
+
 ## Descrição
+
+O Orange Evolution consiste em trilhas totalmente gratuitas para que você possa iniciar a sua carreira na tecnologia. Você terá acesso a diversos conteúdos da Orange Juice, parceiros e de empresas de credibilidade, incluindo vídeos, lives, artigos, apostilas e até cursos gratuitos.
 
 ## Membros da Squad
 
@@ -54,9 +58,14 @@
 - [React Hook Form][react_hook_form]
 - [Zod][zod]
 - [React-toastify][rect_toastify]
+- [TanStack Query][react_query]
+- [Zustand][zustand]
+- [Keen-Slider][keen_slider]
 - [Axios][axios]
 - [React Icons][react_icons]
 - [React Loader Spinner][react_loader]
+- [react-dropzone][react_dropzone]
+- [cookies-next][cookies_next]
 
 [next]: https://nextjs.org
 [typescript]: https://www.typescriptlang.org
@@ -65,6 +74,11 @@
 [react_hook_form]: https://react-hook-form.com
 [zod]: https://zod.dev
 [rect_toastify]: https://fkhadra.github.io/react-toastify/introduction
+[react_query]: https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com
+[zustand]: https://github.com/pmndrs/zustand
+[keen_slider]: https://keen-slider.io
 [axios]: https://axios-http.com
 [react_icons]: https://react-icons.github.io/react-icons
 [react_loader]: https://www.npmjs.com/package/react-loader-spinner
+[react_dropzone]: https://react-dropzone.js.org
+[cookies_next]: https://www.npmjs.com/package/cookies-next
