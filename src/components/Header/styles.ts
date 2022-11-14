@@ -6,72 +6,55 @@ export const HeaderWrapper = styled('header', {
   background: '$orange500',
   display: 'flex',
   alignItems: 'center',
-  padding: '1rem 1.25rem',
+  justifyContent: 'center',
+  padding: '1rem 1.25rem'
+})
+
+export const HeaderContent = styled('div', {
+  width: '100%',
+  maxWidth: '1200px',
+  display: 'flex',
+  alignItems: 'center',
   gap: '1.5rem',
 
-  '@bp3': {
+  '@bp2': {
     flexDirection: 'column-reverse'
   }
 })
 
 export const HeaderImages = styled('div', {
+  width: '100%',
+  position: 'relative',
+
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'flex-end',
   gap: '3rem',
+  flex: 1,
 
   '@bp2': {
-    gap: '1.5rem'
+    justifyContent: 'center'
+  },
+  '@bp3': {
+    gap: '1.5rem',
+    justifyContent: 'center'
   }
 })
 
 export const LogoFCamara = styled(Image, {
-  '@bp2': {
-    width: '112px',
-    height: '25px'
-  },
-
-  '@bp4': {
-    width: '84px',
-    height: '18px'
+  '@bp3': {
+    width: '35%'
   }
 })
+
 export const LogoOrangeJuice = styled(Image, {
-  '@bp2': {
-    width: '50px',
-    height: '36px'
-  },
-
-  '@bp4': {
-    width: '33px',
-    height: '24px'
+  '@bp3': {
+    width: '20%'
   }
 })
+
 export const LogoPdeFormacao = styled(Image, {
-  '@bp2': {
-    width: '132px',
-    height: '42px'
-  },
-
-  '@bp4': {
-    width: '88px',
-    height: '28px'
-  }
-})
-
-export const HeaderUserWrapper = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '0.5rem'
-})
-
-export const HeaderTextWrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.25rem',
-
-  span: {
-    fontWeight: 500,
-    color: '$gray100'
+  '@bp3': {
+    width: '35%'
   }
 })

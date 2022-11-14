@@ -130,12 +130,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       deleteCookie(process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME)
 
+      Router.push('/login')
+
       showToastSuccess(theme, 'Logout realizado com sucesso. Volte sempre!')
 
       setAuthUser(null)
       setIsAuthLoading(false)
-
-      Router.push('/login')
 
       return true
     } catch (error) {

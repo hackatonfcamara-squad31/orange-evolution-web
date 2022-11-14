@@ -7,7 +7,6 @@ import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
 import { useAuth } from 'contexts/AuthContext'
-import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { LoginFormData, loginSchema } from 'libs/auth/schemas'
@@ -26,7 +25,6 @@ import {
 } from 'styles/pages/auth'
 
 export default function AdminLoginPage() {
-  const { theme } = useTheme()
   const { isAuthLoading, adminLogin } = useAuth()
 
   const loginForm = useForm<LoginFormData>({
@@ -61,7 +59,7 @@ export default function AdminLoginPage() {
   return (
     <>
       <Head>
-        <title>Orange Evolution | Login</title>
+        <title>Orange Evolution | Admin Login</title>
       </Head>
 
       <AppLayout>
@@ -71,7 +69,7 @@ export default function AdminLoginPage() {
           </ImageWrapper>
 
           <Heading asChild size="lg">
-            <h1>Login</h1>
+            <h1>Admin Login</h1>
           </Heading>
         </HeaderWrapper>
 
