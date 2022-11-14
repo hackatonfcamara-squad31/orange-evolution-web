@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { orangeEvolutionLogo } from 'components/@constants'
+import { AppLayout } from 'components/AppLayout'
 import { Button } from 'components/Button'
 import { Checkbox } from 'components/Checkbox'
-import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
@@ -24,7 +24,6 @@ import {
   ImageWrapper,
   LoginFormFooter
 } from 'styles/pages/auth'
-import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function AdminLoginPage() {
   const { theme } = useTheme()
@@ -65,57 +64,49 @@ export default function AdminLoginPage() {
         <title>Orange Evolution | Login</title>
       </Head>
 
-      <BodyWrapper theme={theme}>
-        <Header />
+      <AppLayout>
+        <HeaderWrapper>
+          <ImageWrapper>
+            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
+          </ImageWrapper>
 
-        <Main>
-          <HeaderWrapper>
-            <ImageWrapper>
-              <Image
-                src={orangeEvolutionLogo}
-                alt="Orange Evolution Logo"
-                fill
-              />
-            </ImageWrapper>
+          <Heading asChild size="lg">
+            <h1>Login</h1>
+          </Heading>
+        </HeaderWrapper>
 
-            <Heading asChild size="lg">
-              <h1>Login</h1>
-            </Heading>
-          </HeaderWrapper>
+        <FormWrapper onSubmit={handleSubmit(handleLogin)}>
+          <InputEmail required error={errors.email} control={control} isBig />
 
-          <FormWrapper onSubmit={handleSubmit(handleLogin)}>
-            <InputEmail required error={errors.email} control={control} isBig />
+          <InputPassword
+            required
+            error={errors.password}
+            control={control}
+            isBig
+          />
 
-            <InputPassword
-              required
-              error={errors.password}
-              control={control}
-              isBig
-            />
+          <LoginFormFooter>
+            <Checkbox label="Lembrar de mim" labelFor="remember" />
 
-            <LoginFormFooter>
-              <Checkbox label="Lembrar de mim" labelFor="remember" />
+            <Link href="#">Esqueci minha senha</Link>
+          </LoginFormFooter>
 
-              <Link href="#">Esqueci minha senha</Link>
-            </LoginFormFooter>
+          <ButtonWrapper>
+            <Button
+              size="lg"
+              isLoading={isAuthLoading}
+              disabled={isSubmitDisabled}
+              type="submit"
+            >
+              Fazer Login
+            </Button>
+          </ButtonWrapper>
+        </FormWrapper>
 
-            <ButtonWrapper>
-              <Button
-                size="lg"
-                isLoading={isAuthLoading}
-                disabled={isSubmitDisabled}
-                type="submit"
-              >
-                Fazer Login
-              </Button>
-            </ButtonWrapper>
-          </FormWrapper>
-
-          <FooterLinkContainer>
-            <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
-          </FooterLinkContainer>
-        </Main>
-      </BodyWrapper>
+        <FooterLinkContainer>
+          <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
+        </FooterLinkContainer>
+      </AppLayout>
     </>
   )
 }

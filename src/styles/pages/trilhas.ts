@@ -85,6 +85,10 @@ export const Card = styled('div', {
         boxShadow: '$default'
       }
     }
+  },
+
+  defaultVariants: {
+    theme: 'light'
   }
 })
 

@@ -1,13 +1,12 @@
+import { AppLayout } from 'components/AppLayout'
 import { Content } from 'components/Content'
 import { ContentForm } from 'components/ContentForm'
-import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
 import { PageFooter } from 'components/PageFooter'
 import { PageHeader } from 'components/PageHeader'
 import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
-import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { useMarkContent } from 'libs/content/hooks'
@@ -18,7 +17,6 @@ import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { BodyWrapper, Main } from 'styles/pages/home'
 import {
   AdminModuleHeaderWrapper,
   ContentList,
@@ -42,8 +40,6 @@ export default function AdminModulePage({
   const [filteredContents, setFilteredContents] = useState<ContentType[]>(
     [] as ContentType[]
   )
-
-  const { theme } = useTheme()
 
   const { isLoading } = useModule(token, moduleId)
 
@@ -74,76 +70,73 @@ export default function AdminModulePage({
       <Head>
         <title>{`Orange Evolution | Módulo ${module?.title}`}</title>
       </Head>
-      <BodyWrapper theme={theme}>
-        <Header />
 
-        <Main>
-          {isLoading || !module ? (
-            <SearchLoader />
-          ) : (
-            <>
-              <PageHeader
-                trailLinkName={trailInfo?.title}
-                trailLink={`/admin/trilha/${trailInfo?.id}`}
-                moduleLinkName={module?.title}
-                isModulePage
-                isAdminPage
-              />
+      <AppLayout>
+        {isLoading || !module ? (
+          <SearchLoader />
+        ) : (
+          <>
+            <PageHeader
+              trailLinkName={trailInfo?.title}
+              trailLink={`/admin/trilha/${trailInfo?.id}`}
+              moduleLinkName={module?.title}
+              isModulePage
+              isAdminPage
+            />
 
-              <ModuleWrapper>
-                <AdminModuleHeaderWrapper>
-                  <Heading asChild size="xl">
-                    <h1>{module?.title}</h1>
-                  </Heading>
+            <ModuleWrapper>
+              <AdminModuleHeaderWrapper>
+                <Heading asChild size="xl">
+                  <h1>{module?.title}</h1>
+                </Heading>
 
-                  <ContentForm />
-                </AdminModuleHeaderWrapper>
+                <ContentForm />
+              </AdminModuleHeaderWrapper>
 
-                <ContentListWrapper>
-                  <SearchWrapper>
-                    <InputSearch
-                      items={contents}
-                      setFilteredItems={setFilteredContents}
-                      placeholder="Buscar conteúdo"
-                      setIsSearching={setIsSearching}
-                    />
-                  </SearchWrapper>
+              <ContentListWrapper>
+                <SearchWrapper>
+                  <InputSearch
+                    items={contents}
+                    setFilteredItems={setFilteredContents}
+                    placeholder="Buscar conteúdo"
+                    setIsSearching={setIsSearching}
+                  />
+                </SearchWrapper>
 
-                  {isSearching && <SearchLoader />}
+                {isSearching && <SearchLoader />}
 
-                  {filteredContents.length === 0 && !isSearching && (
-                    <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
-                  )}
+                {filteredContents.length === 0 && !isSearching && (
+                  <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
+                )}
 
-                  {filteredContents.length > 0 && !isSearching && (
-                    <>
-                      <Text size="sm">Concluído</Text>
+                {filteredContents.length > 0 && !isSearching && (
+                  <>
+                    <Text size="sm">Concluído</Text>
 
-                      <ContentList>
-                        {filteredContents.map((content) => (
-                          <Content
-                            isAdmin
-                            key={content.id}
-                            content={content}
-                            handleMarkContentAsCompleted={
-                              handleMarkContentAsCompleted
-                            }
-                            handleMarkContentAsUncompleted={
-                              handleMarkContentAsUncompleted
-                            }
-                          />
-                        ))}
-                      </ContentList>
-                    </>
-                  )}
-                </ContentListWrapper>
-              </ModuleWrapper>
+                    <ContentList>
+                      {filteredContents.map((content) => (
+                        <Content
+                          isAdmin
+                          key={content.id}
+                          content={content}
+                          handleMarkContentAsCompleted={
+                            handleMarkContentAsCompleted
+                          }
+                          handleMarkContentAsUncompleted={
+                            handleMarkContentAsUncompleted
+                          }
+                        />
+                      ))}
+                    </ContentList>
+                  </>
+                )}
+              </ContentListWrapper>
+            </ModuleWrapper>
 
-              <PageFooter />
-            </>
-          )}
-        </Main>
-      </BodyWrapper>
+            <PageFooter />
+          </>
+        )}
+      </AppLayout>
     </>
   )
 }
