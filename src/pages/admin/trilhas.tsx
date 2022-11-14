@@ -15,7 +15,6 @@ import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react'
 import { BodyWrapper, Main } from 'styles/pages/home'
 import {
   ButtonWrapper,
@@ -31,32 +30,22 @@ interface TrailsProps {
   user: User
 }
 
-interface CardSliderProps {
-  ref: (node: HTMLElement) => void
-  sliderClassName: string
-  slideClassName: string
-}
-
-const sliderOptions = {
-  initial: 0,
-  slides: {
-    perView: 2,
-    spacing: 20
-  },
-  breakpoints: {
-    '(max-width: 480px)': {
-      slides: {
-        perView: 1,
-        spacing: 20
+export default function Trails({ token, user }: TrailsProps) {
+  const [sliderRef] = useKeenSlider({
+    initial: 0,
+    slides: {
+      perView: 2,
+      spacing: 20
+    },
+    breakpoints: {
+      '(max-width: 480px)': {
+        slides: {
+          perView: 1,
+          spacing: 20
+        }
       }
     }
-  }
-}
-
-export default function Trails({ token, user }: TrailsProps) {
-  const [loaded, setLoaded] = useState(false)
-
-  const [sliderRef, instanceRef] = useKeenSlider(sliderOptions)
+  })
 
   const { theme } = useTheme()
 
