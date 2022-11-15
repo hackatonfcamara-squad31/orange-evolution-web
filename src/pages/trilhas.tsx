@@ -6,9 +6,6 @@ import { Progress } from 'components/Progress'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
-import useWindowSize from 'hooks/useWindowSize'
-import 'keen-slider/keen-slider.min.css'
-import { useKeenSlider } from 'keen-slider/react'
 import { getAuthUser } from 'libs/auth/api'
 import { useTrails } from 'libs/trail/hooks'
 import { useTrailStore } from 'libs/trail/store'
@@ -21,7 +18,6 @@ import {
   Card,
   CardImage,
   CardList,
-  CardListWrapper,
   TextWrapper
 } from 'styles/pages/trilhas'
 
@@ -31,25 +27,7 @@ interface TrailsProps {
 }
 
 export default function Trails({ token, user }: TrailsProps) {
-  const [sliderRef] = useKeenSlider({
-    initial: 0,
-    slides: {
-      perView: 2,
-      spacing: 20
-    },
-    breakpoints: {
-      '(max-width: 480px)': {
-        slides: {
-          perView: 1,
-          spacing: 20
-        }
-      }
-    }
-  })
-
   const { theme } = useTheme()
-
-  const { width } = useWindowSize()
 
   const { isLoading } = useTrails(token)
 
@@ -94,42 +72,31 @@ export default function Trails({ token, user }: TrailsProps) {
           </Text>
         </TextWrapper>
 
-        <CardListWrapper>
-          <CardList
-            ref={width <= 768 ? sliderRef : null}
-            className={width <= 768 ? 'keen-slider' : ''}
-          >
-            {trails.map((trail) => (
-              <Card
-                key={trail.id}
-                theme={theme}
-                className={width <= 768 ? 'keen-slider__slide' : ''}
-              >
-                <Heading size="sm">{trail.title}</Heading>
+        <CardList>
+          {trails.map((trail) => (
+            <Card key={trail.id} theme={theme}>
+              <Heading size="sm">{trail.title}</Heading>
 
-                <CardImage
-                  src={trail.icon_url}
-                  alt={trail.title}
-                  width={100}
-                  height={100}
-                />
+              <CardImage
+                src={trail.icon_url}
+                alt={trail.title}
+                width={100}
+                height={100}
+              />
 
-                <Progress
-                  isTrailPage
-                  donePercentage={
-                    trail.total === 0
-                      ? 0
-                      : (trail.completed / trail.total) * 100
-                  }
-                />
+              <Progress
+                isTrailPage
+                donePercentage={
+                  trail.total === 0 ? 0 : (trail.completed / trail.total) * 100
+                }
+              />
 
-                <ButtonWrapper>
-                  <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>
-                </ButtonWrapper>
-              </Card>
-            ))}
-          </CardList>
-        </CardListWrapper>
+              <ButtonWrapper>
+                <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>
+              </ButtonWrapper>
+            </Card>
+          ))}
+        </CardList>
       </AppLayout>
     </>
   )

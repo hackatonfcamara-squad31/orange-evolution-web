@@ -5,9 +5,6 @@ import { Heading } from 'components/Heading'
 import { Text } from 'components/Text'
 import { TrailForm } from 'components/TrailForm'
 import { getCookie } from 'cookies-next'
-import useWindowSize from 'hooks/useWindowSize'
-import 'keen-slider/keen-slider.min.css'
-import { useKeenSlider } from 'keen-slider/react'
 import { getAuthUser } from 'libs/auth/api'
 import { useTrails } from 'libs/trail/hooks'
 import { useTrailStore } from 'libs/trail/store'
@@ -20,7 +17,6 @@ import {
   Card,
   CardImage,
   CardList,
-  CardListWrapper,
   TextWrapper
 } from 'styles/pages/trilhas'
 
@@ -30,24 +26,6 @@ interface TrailsProps {
 }
 
 export default function Trails({ token, user }: TrailsProps) {
-  const [sliderRef] = useKeenSlider({
-    initial: 0,
-    slides: {
-      perView: 2,
-      spacing: 20
-    },
-    breakpoints: {
-      '(max-width: 480px)': {
-        slides: {
-          perView: 1,
-          spacing: 20
-        }
-      }
-    }
-  })
-
-  const { width } = useWindowSize()
-
   const { isLoading } = useTrails(token)
 
   const { trails } = useTrailStore()
@@ -94,39 +72,33 @@ export default function Trails({ token, user }: TrailsProps) {
 
         <TrailForm />
 
-        <CardListWrapper>
-          <CardList
-            ref={width <= 768 ? sliderRef : null}
-            className={width <= 768 ? 'keen-slider' : ''}
-          >
-            {trails.map((trail) => (
-              <Card
-                key={trail.id}
-                className={width <= 768 ? 'keen-slider__slide' : ''}
-                css={{
-                  paddingTop: '2rem'
-                }}
-              >
-                <Heading size="sm">{trail.title}</Heading>
+        <CardList>
+          {trails.map((trail) => (
+            <Card
+              key={trail.id}
+              css={{
+                paddingTop: '2rem'
+              }}
+            >
+              <Heading size="sm">{trail.title}</Heading>
 
-                <TrailForm trail={trail} />
+              <TrailForm trail={trail} />
 
-                <CardImage
-                  src={trail.icon_url}
-                  alt={trail.title}
-                  width={100}
-                  height={100}
-                />
+              <CardImage
+                src={trail.icon_url}
+                alt={trail.title}
+                width={100}
+                height={100}
+              />
 
-                <ButtonWrapper>
-                  <ButtonLink href={`/admin/trilha/${trail.id}`}>
-                    Acesssar
-                  </ButtonLink>
-                </ButtonWrapper>
-              </Card>
-            ))}
-          </CardList>
-        </CardListWrapper>
+              <ButtonWrapper>
+                <ButtonLink href={`/admin/trilha/${trail.id}`}>
+                  Acesssar
+                </ButtonLink>
+              </ButtonWrapper>
+            </Card>
+          ))}
+        </CardList>
       </AppLayout>
     </>
   )

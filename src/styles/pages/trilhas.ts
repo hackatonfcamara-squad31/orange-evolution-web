@@ -1,63 +1,31 @@
-import 'keen-slider/keen-slider.min.css'
 import Image from 'next/image'
 import { styled } from 'styles'
 
 export const TextWrapper = styled('div', {
+  width: '100%',
   maxWidth: '1000px',
   marginTop: '2rem',
-  padding: '0 4rem',
+
   p: {
     textAlign: 'justify'
   },
 
   '@bp2': {
-    padding: '0 2.5rem',
     p: {
       fontSize: '$sm'
-    }
-  },
-  '@bp3': {
-    padding: '0 2rem',
-    p: {
-      fontSize: '$xs'
     }
   }
 })
 
-export const CardListWrapper = styled('div', {
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '0 1.5rem'
-})
-
 export const CardList = styled('div', {
-  width: 'calc(100% - 4rem)',
   position: 'relative',
+  marginTop: '2rem',
 
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   gap: '1.125rem',
-  flexWrap: 'wrap',
-
-  padding: '1rem 0',
-
-  '@bp2': {
-    justifyContent: 'flex-start',
-    flexWrap: 'nowrap',
-
-    gap: 0,
-
-    '&:hover': {
-      cursor: 'grab'
-    },
-
-    '&:active': {
-      cursor: 'grabbing'
-    }
-  }
+  flexWrap: 'wrap'
 })
 
 export const Card = styled('div', {

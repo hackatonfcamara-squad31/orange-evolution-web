@@ -60,7 +60,6 @@ O Orange Evolution consiste em trilhas totalmente gratuitas para que você possa
 - [React-toastify][rect_toastify]
 - [TanStack Query][react_query]
 - [Zustand][zustand]
-- [Keen-Slider][keen_slider]
 - [Axios][axios]
 - [React Icons][react_icons]
 - [React Loader Spinner][react_loader]
