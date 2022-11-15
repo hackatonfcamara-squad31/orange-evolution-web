@@ -30,9 +30,21 @@ export const HeaderImages = styled('div', {
   gap: '3rem',
   flex: 1,
 
-  '@bp2': {
-    justifyContent: 'center'
+  variants: {
+    isAuthenticaded: {
+      true: {
+        justifyContent: 'flex-end',
+
+        '@bp2': {
+          justifyContent: 'center'
+        }
+      },
+      false: {
+        justifyContent: 'center'
+      }
+    }
   },
+
   '@bp3': {
     gap: '1.5rem'
   }

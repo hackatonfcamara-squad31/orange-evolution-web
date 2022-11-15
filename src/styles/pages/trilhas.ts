@@ -4,7 +4,12 @@ import { styled } from 'styles'
 export const TextWrapper = styled('div', {
   width: '100%',
   maxWidth: '1000px',
-  marginTop: '2rem',
+  marginBottom: '2rem',
+
+  h1: {
+    marginBottom: '3rem',
+    textAlign: 'center'
+  },
 
   p: {
     textAlign: 'justify'
@@ -37,11 +42,15 @@ export const Card = styled('div', {
   gap: '2rem',
   position: 'relative',
 
-  width: 280,
-  alignSelf: 'stretch',
+  width: 270,
+  height: 340,
 
   borderRadius: '35px',
   padding: '1.5rem',
+
+  '@bp3': {
+    width: '100%'
+  },
 
   variants: {
     theme: {

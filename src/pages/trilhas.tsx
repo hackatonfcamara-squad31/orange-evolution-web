@@ -46,11 +46,12 @@ export default function Trails({ token, user }: TrailsProps) {
           width={197}
           height={122}
         />
-        <Heading asChild size="lg">
-          <h1>Escolha sua trilha!</h1>
-        </Heading>
 
         <TextWrapper>
+          <Heading asChild size="lg">
+            <h1>Escolha sua trilha!</h1>
+          </Heading>
+
           <Text asChild>
             <p>
               O Orange Evolution consiste em trilhas totalmente gratuitas para

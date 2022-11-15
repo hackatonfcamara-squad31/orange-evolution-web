@@ -19,11 +19,7 @@ export function Header() {
 
   const HeaderImagesContainer = () => {
     return (
-      <HeaderImages
-        css={{
-          justifyContent: isAuthenticaded ? 'flex-end' : 'center'
-        }}
-      >
+      <HeaderImages isAuthenticaded={isAuthenticaded}>
         <LogoFCamara src={FCamaraLogo} alt="logo do grupo FCamara" />
         <LogoOrangeJuice src={orangeJuiceLogo} alt="logo Orange Juice" />
         <LogoPdeFormacao
