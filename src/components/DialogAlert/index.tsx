@@ -38,7 +38,7 @@ function DialogAlertContent({
 interface DialogAlertProps {
   title: string
   description: string
-  triggerText: string
+  triggerText: ReactNode | string
   confirmText: string
   cancelText: string
   triggerButtonProps?: ButtonProps
@@ -73,7 +73,6 @@ export function DialogAlert({
     <AlertDialog open={open}>
       <Button
         onClick={handleOpen}
-        title={triggerText}
         color="red"
         type="button"
         isFullWidth

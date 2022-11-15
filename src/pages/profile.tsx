@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { orangeEvolutionLogo } from 'components/@constants'
 import { AppLayout } from 'components/AppLayout'
 import { Button } from 'components/Button'
+import { DialogAlert } from 'components/DialogAlert'
 import { Heading } from 'components/Heading'
 import { ImageDropzone } from 'components/ImageDropzone'
 import { InputEmail } from 'components/Inputs/InputEmail'
@@ -148,16 +149,26 @@ export default function ProfilePage({ user }: ProfilePageProps) {
               Salvar
             </Button>
 
-            <Button
-              size="lg"
-              color="red"
-              isLoading={isLoading}
-              type="button"
-              onClick={handleDeleteUser}
-            >
-              Excluir Conta
-              <BsFillExclamationCircleFill />
-            </Button>
+            <DialogAlert
+              title="Excluir Conta?"
+              description="Tem certeza que você quer excluir sua conta? Essa operação é irreversível!"
+              triggerText={
+                <>
+                  Excluir Conta
+                  <BsFillExclamationCircleFill />
+                </>
+              }
+              triggerButtonProps={{
+                color: 'red',
+                size: 'lg',
+                isLoading,
+                type: 'button',
+                title: 'Excluir Conta'
+              }}
+              confirmText="Sim, excluir conta"
+              cancelText="Cancelar"
+              onConfirm={handleDeleteUser}
+            />
           </ButtonWrapper>
         </FormWrapper>
       </AppLayout>
