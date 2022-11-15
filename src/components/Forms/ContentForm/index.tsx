@@ -147,7 +147,7 @@ export function ContentForm({ content }: ContentFormProps) {
       if (content) {
         await deleteContentMutation.mutateAsync(content.id)
 
-        showToastSuccess(theme, 'Conteúdo deletado com sucesso!')
+        showToastSuccess(theme, 'Conteúdo excluído com sucesso!')
         setIsDialogOpen(false)
       }
     } catch (error) {

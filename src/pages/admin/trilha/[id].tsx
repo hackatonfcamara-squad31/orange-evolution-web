@@ -55,7 +55,7 @@ export default function AdminTrailPage({
   return (
     <>
       <Head>
-        <title>Orange Evolution | Trilha {trail?.title}</title>
+        <title>{`Orange Evolution | Trilha ${trail?.title}`}</title>
       </Head>
 
       <Layout>
