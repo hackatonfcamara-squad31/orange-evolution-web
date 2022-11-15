@@ -2,6 +2,8 @@
 
 Um guia de desenvolvimento para seu start no mundo da tecnologia.
 
+<img src=".github/Capa.png" alt="Orange Evolution Logo" width="500">
+
 ## Descrição
 
 O Orange Evolution consiste em trilhas totalmente gratuitas para que você possa iniciar a sua carreira na tecnologia. Você terá acesso a diversos conteúdos da Orange Juice, parceiros e de empresas de credibilidade, incluindo vídeos, lives, artigos, apostilas e até cursos gratuitos.
@@ -60,7 +62,6 @@ O Orange Evolution consiste em trilhas totalmente gratuitas para que você possa
 - [React-toastify][rect_toastify]
 - [TanStack Query][react_query]
 - [Zustand][zustand]
-- [Keen-Slider][keen_slider]
 - [Axios][axios]
 - [React Icons][react_icons]
 - [React Loader Spinner][react_loader]

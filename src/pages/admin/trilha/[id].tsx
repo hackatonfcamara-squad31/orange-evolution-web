@@ -1,13 +1,12 @@
 import { ButtonLink } from 'components/ButtonLink'
-import { Header } from 'components/Header'
+import { ModuleForm } from 'components/Forms/ModuleForm'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
-import { ModuleForm } from 'components/ModuleForm'
-import { PageFooter } from 'components/PageFooter'
-import { PageHeader } from 'components/PageHeader'
-import { SearchLoader } from 'components/SearchLoader'
+import { Loader } from 'components/Loader'
+import { Layout } from 'components/Page/Layout'
+import { PageFooter } from 'components/Page/PageFooter'
+import { PageHeader } from 'components/Page/PageHeader'
 import { Text } from 'components/Text'
-import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { Module } from 'libs/module/types'
@@ -17,7 +16,6 @@ import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { BodyWrapper, Main } from 'styles/pages/home'
 import { SearchWrapper } from 'styles/pages/module'
 import {
   AdminTrailHeaderWrapper,
@@ -44,8 +42,6 @@ export default function AdminTrailPage({
     [] as Module[]
   )
 
-  const { theme } = useTheme()
-
   const { isLoading } = useTrail(token, trailId)
 
   const { trail } = useTrailStore()
@@ -59,72 +55,69 @@ export default function AdminTrailPage({
   return (
     <>
       <Head>
-        <title>Orange Evolution | Trilha {trail?.title}</title>
+        <title>{`Orange Evolution | Trilha ${trail?.title}`}</title>
       </Head>
-      <BodyWrapper theme={theme}>
-        <Header />
 
-        <Main>
-          {isLoading || !trail ? (
-            <SearchLoader />
-          ) : (
-            <>
-              <PageHeader
-                trailLinkName={trail?.title}
-                trailLink="#"
-                isAdminPage
-              />
+      <Layout>
+        {isLoading || !trail ? (
+          <Loader />
+        ) : (
+          <>
+            <PageHeader
+              trailLinkName={trail?.title}
+              trailLink="#"
+              isAdminPage
+            />
 
-              <TrailWrapper>
-                <AdminTrailHeaderWrapper>
-                  <Heading asChild size="xl">
-                    <h1>{trail?.title} - MÓDULOS</h1>
-                  </Heading>
+            <TrailWrapper>
+              <AdminTrailHeaderWrapper>
+                <Heading asChild size="xl">
+                  <h1>{trail?.title} - MÓDULOS</h1>
+                </Heading>
 
-                  <ModuleForm />
-                </AdminTrailHeaderWrapper>
+                <ModuleForm />
+              </AdminTrailHeaderWrapper>
 
-                <ModuleListWrapper>
-                  <SearchWrapper>
-                    <InputSearch
-                      items={trail?.modules}
-                      setFilteredItems={setFilteredModules}
-                      placeholder="Buscar módulo"
-                      setIsSearching={setIsSearching}
-                    />
-                  </SearchWrapper>
+              <ModuleListWrapper>
+                <SearchWrapper>
+                  <InputSearch
+                    items={trail?.modules}
+                    setFilteredItems={setFilteredModules}
+                    placeholder="Buscar módulo"
+                    setIsSearching={setIsSearching}
+                  />
+                </SearchWrapper>
 
-                  {isSearching && <SearchLoader />}
+                {isSearching && <Loader />}
 
-                  {filteredModules.length === 0 && !isSearching && (
-                    <Text size="lg">Nenhum módulo encontrado 🙃</Text>
-                  )}
+                {filteredModules.length === 0 && !isSearching && (
+                  <Text size="lg">Nenhum módulo encontrado 🙃</Text>
+                )}
 
-                  {filteredModules.length > 0 && (
-                    <ModuleList>
-                      {filteredModules.map((module) => (
-                        <ModuleCard key={module.id}>
-                          <ModuleForm module={module} />
-                          <Heading size="md">{module.title} </Heading>
-                          <Text size="sm">{module.description}</Text>
+                {filteredModules.length > 0 && (
+                  <ModuleList>
+                    {filteredModules.map((module) => (
+                      <ModuleCard key={module.id}>
+                        <ModuleForm module={module} />
+                        <Heading size="md">{module.title} </Heading>
+                        <Text size="sm">{module.description}</Text>
 
-                          <ModuleCardButtonWrapper>
-                            <ButtonLink href={`/admin/modulo/${module.id}`}>
-                              Acessar
-                            </ButtonLink>
-                          </ModuleCardButtonWrapper>
-                        </ModuleCard>
-                      ))}
-                    </ModuleList>
-                  )}
-                </ModuleListWrapper>
-              </TrailWrapper>
+                        <ModuleCardButtonWrapper>
+                          <ButtonLink href={`/admin/modulo/${module.id}`}>
+                            Acessar
+                          </ButtonLink>
+                        </ModuleCardButtonWrapper>
+                      </ModuleCard>
+                    ))}
+                  </ModuleList>
+                )}
+              </ModuleListWrapper>
+            </TrailWrapper>
 
-              <PageFooter />
-            </>
-          )}
-        </Main>
-      </BodyWrapper>
+            <PageFooter />
+          </>
+        )}
+      </Layout>
     </>
   )
 }
@@ -135,7 +128,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!token) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/admin/login',
         permanent: false
       }
     }
@@ -143,10 +136,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const user = await getAuthUser(token.toString())
 
-  if (!user) {
+  if (!user?.is_admin) {
     return {
       redirect: {
-        destination: '/login',
+        destination: '/admin/login',
         permanent: false
       }
     }

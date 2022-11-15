@@ -1,43 +1,32 @@
 import { orangeEvolutionLogo } from 'components/@constants'
 import { ButtonLink } from 'components/ButtonLink'
-import { Header } from 'components/Header'
-import { useTheme } from 'contexts/ThemeContext'
+import { Layout } from 'components/Page/Layout'
 import Head from 'next/head'
 import Image from 'next/image'
-import {
-  BodyWrapper,
-  ButtonWrapper,
-  ImageWrapper,
-  Main,
-  Subtitle
-} from 'styles/pages/home'
+import { ButtonWrapper, ImageWrapper, Subtitle } from 'styles/pages/home'
 
 export default function Home() {
-  const { theme } = useTheme()
-
   return (
     <>
       <Head>
         <title>Orange Evolution | Home</title>
       </Head>
-      <BodyWrapper theme={theme}>
-        <Header />
-        <Main>
-          <ImageWrapper>
-            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
-          </ImageWrapper>
 
-          <Subtitle>
-            Um guia de desenvolvimento para seu start no mundo da tecnologia
-          </Subtitle>
+      <Layout>
+        <ImageWrapper>
+          <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
+        </ImageWrapper>
 
-          <ButtonWrapper>
-            <ButtonLink size="lg" isFullWidth href="/login">
-              Acesse aqui
-            </ButtonLink>
-          </ButtonWrapper>
-        </Main>
-      </BodyWrapper>
+        <Subtitle>
+          Um guia de desenvolvimento para seu start no mundo da tecnologia
+        </Subtitle>
+
+        <ButtonWrapper>
+          <ButtonLink size="lg" isFullWidth href="/login">
+            Acesse aqui
+          </ButtonLink>
+        </ButtonWrapper>
+      </Layout>
     </>
   )
 }

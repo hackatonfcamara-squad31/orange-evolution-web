@@ -21,7 +21,7 @@ export function InputName({
 }: NameImputProps) {
   return (
     <TextInput.Root
-      label="Nome Completo"
+      label="Nome"
       labelFor="name"
       error={error}
       required={props.required}
@@ -35,7 +35,7 @@ export function InputName({
         id="name"
         name="name"
         type="text"
-        placeholder="Digite seu nome completo"
+        placeholder="Nome:"
         control={control}
         validate={validate}
         {...props}

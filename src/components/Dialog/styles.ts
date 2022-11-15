@@ -32,10 +32,11 @@ export const StyledContent = styled(DialogPrimitive.Content, {
   maxWidth: '450px',
   maxHeight: '85vh',
   padding: 25,
+  '&:focus': { outline: 'none' },
   '@media (prefers-reduced-motion: no-preference)': {
     animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`
   },
-  '&:focus': { outline: 'none' },
+  overflow: 'auto',
 
   variants: {
     theme: {
@@ -123,7 +124,12 @@ export const DialogButtonsContainer = styled('div', {
   marginTop: '1.5rem',
   display: 'flex',
   justifyContent: 'space-between',
-  gap: '$lg'
+  gap: '$lg',
+
+  '@bp3': {
+    flexDirection: 'column',
+    gap: '$sm'
+  }
 })
 
 export const DialogRoot = DialogPrimitive.Root

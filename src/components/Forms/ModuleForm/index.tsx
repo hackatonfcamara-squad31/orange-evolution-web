@@ -115,9 +115,11 @@ export function ModuleForm({ module }: ModuleFormProps) {
 
     try {
       if (module) {
-        await deleteModuleMutation.mutateAsync(module.id)
+        await deleteModuleMutation.mutateAsync({
+          moduleId: module.id
+        })
 
-        showToastSuccess(theme, 'Módulo deletado com sucesso!')
+        showToastSuccess(theme, 'Módulo excluído com sucesso!')
         setIsDialogOpen(false)
       }
     } catch (error) {

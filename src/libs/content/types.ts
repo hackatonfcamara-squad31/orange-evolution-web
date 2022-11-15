@@ -14,6 +14,7 @@ export type CreateContentFormData = {
   type: string
   creator_name: string
   link: string
+  order: number
   module_id: string
 }
 

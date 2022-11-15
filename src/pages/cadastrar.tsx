@@ -1,18 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { orangeEvolutionLogo } from 'components/@constants'
 import { Button } from 'components/Button'
-import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
+import { Layout } from 'components/Page/Layout'
 import { useAuth } from 'contexts/AuthContext'
-import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
-import {
-  RegisterFormData,
-  registerSchema
-} from 'libs/auth/schemas/registerSchema'
+import { RegisterFormData, registerSchema } from 'libs/auth/schemas'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -25,10 +21,8 @@ import {
   HeaderWrapper,
   ImageWrapper
 } from 'styles/pages/auth'
-import { BodyWrapper, Main } from 'styles/pages/home'
 
 export default function Register() {
-  const { theme } = useTheme()
   const { isAuthLoading, register } = useAuth()
 
   const registerForm = useForm<RegisterFormData>({
@@ -72,53 +66,45 @@ export default function Register() {
         <title>Orange Evolution | Cadastro</title>
       </Head>
 
-      <BodyWrapper theme={theme}>
-        <Header />
+      <Layout>
+        <HeaderWrapper>
+          <ImageWrapper>
+            <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
+          </ImageWrapper>
 
-        <Main>
-          <HeaderWrapper>
-            <ImageWrapper>
-              <Image
-                src={orangeEvolutionLogo}
-                alt="Orange Evolution Logo"
-                fill
-              />
-            </ImageWrapper>
+          <Heading asChild size="lg">
+            <h1>Cadastro</h1>
+          </Heading>
+        </HeaderWrapper>
 
-            <Heading asChild size="lg">
-              <h1>Cadastro</h1>
-            </Heading>
-          </HeaderWrapper>
+        <FormWrapper onSubmit={handleSubmit(handleRegister)}>
+          <InputName required error={errors.name} control={control} isBig />
 
-          <FormWrapper onSubmit={handleSubmit(handleRegister)}>
-            <InputName required error={errors.name} control={control} isBig />
+          <InputEmail required error={errors.email} control={control} isBig />
 
-            <InputEmail required error={errors.email} control={control} isBig />
+          <InputPassword
+            required
+            error={errors.password}
+            control={control}
+            isBig
+          />
 
-            <InputPassword
-              required
-              error={errors.password}
-              control={control}
-              isBig
-            />
+          <ButtonWrapper>
+            <Button
+              size="lg"
+              isLoading={isAuthLoading}
+              disabled={isSubmitDisabled}
+              type="submit"
+            >
+              Cadastrar
+            </Button>
+          </ButtonWrapper>
+        </FormWrapper>
 
-            <ButtonWrapper>
-              <Button
-                size="lg"
-                isLoading={isAuthLoading}
-                disabled={isSubmitDisabled}
-                type="submit"
-              >
-                Cadastrar
-              </Button>
-            </ButtonWrapper>
-          </FormWrapper>
-
-          <FooterLinkContainer>
-            <Link href="/login">Já possui uma conta? Faça login!</Link>
-          </FooterLinkContainer>
-        </Main>
-      </BodyWrapper>
+        <FooterLinkContainer>
+          <Link href="/login">Já possui uma conta? Faça login!</Link>
+        </FooterLinkContainer>
+      </Layout>
     </>
   )
 }

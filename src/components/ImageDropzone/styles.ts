@@ -60,6 +60,15 @@ export const DropzoneContainer = styled('div', {
       }
     },
 
+    isCover: {
+      true: {
+        img: {
+          padding: 0,
+          objectFit: 'cover'
+        }
+      }
+    },
+
     isDragActive: {
       true: {
         borderColor: '$gray300',
@@ -85,6 +94,13 @@ export const DropzoneContainer = styled('div', {
         borderRadius: '50%'
       }
     }
+  },
+
+  defaultVariants: {
+    theme: 'light',
+    isCover: false,
+    isDragActive: false,
+    isFullRounded: false
   }
 })
 

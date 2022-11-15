@@ -1,3 +1,4 @@
+import { Seo } from 'components/Head/Seo'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { getCssText } from 'styles'
 
@@ -47,6 +48,12 @@ export default class MyDocument extends Document {
             rel="shortcut icon"
             href="/favicon/favicon.ico"
             type="image/x-icon"
+          />
+
+          <Seo
+            title="Orange Evolution - Squad 31"
+            url="https://orange-evolution.vercel.app"
+            description="Explore o Orange Evolution e descubra o que é ter sangue laranja!"
           />
 
           <style

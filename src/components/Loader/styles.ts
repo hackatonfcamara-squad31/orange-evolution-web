@@ -1,6 +1,6 @@
 import { styled } from 'styles'
 
-export const SearchLoaderWrapper = styled('div', {
+export const LoaderWrapper = styled('div', {
   width: '100%',
   display: 'flex',
   justifyContent: 'center',

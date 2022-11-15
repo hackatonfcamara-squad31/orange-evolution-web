@@ -24,8 +24,8 @@ import {
   LoginFormFooter
 } from 'styles/pages/auth'
 
-export default function LoginPage() {
-  const { isAuthLoading, login } = useAuth()
+export default function AdminLoginPage() {
+  const { isAuthLoading, adminLogin } = useAuth()
 
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -49,7 +49,7 @@ export default function LoginPage() {
     !!errors.email || !!errors.password || !watch('email') || !watch('password')
 
   async function handleLogin(data: LoginFormData) {
-    const isLogged = await login(data)
+    const isLogged = await adminLogin(data)
 
     if (isLogged) {
       reset()
@@ -59,7 +59,7 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Orange Evolution | Login</title>
+        <title>Orange Evolution | Admin Login</title>
       </Head>
 
       <Layout>
@@ -69,7 +69,7 @@ export default function LoginPage() {
           </ImageWrapper>
 
           <Heading asChild size="lg">
-            <h1>Login</h1>
+            <h1>Admin Login</h1>
           </Heading>
         </HeaderWrapper>
 
@@ -114,10 +114,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const user = await getAuthUser(token?.toString())
 
-  if (token || user) {
+  if (user?.is_admin) {
     return {
       redirect: {
-        destination: '/trilhas',
+        destination: '/admin/trilhas',
         permanent: false
       }
     }

@@ -1,13 +1,12 @@
 import { Content } from 'components/Content'
-import { Header } from 'components/Header'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
-import { PageFooter } from 'components/PageFooter'
-import { PageHeader } from 'components/PageHeader'
+import { Loader } from 'components/Loader'
+import { Layout } from 'components/Page/Layout'
+import { PageFooter } from 'components/Page/PageFooter'
+import { PageHeader } from 'components/Page/PageHeader'
 import { Progress } from 'components/Progress'
-import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
-import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { useMarkContent } from 'libs/content/hooks'
@@ -18,7 +17,6 @@ import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { BodyWrapper, Main } from 'styles/pages/home'
 import {
   ContentList,
   ContentListWrapper,
@@ -37,8 +35,6 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
   const [filteredContents, setFilteredContents] = useState<ContentType[]>(
     [] as ContentType[]
   )
-
-  const { theme } = useTheme()
 
   const { isLoading } = useModule(token, moduleId)
 
@@ -69,72 +65,68 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
       <Head>
         <title>{`Orange Evolution | Módulo ${module?.title}`}</title>
       </Head>
-      <BodyWrapper theme={theme}>
-        <Header />
+      <Layout>
+        {isLoading || !module ? (
+          <Loader />
+        ) : (
+          <>
+            <PageHeader
+              trailLinkName={trailInfo?.title}
+              trailLink={`/trilha/${trailInfo?.id}`}
+              moduleLinkName={module?.title}
+              isModulePage
+            />
 
-        <Main>
-          {isLoading || !module ? (
-            <SearchLoader />
-          ) : (
-            <>
-              <PageHeader
-                trailLinkName={trailInfo?.title}
-                trailLink={`/trilha/${trailInfo?.id}`}
-                moduleLinkName={module?.title}
-                isModulePage
-              />
+            <ModuleWrapper>
+              <Heading asChild size="xl">
+                <h1>{module?.title}</h1>
+              </Heading>
 
-              <ModuleWrapper>
-                <Heading asChild size="xl">
-                  <h1>{module?.title}</h1>
-                </Heading>
+              <Progress donePercentage={progress} />
 
-                <Progress donePercentage={progress} />
+              <ContentListWrapper>
+                <SearchWrapper>
+                  <InputSearch
+                    items={contents}
+                    setFilteredItems={setFilteredContents}
+                    placeholder="Buscar conteúdo"
+                    setIsSearching={setIsSearching}
+                  />
+                </SearchWrapper>
 
-                <ContentListWrapper>
-                  <SearchWrapper>
-                    <InputSearch
-                      items={contents}
-                      setFilteredItems={setFilteredContents}
-                      placeholder="Buscar conteúdo"
-                      setIsSearching={setIsSearching}
-                    />
-                  </SearchWrapper>
+                {isSearching && <Loader />}
 
-                  {isSearching && <SearchLoader />}
+                {filteredContents.length === 0 && !isSearching && (
+                  <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
+                )}
 
-                  {filteredContents.length === 0 && !isSearching && (
-                    <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
-                  )}
+                {filteredContents.length > 0 && !isSearching && (
+                  <>
+                    <Text size="sm">Concluído</Text>
 
-                  {filteredContents.length > 0 && !isSearching && (
-                    <>
-                      <Text size="sm">Concluído</Text>
+                    <ContentList>
+                      {filteredContents.map((content) => (
+                        <Content
+                          key={content.id}
+                          content={content}
+                          handleMarkContentAsCompleted={
+                            handleMarkContentAsCompleted
+                          }
+                          handleMarkContentAsUncompleted={
+                            handleMarkContentAsUncompleted
+                          }
+                        />
+                      ))}
+                    </ContentList>
+                  </>
+                )}
+              </ContentListWrapper>
+            </ModuleWrapper>
 
-                      <ContentList>
-                        {filteredContents.map((content) => (
-                          <Content
-                            key={content.id}
-                            content={content}
-                            handleMarkContentAsCompleted={
-                              handleMarkContentAsCompleted
-                            }
-                            handleMarkContentAsUncompleted={
-                              handleMarkContentAsUncompleted
-                            }
-                          />
-                        ))}
-                      </ContentList>
-                    </>
-                  )}
-                </ContentListWrapper>
-              </ModuleWrapper>
-
-              <PageFooter />
-            </>
-          )}
-        </Main>
-      </BodyWrapper>
+            <PageFooter />
+          </>
+        )}
+      </Layout>
     </>
   )
 }

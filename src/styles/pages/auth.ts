@@ -6,7 +6,8 @@ export const HeaderWrapper = styled('header', {
   flexDirection: 'column',
   gap: '$md',
   alignItems: 'center',
-  marginBottom: '2rem'
+  marginBottom: '2rem',
+  textAlign: 'center'
 })
 
 export const ImageWrapper = styled('div', {
