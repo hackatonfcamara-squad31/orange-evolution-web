@@ -25,10 +25,8 @@ export const HeaderContent = styled('div', {
 export const HeaderImages = styled('div', {
   width: '100%',
   position: 'relative',
-
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
   gap: '3rem',
   flex: 1,
 
