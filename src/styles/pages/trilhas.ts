@@ -43,7 +43,8 @@ export const Card = styled('div', {
   position: 'relative',
 
   width: 270,
-  height: 340,
+  minHeight: 340,
+  alignSelf: 'stretch',
 
   borderRadius: '35px',
   padding: '1.5rem',
