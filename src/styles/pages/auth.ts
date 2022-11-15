@@ -40,6 +40,18 @@ export const LoginFormFooter = styled('div', {
   width: '100%',
   padding: '0 1rem',
 
+  a: {
+    color: '$gray800',
+    textDecoration: 'none',
+
+    transition: 'all 0.2s ease-in-out',
+
+    '&:hover': {
+      textDecoration: 'underline',
+      textUnderlineOffset: '0.1rem'
+    }
+  },
+
   '@bp3': {
     flexDirection: 'column',
     gap: '1.5rem',
@@ -53,5 +65,14 @@ export const ButtonWrapper = styled('div', {
 })
 
 export const FooterLinkContainer = styled(Slot, {
-  marginTop: '1.5rem'
+  marginTop: '1.5rem',
+  color: '$gray800',
+  textDecoration: 'none',
+
+  transition: 'all 0.2s ease-in-out',
+
+  '&:hover': {
+    textDecoration: 'underline',
+    textUnderlineOffset: '0.1rem'
+  }
 })
