@@ -9,23 +9,26 @@ import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
 import { Text } from 'components/Text'
 import { useAuth } from 'contexts/AuthContext'
-import { useTheme } from 'contexts/ThemeContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
-import { getApiErrorMessage } from 'libs/functions/api'
-import { updateUser, updateUserAvatar } from 'libs/user/api'
+import { useUser } from 'libs/user/hooks'
 import { EditProfileFormData, editProfileSchema } from 'libs/user/schemas'
 import { User } from 'libs/user/types'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { BsFillExclamationCircleFill } from 'react-icons/bs'
 import { MdNoPhotography } from 'react-icons/md'
+import { TbArrowBackUp } from 'react-icons/tb'
 import { FormWrapper, HeaderWrapper, ImageWrapper } from 'styles/pages/auth'
-import { ButtonWrapper, ProfileAvatarDropzone } from 'styles/pages/profile'
-import { showToastError, showToastSuccess } from 'utils/toasts'
+import {
+  BackLink,
+  BackLinkWrapper,
+  ButtonWrapper,
+  ProfileAvatarDropzone
+} from 'styles/pages/profile'
 
 interface ProfilePageProps {
   user: User
@@ -33,13 +36,17 @@ interface ProfilePageProps {
 }
 
 export default function ProfilePage({ user }: ProfilePageProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [image, setImage] = useState<File | null>(null)
-  const [preview, setPreview] = useState<string | null>(null)
+  const { authUser } = useAuth()
 
-  const { theme } = useTheme()
-
-  const { authUser, setAuthUser, login } = useAuth()
+  const {
+    isLoading,
+    preview,
+    setImage,
+    setPreview,
+    handleUpdateUser,
+    handleDeleteUserAvatar,
+    handleDeleteUser
+  } = useUser(user)
 
   const editProfileForm = useForm<EditProfileFormData>({
     resolver: zodResolver(editProfileSchema),
@@ -56,12 +63,9 @@ export default function ProfilePage({ user }: ProfilePageProps) {
     if (authUser) {
       editProfileForm.setValue('name', authUser.name)
       editProfileForm.setValue('email', authUser.email)
-    }
-
-    if (authUser?.avatar) {
       setPreview(authUser.avatar)
     }
-  }, [authUser, editProfileForm])
+  }, [authUser, editProfileForm, setPreview])
 
   const {
     handleSubmit,
@@ -78,40 +82,6 @@ export default function ProfilePage({ user }: ProfilePageProps) {
     !watch('name') ||
     !watch('email')
 
-  async function handleEditProfile(data: EditProfileFormData) {
-    setIsLoading(true)
-    console.log('💥 ~ data', data)
-
-    const updatedUserData = {
-      id: user.id,
-      name: data.name,
-      email: data.email,
-      password: data.password
-    }
-
-    try {
-      if (image) {
-        const formData = new FormData()
-        formData.append('avatar', image)
-
-        const response = await updateUserAvatar(user.id, formData)
-      }
-
-      const updatedUser = await updateUser(updatedUserData)
-      console.log('💥 ~ updatedUser', updatedUser)
-
-      setAuthUser(updatedUser)
-
-      showToastSuccess(theme, 'Perfil atualizado com sucesso!')
-    } catch (error) {
-      const errorMessage = getApiErrorMessage(error)
-
-      showToastError(theme, errorMessage)
-    }
-
-    setIsLoading(false)
-  }
-
   return (
     <>
       <Head>
@@ -119,6 +89,13 @@ export default function ProfilePage({ user }: ProfilePageProps) {
       </Head>
 
       <AppLayout>
+        <BackLinkWrapper>
+          <BackLink href={`${user.is_admin ? '/admin' : ''}/trilhas`}>
+            <TbArrowBackUp size={24} />
+            Trilhas
+          </BackLink>
+        </BackLinkWrapper>
+
         <HeaderWrapper>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
@@ -137,20 +114,24 @@ export default function ProfilePage({ user }: ProfilePageProps) {
             width={200}
             height={200}
             isFullRounded
-            preview={preview ?? user.avatar}
+            preview={preview}
             setPreview={setPreview}
             setImage={setImage}
           />
 
-          {preview && (
-            <Button color="red">
+          {preview && authUser?.avatar && (
+            <Button
+              color="red"
+              onClick={handleDeleteUserAvatar}
+              isLoading={isLoading}
+            >
               Excluir foto de perfil
               <MdNoPhotography size={20} />
             </Button>
           )}
         </ProfileAvatarDropzone>
 
-        <FormWrapper onSubmit={handleSubmit(handleEditProfile)}>
+        <FormWrapper onSubmit={handleSubmit(handleUpdateUser)}>
           <InputName required error={errors.name} control={control} isBig />
 
           <InputEmail required error={errors.email} control={control} isBig />
@@ -167,7 +148,13 @@ export default function ProfilePage({ user }: ProfilePageProps) {
               Salvar
             </Button>
 
-            <Button size="lg" color="red" isLoading={isLoading} type="button">
+            <Button
+              size="lg"
+              color="red"
+              isLoading={isLoading}
+              type="button"
+              onClick={handleDeleteUser}
+            >
               Excluir Conta
               <BsFillExclamationCircleFill />
             </Button>

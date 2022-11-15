@@ -20,3 +20,15 @@ export const updateUserAvatar = async (id: string, formData: FormData) => {
 
   return data
 }
+
+export const deleteUserAvatar = async (id: string) => {
+  const { data } = await api.delete(`/users/avatar/${id}`)
+
+  return data
+}
+
+export const deleteUser = async (id: string) => {
+  await api.delete(`/users/${id}`)
+
+  return true
+}

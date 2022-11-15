@@ -6,6 +6,12 @@ export const AvatarContainer = styled(Avatar.Root, {
   display: 'inline-block',
   overflow: 'hidden',
 
+  transition: 'all 0.2s ease-in-out',
+
+  '&:hover': {
+    outline: '3px solid $white'
+  },
+
   variants: {
     theme: {
       light: {},
@@ -27,7 +33,7 @@ export const AvatarContainer = styled(Avatar.Root, {
     },
     withBorder: {
       true: {
-        border: '3px solid $gray300'
+        border: '3px solid $white'
       }
     }
   },

@@ -57,17 +57,6 @@ export default function Trails({ token, user }: TrailsProps) {
               empresas que confiamos.
             </p>
           </Text>
-
-          <br />
-
-          <Text asChild>
-            <p>
-              Essa trilha foi montada pensando em quem está começando na área,
-              ou passando por uma migração de carreira e ainda não sabe
-              exatamente o que é esse mundo. Então, aperta o cinto e vem com a
-              gente nessa jornada!
-            </p>
-          </Text>
         </TextWrapper>
 
         <TrailForm />
