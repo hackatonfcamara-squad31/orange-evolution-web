@@ -67,6 +67,12 @@ export const InputWrapper = styled('div', {
     }
   },
 
+  defaultVariants: {
+    theme: 'light',
+    isBig: false,
+    error: false
+  },
+
   compoundVariants: [
     {
       theme: 'light',
