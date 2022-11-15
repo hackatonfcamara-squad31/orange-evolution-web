@@ -115,7 +115,10 @@ export function ModuleForm({ module }: ModuleFormProps) {
 
     try {
       if (module) {
-        await deleteModuleMutation.mutateAsync(module.id)
+        await deleteModuleMutation.mutateAsync({
+          moduleId: module.id,
+          trailId: trail.id
+        })
 
         showToastSuccess(theme, 'Módulo deletado com sucesso!')
         setIsDialogOpen(false)

@@ -68,8 +68,14 @@ export const createModule = async ({
   return data
 }
 
-export const deleteModule = async (id: string) => {
-  await api.delete(`/modules/${id}`)
+export const deleteModule = async ({
+  moduleId,
+  trailId
+}: {
+  moduleId: string
+  trailId: string
+}) => {
+  await api.delete(`/modules/${trailId}/${moduleId}`)
 
   return true
 }
