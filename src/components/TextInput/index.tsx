@@ -123,10 +123,11 @@ export function TextInputInput({
       {props.type === 'password' && (
         <ShowPasswordButton
           type="button"
+          title={isPasswordVisible ? 'Esconder senha' : 'Mostrar senha'}
           theme={theme}
           onClick={handleShowPassword}
         >
-          {isPasswordVisible ? <TbEyeOff /> : <TbEye />}
+          {isPasswordVisible ? <TbEyeOff size={20} /> : <TbEye size={20} />}
         </ShowPasswordButton>
       )}
     </>

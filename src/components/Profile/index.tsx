@@ -13,8 +13,12 @@ export function Profile() {
 
   return (
     <Wrapper>
-      <Link href="/profile" title="Editar perfil">
-        <Avatar theme={theme} src={authUser.avatar} />
+      <Link href="/profile" title={`Editar perfil de ${authUser.name}`}>
+        <Avatar
+          theme={theme}
+          src={authUser.avatar}
+          alt={`Editar perfil de ${authUser.name}`}
+        />
       </Link>
 
       <ProfileInfo>

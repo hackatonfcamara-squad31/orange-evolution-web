@@ -84,7 +84,11 @@ export default function LoginPage() {
           />
 
           <LoginFormFooter>
-            <Checkbox label="Lembrar de mim" labelFor="remember" />
+            <Checkbox
+              label="Lembrar de mim"
+              title="Lembrar de mim"
+              labelFor="remember"
+            />
 
             <Link href="#">Esqueci minha senha</Link>
           </LoginFormFooter>

@@ -79,7 +79,11 @@ export function Content({
           <Checkbox
             disabled={isMarkContentLoading || isCheckboxLoading}
             size="sm"
-            title="Concluir"
+            title={
+              is_completed
+                ? 'Desmarcar como concluído'
+                : 'Marcar como concluído'
+            }
             checked={is_completed}
             onClick={handleMarkContent}
           />

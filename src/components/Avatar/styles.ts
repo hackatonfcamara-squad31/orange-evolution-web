@@ -9,7 +9,7 @@ export const AvatarContainer = styled(Avatar.Root, {
   transition: 'all 0.2s ease-in-out',
 
   '&:hover': {
-    outline: '3px solid $white'
+    transform: 'scale(1.1)'
   },
 
   variants: {
