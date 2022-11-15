@@ -36,7 +36,7 @@ export function ContentForm({ content }: ContentFormProps) {
 
   const { theme } = useTheme()
 
-  const { module } = useModuleStore()
+  const { module, contents } = useModuleStore()
 
   const {
     createContentMutation,
@@ -88,6 +88,7 @@ export function ContentForm({ content }: ContentFormProps) {
         type,
         creator_name,
         link,
+        order: contents.length + 1,
         module_id: module.id
       })
 

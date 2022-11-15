@@ -181,7 +181,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       showToastSuccess(theme, 'Login realizado com sucesso!')
       setIsAuthLoading(false)
 
-      Router.push('/trilhas')
+      Router.push('/admin/trilhas')
 
       return true
     } catch (error) {
