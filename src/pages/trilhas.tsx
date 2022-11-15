@@ -1,6 +1,7 @@
 import { orangeEvolutionLogo } from 'components/@constants'
 import { ButtonLink } from 'components/ButtonLink'
 import { Heading } from 'components/Heading'
+import { Loader } from 'components/Loader'
 import { Layout } from 'components/Page/Layout'
 import { Progress } from 'components/Progress'
 import { Text } from 'components/Text'
@@ -61,31 +62,37 @@ export default function Trails({ token, user }: TrailsProps) {
           </Text>
         </TextWrapper>
 
-        <CardList>
-          {trails.map((trail) => (
-            <Card key={trail.id} theme={theme}>
-              <Heading size="sm">{trail.title}</Heading>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <CardList>
+            {trails.map((trail) => (
+              <Card key={trail.id} theme={theme}>
+                <Heading size="sm">{trail.title}</Heading>
 
-              <CardImage
-                src={trail.icon_url}
-                alt={trail.title}
-                width={100}
-                height={100}
-              />
+                <CardImage
+                  src={trail.icon_url}
+                  alt={trail.title}
+                  width={100}
+                  height={100}
+                />
 
-              <Progress
-                isTrailPage
-                donePercentage={
-                  trail.total === 0 ? 0 : (trail.completed / trail.total) * 100
-                }
-              />
+                <Progress
+                  isTrailPage
+                  donePercentage={
+                    trail.total === 0
+                      ? 0
+                      : (trail.completed / trail.total) * 100
+                  }
+                />
 
-              <ButtonWrapper>
-                <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>
-              </ButtonWrapper>
-            </Card>
-          ))}
-        </CardList>
+                <ButtonWrapper>
+                  <ButtonLink href={`/trilha/${trail.id}`}>Acesssar</ButtonLink>
+                </ButtonWrapper>
+              </Card>
+            ))}
+          </CardList>
+        )}
       </Layout>
     </>
   )

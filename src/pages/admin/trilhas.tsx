@@ -2,6 +2,7 @@ import { orangeEvolutionLogo } from 'components/@constants'
 import { ButtonLink } from 'components/ButtonLink'
 import { TrailForm } from 'components/Forms/TrailForm'
 import { Heading } from 'components/Heading'
+import { Loader } from 'components/Loader'
 import { Layout } from 'components/Page/Layout'
 import { Text } from 'components/Text'
 import { getCookie } from 'cookies-next'
@@ -61,33 +62,37 @@ export default function Trails({ token, user }: TrailsProps) {
 
         <TrailForm />
 
-        <CardList>
-          {trails.map((trail) => (
-            <Card
-              key={trail.id}
-              css={{
-                paddingTop: '2rem'
-              }}
-            >
-              <Heading size="sm">{trail.title}</Heading>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <CardList>
+            {trails.map((trail) => (
+              <Card
+                key={trail.id}
+                css={{
+                  paddingTop: '2rem'
+                }}
+              >
+                <Heading size="sm">{trail.title}</Heading>
 
-              <TrailForm trail={trail} />
+                <TrailForm trail={trail} />
 
-              <CardImage
-                src={trail.icon_url}
-                alt={trail.title}
-                width={100}
-                height={100}
-              />
+                <CardImage
+                  src={trail.icon_url}
+                  alt={trail.title}
+                  width={100}
+                  height={100}
+                />
 
-              <ButtonWrapper>
-                <ButtonLink href={`/admin/trilha/${trail.id}`}>
-                  Acesssar
-                </ButtonLink>
-              </ButtonWrapper>
-            </Card>
-          ))}
-        </CardList>
+                <ButtonWrapper>
+                  <ButtonLink href={`/admin/trilha/${trail.id}`}>
+                    Acesssar
+                  </ButtonLink>
+                </ButtonWrapper>
+              </Card>
+            ))}
+          </CardList>
+        )}
       </Layout>
     </>
   )
