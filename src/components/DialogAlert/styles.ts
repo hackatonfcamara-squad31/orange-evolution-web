@@ -32,10 +32,11 @@ export const StyledContent = styled(AlertDialogPrimitive.Content, {
   maxWidth: '500px',
   maxHeight: '85vh',
   padding: '1.5rem',
+  '&:focus': { outline: 'none' },
   '@media (prefers-reduced-motion: no-preference)': {
     animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`
   },
-  '&:focus': { outline: 'none' },
+  overflow: 'auto',
 
   variants: {
     theme: {
@@ -85,8 +86,13 @@ const StyledDescription = styled(AlertDialogPrimitive.Description, {
 
 export const DialogAlertBbuttonsContainer = styled('div', {
   display: 'flex',
-  justifyContent: 'flex-end',
-  gap: '$lg'
+  justifyContent: 'center',
+  gap: '$lg',
+
+  '@bp3': {
+    flexDirection: 'column',
+    gap: '$sm'
+  }
 })
 
 export const DialogAlertCloseButton = styled('button', {
