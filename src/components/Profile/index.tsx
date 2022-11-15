@@ -2,6 +2,7 @@ import { Avatar } from 'components/Avatar'
 import { Text } from 'components/Text'
 import { useAuth } from 'contexts/AuthContext'
 import { useTheme } from 'contexts/ThemeContext'
+import Link from 'next/link'
 import { LogoutButton, ProfileInfo, Wrapper } from './styles'
 
 export function Profile() {
@@ -12,7 +13,9 @@ export function Profile() {
 
   return (
     <Wrapper>
-      <Avatar theme={theme} src={authUser.avatar} />
+      <Link href="/profile" title="Editar perfil">
+        <Avatar theme={theme} src={authUser.avatar} />
+      </Link>
 
       <ProfileInfo>
         <Text asChild size="sm">

@@ -36,8 +36,7 @@ export const HeaderImages = styled('div', {
     justifyContent: 'center'
   },
   '@bp3': {
-    gap: '1.5rem',
-    justifyContent: 'center'
+    gap: '1.5rem'
   }
 })
 

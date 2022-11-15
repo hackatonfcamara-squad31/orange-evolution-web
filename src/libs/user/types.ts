@@ -7,3 +7,10 @@ export type User = {
   updated_at: string
   is_admin: boolean
 }
+
+export type UpdateUserRequest = {
+  id: string
+  name: string
+  email: string
+  password?: string
+}

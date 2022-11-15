@@ -12,6 +12,7 @@ interface ImageDropzoneProps {
   width?: number
   isFullRounded?: boolean
   preview: string | null
+  isCover?: boolean
   setImage: (file: File) => void
   setPreview: (preview: string | null) => void
 }
@@ -21,6 +22,7 @@ export function ImageDropzone({
   height,
   isFullRounded,
   preview,
+  isCover,
   setImage,
   setPreview
 }: ImageDropzoneProps) {
@@ -51,7 +53,6 @@ export function ImageDropzone({
     accept: {
       'image/png': ['.png'],
       'image/jpg': ['.jpg', '.jpeg'],
-      'image/svg': ['.svg'],
       'image/jpeg': ['.jpg', '.jpeg']
     }
   })
@@ -59,6 +60,7 @@ export function ImageDropzone({
   return (
     <>
       <DropzoneContainer
+        isCover={isCover}
         {...getRootProps()}
         theme={theme}
         isDragActive={isDragActive}
@@ -76,7 +78,7 @@ export function ImageDropzone({
             {!isDragActive && (
               <>
                 <TbUpload size={24} />
-                <Text size="xs">Tipos permitidos: png, jpg, jpeg e svg</Text>
+                <Text size="xs">Tipos permitidos: png, jpg, jpeg</Text>
               </>
             )}
           </DropzoneTextContainer>
