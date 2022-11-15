@@ -1,6 +1,6 @@
 import { orangeEvolutionLogo } from 'components/@constants'
-import { AppLayout } from 'components/AppLayout'
 import { ButtonLink } from 'components/ButtonLink'
+import { Layout } from 'components/Page/Layout'
 import Head from 'next/head'
 import Image from 'next/image'
 import { ButtonWrapper, ImageWrapper, Subtitle } from 'styles/pages/home'
@@ -12,7 +12,7 @@ export default function Home() {
         <title>Orange Evolution | Home</title>
       </Head>
 
-      <AppLayout>
+      <Layout>
         <ImageWrapper>
           <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
         </ImageWrapper>
@@ -26,7 +26,7 @@ export default function Home() {
             Acesse aqui
           </ButtonLink>
         </ButtonWrapper>
-      </AppLayout>
+      </Layout>
     </>
   )
 }

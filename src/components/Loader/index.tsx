@@ -1,9 +1,9 @@
 import { BallTriangle } from 'react-loader-spinner'
-import { SearchLoaderWrapper } from './styles'
+import { LoaderWrapper } from './styles'
 
-export function SearchLoader() {
+export function Loader() {
   return (
-    <SearchLoaderWrapper>
+    <LoaderWrapper>
       <BallTriangle
         height={56}
         width={56}
@@ -12,6 +12,6 @@ export function SearchLoader() {
         ariaLabel="Carregando..."
         visible={true}
       />
-    </SearchLoaderWrapper>
+    </LoaderWrapper>
   )
 }

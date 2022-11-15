@@ -1,11 +1,11 @@
-import { AppLayout } from 'components/AppLayout'
 import { Content } from 'components/Content'
-import { ContentForm } from 'components/ContentForm'
+import { ContentForm } from 'components/Forms/ContentForm'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
-import { PageFooter } from 'components/PageFooter'
-import { PageHeader } from 'components/PageHeader'
-import { SearchLoader } from 'components/SearchLoader'
+import { Loader } from 'components/Loader'
+import { Layout } from 'components/Page/Layout'
+import { PageFooter } from 'components/Page/PageFooter'
+import { PageHeader } from 'components/Page/PageHeader'
 import { Text } from 'components/Text'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -71,9 +71,9 @@ export default function AdminModulePage({
         <title>{`Orange Evolution | Módulo ${module?.title}`}</title>
       </Head>
 
-      <AppLayout>
+      <Layout>
         {isLoading || !module ? (
-          <SearchLoader />
+          <Loader />
         ) : (
           <>
             <PageHeader
@@ -103,7 +103,7 @@ export default function AdminModulePage({
                   />
                 </SearchWrapper>
 
-                {isSearching && <SearchLoader />}
+                {isSearching && <Loader />}
 
                 {filteredContents.length === 0 && !isSearching && (
                   <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
@@ -136,7 +136,7 @@ export default function AdminModulePage({
             <PageFooter />
           </>
         )}
-      </AppLayout>
+      </Layout>
     </>
   )
 }

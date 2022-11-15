@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { orangeEvolutionLogo } from 'components/@constants'
-import { AppLayout } from 'components/AppLayout'
 import { Button } from 'components/Button'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
+import { Layout } from 'components/Page/Layout'
 import { useAuth } from 'contexts/AuthContext'
 import { getCookie } from 'cookies-next'
 import { RegisterFormData, registerSchema } from 'libs/auth/schemas'
@@ -66,7 +66,7 @@ export default function Register() {
         <title>Orange Evolution | Cadastro</title>
       </Head>
 
-      <AppLayout>
+      <Layout>
         <HeaderWrapper>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
@@ -104,7 +104,7 @@ export default function Register() {
         <FooterLinkContainer>
           <Link href="/login">Já possui uma conta? Faça login!</Link>
         </FooterLinkContainer>
-      </AppLayout>
+      </Layout>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { orangeEvolutionLogo } from 'components/@constants'
-import { AppLayout } from 'components/AppLayout'
+
 import { Button } from 'components/Button'
 import { DialogAlert } from 'components/DialogAlert'
 import { Heading } from 'components/Heading'
@@ -8,6 +8,7 @@ import { ImageDropzone } from 'components/ImageDropzone'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputName } from 'components/Inputs/InputName'
 import { InputPassword } from 'components/Inputs/InputPassword'
+import { Layout } from 'components/Page/Layout'
 import { Text } from 'components/Text'
 import { useAuth } from 'contexts/AuthContext'
 import { getCookie } from 'cookies-next'
@@ -89,7 +90,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
         <title>Orange Evolution | Perfil</title>
       </Head>
 
-      <AppLayout>
+      <Layout>
         <BackLinkWrapper>
           <BackLink href={`${user.is_admin ? '/admin' : ''}/trilhas`}>
             <TbArrowBackUp size={24} />
@@ -171,7 +172,7 @@ export default function ProfilePage({ user }: ProfilePageProps) {
             />
           </ButtonWrapper>
         </FormWrapper>
-      </AppLayout>
+      </Layout>
     </>
   )
 }

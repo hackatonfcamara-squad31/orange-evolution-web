@@ -1,11 +1,11 @@
-import { AppLayout } from 'components/AppLayout'
 import { Content } from 'components/Content'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
-import { PageFooter } from 'components/PageFooter'
-import { PageHeader } from 'components/PageHeader'
+import { Loader } from 'components/Loader'
+import { Layout } from 'components/Page/Layout'
+import { PageFooter } from 'components/Page/PageFooter'
+import { PageHeader } from 'components/Page/PageHeader'
 import { Progress } from 'components/Progress'
-import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -65,9 +65,9 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
       <Head>
         <title>{`Orange Evolution | Módulo ${module?.title}`}</title>
       </Head>
-      <AppLayout>
+      <Layout>
         {isLoading || !module ? (
-          <SearchLoader />
+          <Loader />
         ) : (
           <>
             <PageHeader
@@ -94,7 +94,7 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
                   />
                 </SearchWrapper>
 
-                {isSearching && <SearchLoader />}
+                {isSearching && <Loader />}
 
                 {filteredContents.length === 0 && !isSearching && (
                   <Text size="lg">Nenhum conteúdo encontrado 🙃</Text>
@@ -126,7 +126,7 @@ export default function ModulePage({ moduleId, token, user }: ModulePageProps) {
             <PageFooter />
           </>
         )}
-      </AppLayout>
+      </Layout>
     </>
   )
 }

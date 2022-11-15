@@ -1,13 +1,13 @@
-import { Header } from 'components/Header'
 import { useTheme } from 'contexts/ThemeContext'
 import { ReactNode } from 'react'
-import { BodyWrapper, Main } from 'styles/app'
+import { Header } from '../Header'
+import { BodyWrapper, Main } from './styles'
 
 interface AppLayoutProps {
   children: ReactNode
 }
 
-export function AppLayout({ children }: AppLayoutProps) {
+export function Layout({ children }: AppLayoutProps) {
   const { theme } = useTheme()
 
   return (

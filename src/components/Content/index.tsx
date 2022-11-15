@@ -5,7 +5,7 @@ import {
   ContentWrapper,
   TitleWrapper
 } from 'components/Content/styles'
-import { ContentForm } from 'components/ContentForm'
+import { ContentForm } from 'components/Forms/ContentForm'
 import { Heading } from 'components/Heading'
 import { useTheme } from 'contexts/ThemeContext'
 import { useMarkContent } from 'libs/content/hooks'

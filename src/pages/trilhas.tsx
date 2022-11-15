@@ -1,7 +1,7 @@
 import { orangeEvolutionLogo } from 'components/@constants'
-import { AppLayout } from 'components/AppLayout'
 import { ButtonLink } from 'components/ButtonLink'
 import { Heading } from 'components/Heading'
+import { Layout } from 'components/Page/Layout'
 import { Progress } from 'components/Progress'
 import { Text } from 'components/Text'
 import { useTheme } from 'contexts/ThemeContext'
@@ -38,7 +38,7 @@ export default function Trails({ token, user }: TrailsProps) {
       <Head>
         <title>Orange Evolution - Trilhas</title>
       </Head>
-      <AppLayout>
+      <Layout>
         <Image
           src={orangeEvolutionLogo}
           alt="Logo da orange evolution"
@@ -86,7 +86,7 @@ export default function Trails({ token, user }: TrailsProps) {
             </Card>
           ))}
         </CardList>
-      </AppLayout>
+      </Layout>
     </>
   )
 }

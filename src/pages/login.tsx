@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { orangeEvolutionLogo } from 'components/@constants'
-import { AppLayout } from 'components/AppLayout'
 import { Button } from 'components/Button'
 import { Checkbox } from 'components/Checkbox'
 import { Heading } from 'components/Heading'
 import { InputEmail } from 'components/Inputs/InputEmail'
 import { InputPassword } from 'components/Inputs/InputPassword'
+import { Layout } from 'components/Page/Layout'
 import { useAuth } from 'contexts/AuthContext'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -62,7 +62,7 @@ export default function LoginPage() {
         <title>Orange Evolution | Login</title>
       </Head>
 
-      <AppLayout>
+      <Layout>
         <HeaderWrapper>
           <ImageWrapper>
             <Image src={orangeEvolutionLogo} alt="Orange Evolution Logo" fill />
@@ -104,7 +104,7 @@ export default function LoginPage() {
         <FooterLinkContainer>
           <Link href="/cadastrar">Ainda não tem conta? Cadastre-se!</Link>
         </FooterLinkContainer>
-      </AppLayout>
+      </Layout>
     </>
   )
 }

@@ -1,9 +1,9 @@
 import { orangeEvolutionLogo } from 'components/@constants'
-import { AppLayout } from 'components/AppLayout'
 import { ButtonLink } from 'components/ButtonLink'
+import { TrailForm } from 'components/Forms/TrailForm'
 import { Heading } from 'components/Heading'
+import { Layout } from 'components/Page/Layout'
 import { Text } from 'components/Text'
-import { TrailForm } from 'components/TrailForm'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
 import { useTrails } from 'libs/trail/hooks'
@@ -36,7 +36,7 @@ export default function Trails({ token, user }: TrailsProps) {
         <title>Orange Evolution - Trilhas</title>
       </Head>
 
-      <AppLayout>
+      <Layout>
         <Image
           src={orangeEvolutionLogo}
           alt="Logo da orange evolution"
@@ -88,7 +88,7 @@ export default function Trails({ token, user }: TrailsProps) {
             </Card>
           ))}
         </CardList>
-      </AppLayout>
+      </Layout>
     </>
   )
 }

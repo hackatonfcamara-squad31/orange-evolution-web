@@ -1,11 +1,11 @@
-import { AppLayout } from 'components/AppLayout'
 import { ButtonLink } from 'components/ButtonLink'
 import { Heading } from 'components/Heading'
 import { InputSearch } from 'components/Inputs/InputSearch'
-import { PageFooter } from 'components/PageFooter'
-import { PageHeader } from 'components/PageHeader'
+import { Loader } from 'components/Loader'
+import { Layout } from 'components/Page/Layout'
+import { PageFooter } from 'components/Page/PageFooter'
+import { PageHeader } from 'components/Page/PageHeader'
 import { Progress } from 'components/Progress'
-import { SearchLoader } from 'components/SearchLoader'
 import { Text } from 'components/Text'
 import { getCookie } from 'cookies-next'
 import { getAuthUser } from 'libs/auth/api'
@@ -53,9 +53,9 @@ export default function TrailPage({ token, user, trailId }: TrailPageProps) {
         <title>{`Orange Evolution | Trilha ${trail?.title}`}</title>
       </Head>
 
-      <AppLayout>
+      <Layout>
         {isLoading || !trail ? (
-          <SearchLoader />
+          <Loader />
         ) : (
           <>
             <PageHeader trailLinkName={trail?.title} trailLink="#" />
@@ -77,7 +77,7 @@ export default function TrailPage({ token, user, trailId }: TrailPageProps) {
                   />
                 </SearchWrapper>
 
-                {isSearching && <SearchLoader />}
+                {isSearching && <Loader />}
 
                 {filteredModules.length === 0 && !isSearching && (
                   <Text size="lg">Nenhum módulo encontrado 🙃</Text>
@@ -106,7 +106,7 @@ export default function TrailPage({ token, user, trailId }: TrailPageProps) {
             <PageFooter />
           </>
         )}
-      </AppLayout>
+      </Layout>
     </>
   )
 }
