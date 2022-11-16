@@ -20,9 +20,27 @@ Esse projeto foi desenvolvido durante o Hackathon do [Programa de Formação][pr
 
 [Link do Figma](https://www.figma.com/file/bZqU5sy236WppUGslZ8lFr/Orange-Evolution---Squad-31---Design-UI?node-id=50%3A1346&t=C4B2x2LwQ1BA3MoL-1)
 
+### Listagem de Trilhas
+
+<img src=".github/trails_screen.png" alt="Tela de Trilhas" width="500">
+
+<br/>
+
+### Página de Trilha
+
+<img src=".github/trail_screen.png" alt="Tela de Trilha" width="500">
+
+<br/>
+
+### Página de Módulo
+
+<img src=".github/module_screen.png" alt="Tela de Módulo" width="500">
+
 ## API
 
 Você pode conferir também o [repositório da API do projeto](https://github.com/hackatonfcamara-squad31/orange-evolution-api).
+
+<br/>
 
 ## Membros da Squad 31
 
